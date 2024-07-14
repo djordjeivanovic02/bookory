@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
+
+@font-face {
+    font-family: "Sora";
+    src: url("/assets/your-font-folder/Sora-Regular.ttf") format("truetype"); /* Izmenite putanju u skladu sa vašom strukturom foldera */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Sora";
+    src: url("./assets/fonts/Sora-VariableFont_wght.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+body {
+    font-family: "Sora", sans-serif;
+}
+
+:root {
+    --main-color: #f65d4e;
+}
