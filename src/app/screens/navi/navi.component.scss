@@ -1,3 +1,33 @@
 nav {
     background-color: var(--main-color);
+    padding: 10px 20px;
+}
+.logo{
+    width: 150px;
+}
+.search-container{
+    max-width: 45%;
+}
+.input{
+    width: 100%;
+    height: 48px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    border: none;
+    outline: none;
+    padding-left: 30px;
+    font-weight: 400;
+}
+.search{
+    width: 60px;
+    height: 48px;
+    border: none;
+    background-color: var(--red-color);
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    color: white;
+    transition-duration: .3s;
+}
+.search:hover{
+    background-color: var(--red-color-hover);
 }
