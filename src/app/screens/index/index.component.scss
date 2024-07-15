@@ -1,0 +1,40 @@
+.index-main{
+    height: 600px;
+    background-color: var(--index-color);
+    overflow: hidden;
+}
+.index-left{
+    width: 45%;
+}
+.bells{
+    left: 0;
+    top: -35px;
+    width: 230px;
+}
+.leaf2{
+    top: 0px;
+    left: 180px;
+    width: 70px;
+}
+.gift{
+    bottom: -20px;
+    left: 190px;
+}
+.bookcase{
+    width: 600px;
+    left: 200px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+}
+.leaf3{
+    top: 70px;
+    left:620px;
+    width: 100px;
+    z-index: 2;
+}
+.leaf{
+    bottom: 0;
+    right: 80px;
+    width: 100px;
+}

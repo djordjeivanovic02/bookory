@@ -1,6 +1,6 @@
-nav {
-    background-color: var(--main-color);
+.first{
     padding: 10px 20px;
+    background-color: var(--main-color);
 }
 .logo{
     width: 150px;
@@ -30,4 +30,82 @@ nav {
 }
 .search:hover{
     background-color: var(--red-color-hover);
+}
+.user-actions{
+    display: flex;
+}
+.user-actions .icon{
+    color: white;
+    padding: 15px;
+    transition-duration: .3s;
+}
+.user-actions .icon:hover{
+    color: black;
+}
+.separator{
+    width: 1px;
+    height: 25px;
+    background-color: white;
+}
+.book-actions, .contact{
+    display: flex;
+}
+.book-actions .icon{
+    color: black;
+    transition-duration: .3s;
+}
+.book-actions .icon:hover{
+    color: black;
+}
+.book-actions a{
+    color: black;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 600;
+}
+.book-actions a:hover .icon{
+    scale: .92;
+}
+.navigation a {
+    color: black;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 27px;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    transition: color .3s;
+}
+
+.navigation a::after {
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width .3s, height .3s;
+}
+
+.navigation a:hover {
+    color: var(--main-color);
+}
+
+.navigation a:hover::after {
+    width: 5px;
+    height: 5px;
+}
+.contact a{
+    color: var(--main-color);
+    padding: 20px;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.contact .icon{
+    color: black;
 }

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { faSearch, faUser, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faUser, faHeart, faNewspaper, faPhone } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-navi",
@@ -10,4 +10,6 @@ export class NaviComponent {
   faSearch = faSearch;
   faUser = faUser;
   faHeart = faHeart;
+  faNewspaper = faNewspaper;
+  faPhone = faPhone;
 }
