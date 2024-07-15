@@ -1,0 +1,33 @@
+.link-container {
+    margin-top: 30px;
+    padding: 0px 30px;
+    background-color: white;
+    border-radius: 26px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+.link-container a {
+    font-size: 14px;
+    line-height: 52px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+}
+.link-container:hover {
+    background-color: black;
+}
+.link-container:hover a {
+    color: white;
+}
+.link-container .arrow {
+    margin-left: 4px;
+    color: var(--main-color);
+    transition: transform 0.3s ease;
+}
+
+.link-container:hover .arrow {
+    transform: translateX(5px);
+}

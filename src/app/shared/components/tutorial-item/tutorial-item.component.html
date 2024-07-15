@@ -1,0 +1,16 @@
+<div class="grid-container w-100">
+    <div
+        class="grid-item d-flex"
+        *ngFor="let tutorial of tutorials; let i = index"
+    >
+        <div
+            class="icon-container d-flex align-items-center justify-content-center"
+        >
+            <fa-icon [icon]="icons[i]"></fa-icon>
+        </div>
+        <div class="info d-flex flex-column justify-content-center">
+            <h6 class="m-0">{{ tutorial.title }}</h6>
+            <p class="m-0">{{ tutorial.description }}</p>
+        </div>
+    </div>
+</div>

@@ -6,8 +6,10 @@
 :root {
     --main-color: #f65d4e;
     --red-color: #cf3424;
-    --red-color-hover: #F4402F;
-    --index-color: #FFF5DA;
+    --red-color-hover: #f4402f;
+    --index-color: #fff5da;
+    --dark-gray-text-color: #444;
+    --light-gray-text-color: #999;
 }
 
 @font-face {
@@ -19,7 +21,7 @@ body {
     font-family: "Sora", sans-serif;
 }
 
-.main-container{
+.main-container {
     width: 100%;
     max-width: 1410px;
 }

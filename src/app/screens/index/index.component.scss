@@ -1,40 +1,76 @@
-.index-main{
+.index-main {
     height: 600px;
     background-color: var(--index-color);
     overflow: hidden;
+    justify-content: start;
+    align-items: center;
 }
-.index-left{
+.index-left {
     width: 45%;
 }
-.bells{
+.bells {
     left: 0;
     top: -35px;
     width: 230px;
 }
-.leaf2{
+.leaf2 {
     top: 0px;
     left: 180px;
     width: 70px;
 }
-.gift{
+.gift {
     bottom: -20px;
     left: 190px;
 }
-.bookcase{
+.bookcase {
     width: 600px;
-    left: 200px;
+    left: 240px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
 }
-.leaf3{
+.leaf3 {
     top: 70px;
-    left:620px;
+    left: 660px;
     width: 100px;
     z-index: 2;
 }
-.leaf{
+.leaf {
     bottom: 0;
     right: 80px;
     width: 100px;
+}
+
+.index-right {
+    display: flex;
+    width: 45%;
+    padding: 20px;
+}
+.index-right h1,
+.index-right .title3 {
+    width: 80%;
+}
+.index-right .title1 {
+    text-transform: uppercase;
+    color: var(--main-color);
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 600;
+}
+.index-right h1 {
+    font-size: 64px;
+    line-height: 72px;
+    margin: 30px 0px;
+}
+.index-right .title3 {
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--dark-gray-text-color);
+}
+.tutorial-container {
+    padding: 40px 0px;
+}
+.tutorial-main {
+    border-bottom: 1px solid var(--light-gray-text-color);
+    margin-bottom: 80px;
 }
