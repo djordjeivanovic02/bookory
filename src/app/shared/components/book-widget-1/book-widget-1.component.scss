@@ -1,0 +1,77 @@
+.image {
+    margin-right: 30px;
+}
+img {
+    width: 190px;
+    border-radius: 15px;
+}
+.title {
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.3s;
+    margin-bottom: 10px;
+}
+.title:hover {
+    color: var(--main-color);
+}
+.stars {
+    font-size: 12px;
+    color: gold;
+}
+.rates {
+    margin-bottom: 10px;
+}
+.rates p,
+.reviews {
+    margin: 0;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.author {
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
+    color: var(--light-gray-text-color);
+    transition-duration: 0.3s;
+    margin-bottom: 10px;
+}
+.author:hover {
+    color: var(--main-color);
+}
+
+.reviews {
+    margin: 0;
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.save {
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-color: var(--light-background);
+    border-radius: 15px;
+    border: 1px solid var(--light-gray-text-color);
+    font-size: 20px;
+    cursor: pointer;
+}
+.save fa-icon {
+    transition-duration: 0.3s;
+}
+.save:hover fa-icon {
+    scale: 1.2;
+}
+.download {
+    width: 60%;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--main-color);
+    color: white;
+}
