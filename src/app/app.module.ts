@@ -14,6 +14,7 @@ import { Button1Component } from "./shared/components/button1/button1.component"
 import { TutorialItemComponent } from "./shared/components/tutorial-item/tutorial-item.component";
 import { BookWidget1Component } from "./shared/components/book-widget-1/book-widget-1.component";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { AuthorWidget1Component } from './shared/components/author-widget-1/author-widget-1.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
     Button1Component,
     TutorialItemComponent,
     BookWidget1Component,
+    AuthorWidget1Component,
   ],
   imports: [
     BrowserModule,
