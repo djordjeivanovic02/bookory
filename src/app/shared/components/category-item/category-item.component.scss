@@ -1,0 +1,17 @@
+.main-container {
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.main-container img {
+    border-radius: 15px;
+    object-fit: cover;
+    transition-duration: 0.3s;
+}
+.main-container img:hover {
+    transform: scale(1.1);
+}
+.info {
+    top: 0;
+    left: 0;
+}

@@ -14,7 +14,9 @@ import { Button1Component } from "./shared/components/button1/button1.component"
 import { TutorialItemComponent } from "./shared/components/tutorial-item/tutorial-item.component";
 import { BookWidget1Component } from "./shared/components/book-widget-1/book-widget-1.component";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { AuthorWidget1Component } from './shared/components/author-widget-1/author-widget-1.component';
+import { AuthorWidget1Component } from "./shared/components/author-widget-1/author-widget-1.component";
+import { CategoriesGalleryComponent } from "./shared/components/categories-gallery/categories-gallery.component";
+import { CategoryItemComponent } from './shared/components/category-item/category-item.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { AuthorWidget1Component } from './shared/components/author-widget-1/auth
     TutorialItemComponent,
     BookWidget1Component,
     AuthorWidget1Component,
+    CategoriesGalleryComponent,
+    CategoryItemComponent,
   ],
   imports: [
     BrowserModule,
