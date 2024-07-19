@@ -18,6 +18,8 @@ import { AuthorWidget1Component } from "./shared/components/author-widget-1/auth
 import { CategoriesGalleryComponent } from "./shared/components/categories-gallery/categories-gallery.component";
 import { CategoryItemComponent } from "./shared/components/category-item/category-item.component";
 import { LoginComponent } from './screens/login/login.component';
+import { CustomInputComponent } from './shared/components/custom-input/custom-input.component';
+import { LoginRegisterButtonComponent } from './shared/components/login-register-button/login-register-button.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { LoginComponent } from './screens/login/login.component';
     CategoriesGalleryComponent,
     CategoryItemComponent,
     LoginComponent,
+    CustomInputComponent,
+    LoginRegisterButtonComponent,
   ],
   imports: [
     BrowserModule,

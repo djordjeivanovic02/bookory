@@ -1,0 +1,7 @@
+<div class="main w-100">
+    <p>
+        {{ title }}
+        <span *ngIf="isRequired" class="required">*</span>
+    </p>
+    <input type="{{ type }}" class="w-100" placeholder="{{ placeholder }}" />
+</div>
