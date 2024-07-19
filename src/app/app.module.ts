@@ -16,7 +16,8 @@ import { BookWidget1Component } from "./shared/components/book-widget-1/book-wid
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { AuthorWidget1Component } from "./shared/components/author-widget-1/author-widget-1.component";
 import { CategoriesGalleryComponent } from "./shared/components/categories-gallery/categories-gallery.component";
-import { CategoryItemComponent } from './shared/components/category-item/category-item.component';
+import { CategoryItemComponent } from "./shared/components/category-item/category-item.component";
+import { LoginComponent } from './screens/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CategoryItemComponent } from './shared/components/category-item/categor
     AuthorWidget1Component,
     CategoriesGalleryComponent,
     CategoryItemComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import { CategoryItemComponent } from './shared/components/category-item/categor
     NgbModule,
     FontAwesomeModule,
     HttpClientModule,
+    AppRoutingModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],

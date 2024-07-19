@@ -15,7 +15,12 @@
                 </button>
             </div>
             <div class="user-actions align-items-center justify-content-center">
-                <a href=""><fa-icon [icon]="faUser" class="icon"></fa-icon></a>
+                <a
+                    routerLink="/login"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                    ><fa-icon [icon]="faUser" class="icon"></fa-icon
+                ></a>
                 <div class="separator"></div>
                 <a href=""><fa-icon [icon]="faHeart" class="icon"></fa-icon></a>
             </div>
