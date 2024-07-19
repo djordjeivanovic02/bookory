@@ -12,6 +12,32 @@
     transform: scale(1.1);
 }
 .info {
-    top: 0;
+    bottom: 30px;
+    left: 30px;
+}
+.info a {
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+    position: relative;
+}
+.info a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
     left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease; /* Dodajte prelaz za glatko povećanje */
+}
+
+.info a:hover::after {
+    width: 100%;
+}
+.info p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--dark-gray-text-color);
 }
