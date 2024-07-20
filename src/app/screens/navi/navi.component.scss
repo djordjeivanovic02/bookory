@@ -1,14 +1,14 @@
-.first{
-    padding: 10px 20px;
+.first {
+    padding: 10px 0px;
     background-color: var(--main-color);
 }
-.logo{
+.logo {
     width: 150px;
 }
-.search-container{
+.search-container {
     max-width: 45%;
 }
-.input{
+.input {
     width: 100%;
     height: 48px;
     border-top-left-radius: 24px;
@@ -18,7 +18,7 @@
     padding-left: 30px;
     font-weight: 400;
 }
-.search{
+.search {
     width: 60px;
     height: 48px;
     border: none;
@@ -26,45 +26,46 @@
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
     color: white;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
-.search:hover{
+.search:hover {
     background-color: var(--red-color-hover);
 }
-.user-actions{
+.user-actions {
     display: flex;
 }
-.user-actions .icon{
+.user-actions .icon {
     color: white;
     padding: 15px;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
-.user-actions .icon:hover{
+.user-actions .icon:hover {
     color: black;
 }
-.separator{
+.separator {
     width: 1px;
     height: 25px;
     background-color: white;
 }
-.book-actions, .contact{
+.book-actions,
+.contact {
     display: flex;
 }
-.book-actions .icon{
+.book-actions .icon {
     color: black;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
 }
-.book-actions .icon:hover{
+.book-actions .icon:hover {
     color: black;
 }
-.book-actions a{
+.book-actions a {
     color: black;
     font-size: 12px;
     line-height: 18px;
     font-weight: 600;
 }
-.book-actions a:hover .icon{
-    scale: .92;
+.book-actions a:hover .icon {
+    scale: 0.92;
 }
 .navigation a {
     color: black;
@@ -74,11 +75,11 @@
     font-weight: 600;
     text-decoration: none;
     position: relative;
-    transition: color .3s;
+    transition: color 0.3s;
 }
 
 .navigation a::after {
-    content: '';
+    content: "";
     width: 0px;
     height: 0px;
     border-radius: 50%;
@@ -87,7 +88,9 @@
     bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
-    transition: width .3s, height .3s;
+    transition:
+        width 0.3s,
+        height 0.3s;
 }
 
 .navigation a:hover {
@@ -98,14 +101,20 @@
     width: 5px;
     height: 5px;
 }
-.contact a{
+.contact a {
     color: var(--main-color);
-    padding: 20px;
     font-size: 16px;
     line-height: 21px;
     font-weight: 600;
     text-decoration: none;
 }
-.contact .icon{
+.contact .icon {
     color: black;
+}
+.contact .heart {
+    padding-right: 0;
+}
+.main-container.second,
+.main-container.first {
+    padding: 0px 20px;
 }

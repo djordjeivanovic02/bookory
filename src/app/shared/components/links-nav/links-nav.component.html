@@ -1,0 +1,13 @@
+<div class="actions d-flex align-items-center">
+    <!-- <p>{{ links }}</p> -->
+    <span *ngFor="let link of links">
+        <a
+            [routerLink]="link.route"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            >{{ link.name }}</a
+        >
+        <fa-icon [icon]="faArrowRight"></fa-icon>
+    </span>
+    <p class="m-0">{{ currentLink }}</p>
+</div>

@@ -1,0 +1,24 @@
+.main-container {
+    padding: 0 20px;
+}
+.navigation {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.left {
+    width: calc(51% - 30px);
+    max-width: 630px;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid lightgray;
+    overflow: hidden;
+}
+.left .main-image {
+    height: 840px;
+}
+.zoom-lens {
+    position: absolute;
+    border: 1px solid #000;
+    width: 150px;
+    height: 150px;
+}

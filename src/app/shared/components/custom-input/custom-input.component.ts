@@ -11,9 +11,11 @@ export class CustomInputComponent {
   @Input()
   isPassword: Boolean = false;
   @Input()
-  placeholder: String = "";
+  placeholder: string = "";
   @Input()
   isRequired: Boolean = true;
   @Input()
   type: String = "text";
+  @Input()
+  addition: string | null = null;
 }

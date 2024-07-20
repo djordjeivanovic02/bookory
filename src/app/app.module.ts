@@ -17,9 +17,13 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { AuthorWidget1Component } from "./shared/components/author-widget-1/author-widget-1.component";
 import { CategoriesGalleryComponent } from "./shared/components/categories-gallery/categories-gallery.component";
 import { CategoryItemComponent } from "./shared/components/category-item/category-item.component";
-import { LoginComponent } from './screens/login/login.component';
-import { CustomInputComponent } from './shared/components/custom-input/custom-input.component';
-import { LoginRegisterButtonComponent } from './shared/components/login-register-button/login-register-button.component';
+import { LoginComponent } from "./screens/login/login.component";
+import { CustomInputComponent } from "./shared/components/custom-input/custom-input.component";
+import { LoginRegisterButtonComponent } from "./shared/components/login-register-button/login-register-button.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BookComponent } from './screens/book/book.component';
+import { LinksNavComponent } from './shared/components/links-nav/links-nav.component';
+import { ZoomOnHoverDirective } from './core/directives/zoom-on-hover.directive';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,9 @@ import { LoginRegisterButtonComponent } from './shared/components/login-register
     LoginComponent,
     CustomInputComponent,
     LoginRegisterButtonComponent,
+    BookComponent,
+    LinksNavComponent,
+    ZoomOnHoverDirective,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +50,7 @@ import { LoginRegisterButtonComponent } from './shared/components/login-register
     FontAwesomeModule,
     HttpClientModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
