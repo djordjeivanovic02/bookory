@@ -13,8 +13,10 @@ export class ZoomOnHoverDirective {
   ) {
     this.zoomLens = this.renderer.createElement("div");
     this.renderer.addClass(this.zoomLens, "zoom-lens");
-    this.renderer.setStyle(this.zoomLens, "width", "150px");
-    this.renderer.setStyle(this.zoomLens, "height", "150px");
+    this.renderer.setStyle(this.zoomLens, "width", "100px");
+    this.renderer.setStyle(this.zoomLens, "height", "100px");
+    this.renderer.setStyle(this.zoomLens, "overflow", "hidden");
+    this.renderer.setStyle(this.zoomLens, "border", "1px solid #000");
     this.renderer.appendChild(this.el.nativeElement.parentNode, this.zoomLens);
   }
 

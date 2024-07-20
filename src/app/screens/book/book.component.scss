@@ -5,13 +5,20 @@
     padding-top: 30px;
     padding-bottom: 30px;
 }
-.left {
+.two {
+    justify-content: space-between;
+    align-items: start;
+}
+.left,
+.right {
     width: calc(51% - 30px);
-    max-width: 630px;
     padding: 30px;
     border-radius: 15px;
     border: 1px solid lightgray;
     overflow: hidden;
+}
+.right {
+    width: 49%;
 }
 .left .main-image {
     height: 840px;
@@ -19,6 +26,14 @@
 .zoom-lens {
     position: absolute;
     border: 1px solid #000;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    pointer-events: none;
+}
+.right h1 {
+    font-size: 36px;
+    line-height: 1.22;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
