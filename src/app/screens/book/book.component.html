@@ -6,7 +6,7 @@
         ></app-links-nav>
     </div>
 </div>
-<div class="w-100 d-flex align-items-center justify-content-center">
+<div class="primary w-100 d-flex align-items-center justify-content-center">
     <div class="main-container two d-flex">
         <div class="left position-relative">
             <img
@@ -17,6 +17,100 @@
         </div>
         <div class="right">
             <h1>House of Sky and Breath</h1>
+            <div class="book-important-info w-100">
+                <div class="important-info d-inline-block position-relative">
+                    <p class="m-0">
+                        Autor: <span><a href="">Nemanja Stankovic</a></span>
+                    </p>
+                </div>
+                <div class="important-info d-inline-block position-relative">
+                    <app-stars></app-stars>
+                </div>
+            </div>
+            <div class="book-important-info w-100">
+                <p class="price d-flex">BESPLATNO</p>
+                <p class="short-description">
+                    Est numquam harum aut ut. Pariatur cum blanditiis est
+                    delectus accusamus eveniet. Quis fugiat eligendi magni eos
+                    dignissimos numquam.
+                </p>
+            </div>
+            <div class="book-important-info w-100">
+                <app-button-with-icon
+                    [icon]="faDownload"
+                    text="Preuzmi Besplatno"
+                    class="d-inline-block"
+                ></app-button-with-icon>
+                <div class="save d-inline-block">
+                    <a href="" class="d-flex align-items-center">
+                        <fa-icon [icon]="faHeart"></fa-icon>
+                        <p class="save-text d-inline-block m-0">
+                            Dodaj u sačuvano
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="book-important-info categorie-important w-100">
+                <div class="categorie d-inline-block position-relative">
+                    <p class="m-0 mb-2">
+                        Kategorija:
+                        <span><a href="">Fikcija i Fantastika</a></span>
+                    </p>
+                    <p class="m-0">
+                        Tagovi:
+                        <span>
+                            <a href="">Books</a>, <a href="">Fiction</a>,
+                            <a href="">Romance - Contemporary</a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="primary w-100 d-flex align-items-center justify-content-center m-0">
+    <div class="about-actions d-flex" (click)="toggleShowing(true)">
+        <a
+            [ngClass]="{
+                active: showingDescription,
+                'position-relative': true,
+            }"
+            >Opis</a
+        >
+    </div>
+    <div class="about-actions d-flex" (click)="toggleShowing(false)">
+        <a
+            [ngClass]="{
+                active: !showingDescription,
+                'position-relative': true,
+            }"
+            >Recenzije(5)</a
+        >
+    </div>
+</div>
+<div class="w-100 d-flex align-items-center justify-content-center">
+    <div class="main-container">
+        <div
+            class="w-100 infos d-flex justify-content-center"
+            *ngIf="showingDescription"
+        >
+            <p class="desc short-description">
+                Ut earum iure dolor tenetur. Et sit et est deserunt. Cumque
+                voluptatum recusandae molestiae recusandae velit. Eaque quam
+                repellat omnis. Nulla excepturi iure nobis rerum. Voluptatum aut
+                doloribus quos amet ipsa voluptatibus eius aperiam. Occaecati
+                reiciendis dicta adipisci eum aut velit. Consequuntur occaecati
+                in maxime ab numquam voluptatem. Quo cumque harum quam dolorem.
+                Suscipit quos ratione et nemo dolore. Et voluptatem molestiae
+                sit vel. Libero qui rerum cum quo nesciunt et dolorem.
+            </p>
+        </div>
+        <div
+            class="w-100 infos d-flex justify-content-center"
+            *ngIf="!showingDescription"
+        >
+            <p class="desc short-description">Djole</p>
         </div>
     </div>
 </div>

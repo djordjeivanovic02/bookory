@@ -5,6 +5,9 @@
     padding-top: 30px;
     padding-bottom: 30px;
 }
+.primary {
+    margin-bottom: 80px;
+}
 .two {
     justify-content: space-between;
     align-items: start;
@@ -25,7 +28,7 @@
 }
 .zoom-lens {
     position: absolute;
-    border: 1px solid #000;
+    border: 1px solid transparent;
     width: 100px;
     height: 100px;
     overflow: hidden;
@@ -36,4 +39,119 @@
     line-height: 1.22;
     margin-bottom: 10px;
     font-weight: 600;
+}
+.important-info,
+.categorie {
+    margin-right: 20px;
+    padding-right: 20px;
+}
+.important-info::after {
+    content: "";
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 18px;
+    width: 1px;
+    background-color: lightgrey;
+}
+.important-info p,
+.categorie p {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 300;
+    color: var(--light-gray-text-color);
+}
+.categorie p {
+    font-size: 14px;
+}
+.important-info p span a,
+.categorie p span a {
+    color: black;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+.important-info p span a:hover,
+.categorie p span a:hover {
+    color: var(--main-color);
+}
+.book-important-info {
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+.categorie-important {
+    border-bottom: none;
+}
+.price {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--main-color);
+    margin-bottom: 15px;
+}
+.short-description {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--light-gray-text-color);
+}
+.save a {
+    text-decoration: none;
+    color: black;
+}
+.save-text {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--light-gray-text-color);
+    transition-duration: 0.3s;
+}
+.save fa-icon {
+    font-size: 16px;
+    margin: 0;
+    margin-right: 8px;
+}
+.save:hover .save-text {
+    color: black;
+}
+.about-actions {
+    padding: 0px 5px;
+}
+.about-actions a {
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0 30px 13px 30px;
+    color: var(--light-gray-text-color);
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+.about-actions a.active {
+    color: black;
+}
+.about-actions:hover a {
+    color: black;
+}
+.about-actions a.active::after {
+    width: 100%;
+}
+.about-actions a::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 0%;
+    height: 3px;
+    background-color: var(--main-color);
+    transition-duration: 0.3s;
+}
+.about-actions a:hover::after {
+    width: 100%;
+}
+.infos {
+    padding: 35px 30px;
+    border-radius: 15px;
+    border: 1px solid lightgray;
+}
+.desc {
+    max-width: 850px;
+    font-size: 16px;
+    margin-bottom: 0;
 }

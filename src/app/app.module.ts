@@ -24,6 +24,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BookComponent } from './screens/book/book.component';
 import { LinksNavComponent } from './shared/components/links-nav/links-nav.component';
 import { ZoomOnHoverDirective } from './core/directives/zoom-on-hover.directive';
+import { StarsComponent } from './shared/components/stars/stars.component';
+import { ButtonWithIconComponent } from './shared/components/button-with-icon/button-with-icon.component';
+import { CommentComponent } from './shared/components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,9 @@ import { ZoomOnHoverDirective } from './core/directives/zoom-on-hover.directive'
     BookComponent,
     LinksNavComponent,
     ZoomOnHoverDirective,
+    StarsComponent,
+    ButtonWithIconComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,
