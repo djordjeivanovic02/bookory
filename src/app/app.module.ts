@@ -27,6 +27,7 @@ import { ZoomOnHoverDirective } from './core/directives/zoom-on-hover.directive'
 import { StarsComponent } from './shared/components/stars/stars.component';
 import { ButtonWithIconComponent } from './shared/components/button-with-icon/button-with-icon.component';
 import { CommentComponent } from './shared/components/comment/comment.component';
+import { RatingComponent } from './shared/components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { CommentComponent } from './shared/components/comment/comment.component'
     StarsComponent,
     ButtonWithIconComponent,
     CommentComponent,
+    RatingComponent,
   ],
   imports: [
     BrowserModule,
