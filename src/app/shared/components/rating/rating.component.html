@@ -1,1 +1,15 @@
-<p>rating works!</p>
+<div class="rating d-flex">
+    <div
+        class="star"
+        *ngFor="let star of [].constructor(maxStars); let i = index"
+        (click)="setRating(i + 1)"
+        (mouseenter)="hoverStar(i + 1)"
+        (mouseleave)="unhoverStar()"
+        [ngClass]="{
+            selected: isStarSelected(i + 1),
+            hovered: isStarHovered(i + 1),
+        }"
+    >
+        &#9733;
+    </div>
+</div>

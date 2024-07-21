@@ -90,7 +90,7 @@
     </div>
 </div>
 <div class="w-100 d-flex align-items-center justify-content-center">
-    <div class="main-container">
+    <div class="main-container primary">
         <div
             class="w-100 infos d-flex justify-content-center"
             *ngIf="showingDescription"
@@ -117,7 +117,24 @@
                 <app-comment class="w-100 m-0"></app-comment>
                 <app-comment class="w-100 m-0"></app-comment>
 
-                <div class="my-review w-100"></div>
+                <div class="rating">
+                    <div class="w-100 d-flex align-items-center mb-3">
+                        <p class="my-review">Vaša ocena</p>
+                        <app-rating></app-rating>
+                    </div>
+                    <div class="w-100 m-0">
+                        <textarea
+                            cols="45"
+                            rows="8"
+                            required
+                            placeholder="Vaša recenzija *"
+                            class="w-100"
+                        ></textarea>
+                    </div>
+                    <app-login-register-button
+                        text="Pošalji recenziju"
+                    ></app-login-register-button>
+                </div>
             </div>
         </div>
     </div>
