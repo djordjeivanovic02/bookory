@@ -1,0 +1,46 @@
+.main-container {
+    padding: 0px 20px;
+}
+.navigation {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.main {
+    margin-top: 40px;
+    flex-direction: row;
+    column-gap: 60px;
+}
+.image-container {
+    min-width: 300px;
+    max-width: 300px;
+    height: 300px;
+}
+.image-container img {
+    object-fit: cover;
+    border-radius: 15px;
+}
+.author-info h3 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.description {
+    flex-direction: row;
+    column-gap: 30px;
+}
+.description p {
+    padding-right: 30px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--light-gray-text-color);
+}
+.socials {
+    padding: 0 0 0 65px;
+    border-left: 1px solid lightgray;
+}
+.social {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+}

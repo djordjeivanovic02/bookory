@@ -28,6 +28,7 @@ import { StarsComponent } from './shared/components/stars/stars.component';
 import { ButtonWithIconComponent } from './shared/components/button-with-icon/button-with-icon.component';
 import { CommentComponent } from './shared/components/comment/comment.component';
 import { RatingComponent } from './shared/components/rating/rating.component';
+import { AuthorComponent } from './screens/author/author.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { RatingComponent } from './shared/components/rating/rating.component';
     ButtonWithIconComponent,
     CommentComponent,
     RatingComponent,
+    AuthorComponent,
   ],
   imports: [
     BrowserModule,
