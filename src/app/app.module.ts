@@ -30,6 +30,7 @@ import { CommentComponent } from './shared/components/comment/comment.component'
 import { RatingComponent } from './shared/components/rating/rating.component';
 import { AuthorComponent } from './screens/author/author.component';
 import { BookWidget2Component } from './shared/components/book-widget-2/book-widget-2.component';
+import { FooterComponent } from './screens/footer/footer.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -53,6 +54,7 @@ import { BookWidget2Component } from './shared/components/book-widget-2/book-wid
         RatingComponent,
         AuthorComponent,
         BookWidget2Component,
+        FooterComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

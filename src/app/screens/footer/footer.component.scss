@@ -1,0 +1,86 @@
+footer {
+    background-color: var(--footer-color);
+    border-bottom: 1px solid var(--light-gray-text-color);
+}
+.footer-main {
+    padding: 80px 30px 70px;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+}
+.first {
+    padding-right: 60px;
+    border-right: 1px solid var(--light-gray-text-color);
+}
+.first img {
+    margin-bottom: 35px;
+}
+.location {
+    color: var(--light-gray-text-color);
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+.show-map {
+    color: white;
+    text-decoration: underline;
+    font-size: 12px;
+    font-weight: 400;
+    transition-duration: 0.3s;
+}
+.show-map:hover {
+    color: var(--main-color);
+}
+.links {
+    margin-top: 20px;
+}
+.links fa-icon {
+    color: var(--light-gray-text-color);
+    margin-right: 10px;
+    transition-duration: 0.3s;
+}
+.links fa-icon:hover {
+    color: var(--main-color);
+}
+.second h2,
+.third h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    padding-bottom: 20px;
+}
+.second h3 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--main-color);
+    padding-bottom: 20px;
+}
+.second h4 {
+    font-size: 18px;
+    font-weight: 300;
+    color: white;
+}
+.third a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--light-gray-text-color);
+    transition-duration: 0.3s;
+    text-decoration: none;
+    display: block;
+    padding-bottom: 10px;
+}
+.third a:hover {
+    color: var(--main-color);
+}
+.second-footer {
+    padding: 45px 30px;
+    background-color: var(--footer-color);
+}
+.second-footer p {
+    font-size: 14px;
+    font-weight: 300;
+    color: white;
+}
+.second-footer p span {
+    color: var(--main-color);
+}
