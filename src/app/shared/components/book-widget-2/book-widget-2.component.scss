@@ -1,0 +1,55 @@
+.main {
+    flex: 0 0 16.666667%;
+    max-width: 16.6666667%;
+    padding: 0px 15px;
+    margin-bottom: 20px;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.image {
+    height: 265px;
+}
+.image img {
+    object-fit: cover;
+    border-radius: 15px;
+}
+.book-info {
+    margin-top: 20px;
+}
+.book-info .name {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    transition-duration: 0.3s;
+}
+.book-info a:hover {
+    color: var(--main-color);
+}
+.stars {
+    margin-bottom: 8px;
+}
+.important-info p {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 300;
+    color: var(--light-gray-text-color);
+}
+.categorie p {
+    font-size: 14px;
+}
+.important-info p a {
+    color: black;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+.important-info p span a:hover {
+    color: var(--main-color);
+}
+.price {
+    margin: 8px 0px 10px 0px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--main-color);
+}

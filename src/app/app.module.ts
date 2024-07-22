@@ -29,6 +29,7 @@ import { ButtonWithIconComponent } from './shared/components/button-with-icon/bu
 import { CommentComponent } from './shared/components/comment/comment.component';
 import { RatingComponent } from './shared/components/rating/rating.component';
 import { AuthorComponent } from './screens/author/author.component';
+import { BookWidget2Component } from './shared/components/book-widget-2/book-widget-2.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -51,6 +52,7 @@ import { AuthorComponent } from './screens/author/author.component';
         CommentComponent,
         RatingComponent,
         AuthorComponent,
+        BookWidget2Component,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
