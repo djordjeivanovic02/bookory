@@ -1,6 +1,15 @@
 import { Component } from "@angular/core";
 import { NavLink } from "../../core/interfaces/navlink.interface";
-import { faFacebook } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faFacebookF,
+  faFacebookMessenger,
+  faFacebookSquare,
+  faInstagram,
+  faLinkedin,
+  faLinkedinIn,
+  faSquareFacebook,
+} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: "app-author",
@@ -18,5 +27,7 @@ export class AuthorComponent {
       route: "/book",
     },
   ];
-  faFacebook = faFacebook;
+  faFacebook = faFacebookF;
+  faInstagram = faInstagram;
+  faLinkedin = faLinkedinIn;
 }

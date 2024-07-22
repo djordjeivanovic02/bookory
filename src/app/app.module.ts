@@ -13,7 +13,7 @@ import { IndexComponent } from "./screens/index/index.component";
 import { Button1Component } from "./shared/components/button1/button1.component";
 import { TutorialItemComponent } from "./shared/components/tutorial-item/tutorial-item.component";
 import { BookWidget1Component } from "./shared/components/book-widget-1/book-widget-1.component";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { AuthorWidget1Component } from "./shared/components/author-widget-1/author-widget-1.component";
 import { CategoriesGalleryComponent } from "./shared/components/categories-gallery/categories-gallery.component";
 import { CategoryItemComponent } from "./shared/components/category-item/category-item.component";
@@ -30,39 +30,32 @@ import { CommentComponent } from './shared/components/comment/comment.component'
 import { RatingComponent } from './shared/components/rating/rating.component';
 import { AuthorComponent } from './screens/author/author.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    NaviComponent,
-    IndexComponent,
-    Button1Component,
-    TutorialItemComponent,
-    BookWidget1Component,
-    AuthorWidget1Component,
-    CategoriesGalleryComponent,
-    CategoryItemComponent,
-    LoginComponent,
-    CustomInputComponent,
-    LoginRegisterButtonComponent,
-    BookComponent,
-    LinksNavComponent,
-    ZoomOnHoverDirective,
-    StarsComponent,
-    ButtonWithIconComponent,
-    CommentComponent,
-    RatingComponent,
-    AuthorComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    FontAwesomeModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-  ],
-  providers: [provideClientHydration()],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        NaviComponent,
+        IndexComponent,
+        Button1Component,
+        TutorialItemComponent,
+        BookWidget1Component,
+        AuthorWidget1Component,
+        CategoriesGalleryComponent,
+        CategoryItemComponent,
+        LoginComponent,
+        CustomInputComponent,
+        LoginRegisterButtonComponent,
+        BookComponent,
+        LinksNavComponent,
+        ZoomOnHoverDirective,
+        StarsComponent,
+        ButtonWithIconComponent,
+        CommentComponent,
+        RatingComponent,
+        AuthorComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        FontAwesomeModule,
+        AppRoutingModule,
+        BrowserAnimationsModule], providers: [provideClientHydration(), provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}
