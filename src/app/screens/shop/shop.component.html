@@ -1,0 +1,89 @@
+<app-headtag title="Šop" [link]="links" currentLink="šop"></app-headtag>
+
+<div class="w-100 d-flex align-items-center justify-content-center">
+    <div class="main-container d-flex align-items-start">
+        <div class="filters-container">
+            <div class="filter w-100">
+                <div class="header">
+                    <p class="title m-0">Žanr</p>
+                </div>
+                <div class="body">
+                    <div class="category d-flex align-items-center">
+                        <input type="checkbox" id="category1" />
+                        <label for="category1">Akcija i Fikcija</label>
+                    </div>
+                    <div class="category d-flex align-items-center">
+                        <input type="checkbox" id="category2" />
+                        <label for="category2">Životine</label>
+                    </div>
+                    <div class="category d-flex align-items-center">
+                        <input type="checkbox" id="category3" />
+                        <label for="category3">Klasici</label>
+                    </div>
+                    <div class="category d-flex align-items-center">
+                        <input type="checkbox" id="category4" />
+                        <label for="category4">Romani</label>
+                    </div>
+                </div>
+            </div>
+            <div class="filter w-100">
+                <div class="header">
+                    <p class="title m-0">Autori</p>
+                </div>
+                <div class="body">
+                    <div
+                        class="category d-flex align-items-center justify-content-between"
+                    >
+                        <div>
+                            <input type="checkbox" id="author1" />
+                            <label for="author1">Artur Gonzalez</label>
+                        </div>
+                        <span>(1)</span>
+                    </div>
+                    <div
+                        class="category d-flex align-items-center justify-content-between"
+                    >
+                        <div>
+                            <input type="checkbox" id="author2" />
+                            <label for="author2">Dana Chambers</label>
+                        </div>
+                        <span>(3)</span>
+                    </div>
+                    <div
+                        class="category d-flex align-items-center justify-content-between"
+                    >
+                        <div>
+                            <input type="checkbox" id="author3" />
+                            <label for="author3">Ernesto Wade</label>
+                        </div>
+                        <span>(1)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="filter w-100">
+                <div class="header">
+                    <p class="title m-0">Prosečna ocena</p>
+                </div>
+                <div class="body">
+                    <div
+                        *ngFor="let index of [].constructor(5); let i = index"
+                        class="category d-flex align-items-center justify-content-between"
+                    >
+                        <div>
+                            <app-stars
+                                [rate]="i + 1"
+                                [showRate]="false"
+                            ></app-stars>
+                        </div>
+                        <span>(4)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="books-container">
+            <div class="sorting">
+                <div class="show_type"></div>
+            </div>
+        </div>
+    </div>
+</div>

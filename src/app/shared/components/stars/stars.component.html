@@ -1,6 +1,6 @@
 <div class="rates d-flex align-items-center">
-    <div class="stars text-start">
-        <fa-icon [icon]="faStar" *ngFor="let star of stars"></fa-icon>
+    <div class="stars text-start" *ngFor="let star of stars; let i = index">
+        <fa-icon [icon]="isFullStar(i) ? faStar : faStarEmpty"></fa-icon>
     </div>
-    <p>5.00</p>
+    <p *ngIf="showRate">{{ rate }}</p>
 </div>

@@ -32,6 +32,7 @@ import { AuthorComponent } from './screens/author/author.component';
 import { BookWidget2Component } from './shared/components/book-widget-2/book-widget-2.component';
 import { FooterComponent } from './screens/footer/footer.component';
 import { HeadtagComponent } from './shared/components/headtag/headtag.component';
+import { ShopComponent } from './screens/shop/shop.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -57,6 +58,7 @@ import { HeadtagComponent } from './shared/components/headtag/headtag.component'
         BookWidget2Component,
         FooterComponent,
         HeadtagComponent,
+        ShopComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
