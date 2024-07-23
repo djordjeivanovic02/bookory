@@ -80,9 +80,36 @@
                 </div>
             </div>
         </div>
-        <div class="books-container">
-            <div class="sorting">
-                <div class="show_type"></div>
+        <div class="books-container flex-fill">
+            <div class="sorting d-flex">
+                <div class="show-type">
+                    <a href="#" class="active"
+                        ><fa-icon [icon]="faTable"></fa-icon
+                    ></a>
+                    <a href="#"><fa-icon [icon]="faList"></fa-icon></a>
+                </div>
+                <div class="options d-flex align-items-center">
+                    <select class="sort prim text-end">
+                        <option value="0" selected>Podrazumevano</option>
+                        <option value="1">Po popularnosti</option>
+                        <option value="2">Po prosečnoj oceni</option>
+                        <option value="3">Prvo najnoviji</option>
+                    </select>
+                    <div class="separator"></div>
+                    <p class="showing-text">Prikaži</p>
+                    <select class="sort text-end">
+                        <option value="0" selected>8</option>
+                        <option value="1">16</option>
+                        <option value="2">24</option>
+                        <option value="3">32</option>
+                    </select>
+                </div>
+            </div>
+            <div class="w-100">
+                <app-book-widget-2></app-book-widget-2>
+                <app-book-widget-2></app-book-widget-2>
+                <app-book-widget-2></app-book-widget-2>
+                <app-book-widget-2></app-book-widget-2>
             </div>
         </div>
     </div>

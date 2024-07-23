@@ -1,6 +1,5 @@
 .main {
-    flex: 0 0 16.666667%;
-    max-width: 16.6666667%;
+    max-width: 25%;
     padding: 0px 15px;
     margin-bottom: 20px;
     border-right: 1px solid lightgray;
@@ -52,4 +51,13 @@
     font-size: 20px;
     font-weight: 600;
     color: var(--main-color);
+}
+
+@media (max-width: 1366px) {
+    .main {
+        max-width: 33.3333%;
+    }
+    .image {
+        height: 350px;
+    }
 }

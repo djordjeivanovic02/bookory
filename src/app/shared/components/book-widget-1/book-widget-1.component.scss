@@ -75,3 +75,9 @@ img {
     background-color: var(--main-color);
     color: white;
 }
+
+@media (max-width: 1366x) {
+    body {
+        background-color: red;
+    }
+}
