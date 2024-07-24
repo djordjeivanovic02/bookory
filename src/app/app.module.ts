@@ -33,6 +33,9 @@ import { BookWidget2Component } from './shared/components/book-widget-2/book-wid
 import { FooterComponent } from './screens/footer/footer.component';
 import { HeadtagComponent } from './shared/components/headtag/headtag.component';
 import { ShopComponent } from './screens/shop/shop.component';
+import { SavedComponent } from './screens/saved/saved.component';
+import { SavedListComponent } from './shared/lists/saved-list/saved-list.component';
+import { SavedItemComponent } from './shared/components/saved-item/saved-item.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -59,6 +62,9 @@ import { ShopComponent } from './screens/shop/shop.component';
         FooterComponent,
         HeadtagComponent,
         ShopComponent,
+        SavedComponent,
+        SavedListComponent,
+        SavedItemComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
