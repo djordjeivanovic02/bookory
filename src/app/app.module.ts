@@ -36,6 +36,8 @@ import { ShopComponent } from './screens/shop/shop.component';
 import { SavedComponent } from './screens/saved/saved.component';
 import { SavedListComponent } from './shared/lists/saved-list/saved-list.component';
 import { SavedItemComponent } from './shared/components/saved-item/saved-item.component';
+import { AllAuthorsComponent } from './screens/all-authors/all-authors.component';
+import { AuthorSmallWidgetComponent } from './shared/components/author-small-widget/author-small-widget.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -65,6 +67,8 @@ import { SavedItemComponent } from './shared/components/saved-item/saved-item.co
         SavedComponent,
         SavedListComponent,
         SavedItemComponent,
+        AllAuthorsComponent,
+        AuthorSmallWidgetComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

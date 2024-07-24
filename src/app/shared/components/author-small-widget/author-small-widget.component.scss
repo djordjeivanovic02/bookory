@@ -1,0 +1,29 @@
+.author-block {
+    margin-bottom: 30px;
+}
+.thumbnail {
+    margin-bottom: 20px;
+}
+.thumbnail img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+.title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.3s;
+}
+.title:hover {
+    color: var(--main-color);
+}
+.books {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--light-gray-text-color);
+    margin: 0;
+}
