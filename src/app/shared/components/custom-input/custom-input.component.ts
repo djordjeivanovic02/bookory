@@ -18,4 +18,6 @@ export class CustomInputComponent {
   type: String = "text";
   @Input()
   addition: string | null = null;
+  @Input()
+  isDisabled: boolean = false;
 }

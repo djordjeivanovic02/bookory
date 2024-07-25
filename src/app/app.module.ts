@@ -41,6 +41,8 @@ import { AuthorSmallWidgetComponent } from './shared/components/author-small-wid
 import { ClientDashboardComponent } from './screens/client-dashboard/client-dashboard.component';
 import { ClientDashboardPartComponent } from './screens/client-dashboard-part/client-dashboard-part.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { ClientProfileDataComponent } from './screens/client-profile-data/client-profile-data.component';
+import { ChangePasswordComponent } from './shared/components/change-password/change-password.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -75,6 +77,8 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
         ClientDashboardComponent,
         ClientDashboardPartComponent,
         NotFoundComponent,
+        ClientProfileDataComponent,
+        ChangePasswordComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

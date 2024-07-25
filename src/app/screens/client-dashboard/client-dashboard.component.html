@@ -1,7 +1,7 @@
 <app-headtag
-    title="Sačuvane Knjige"
+    title="Kontrolna Tabla"
     [link]="link"
-    currentLink="sačuvane knjige"
+    currentLink="kontrolna tabla"
 ></app-headtag>
 <div class="main w-100 d-flex">
     <div class="navigation-container">
@@ -24,5 +24,8 @@
         <app-client-dashboard-part
             *ngIf="selectedContainer === 0"
         ></app-client-dashboard-part>
+        <app-client-profile-data
+            *ngIf="selectedContainer === 3"
+        ></app-client-profile-data>
     </div>
 </div>

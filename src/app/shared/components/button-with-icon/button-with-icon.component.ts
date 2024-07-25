@@ -1,7 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { IconDefinition } from "@fortawesome/angular-fontawesome";
 import { faNotdef } from "@fortawesome/free-solid-svg-icons";
-import { EMPTY } from "rxjs";
 
 @Component({
   selector: "app-button-with-icon",
@@ -9,6 +8,8 @@ import { EMPTY } from "rxjs";
   styleUrl: "./button-with-icon.component.scss",
 })
 export class ButtonWithIconComponent {
+  @Input()
+  showIcon: boolean = true;
   @Input()
   icon: IconDefinition = faNotdef;
   @Input()

@@ -3,6 +3,18 @@
         {{ title }}
         <span *ngIf="isRequired" class="required">*</span>
     </p>
-    <input type="{{ type }}" class="w-100" placeholder="{{ placeholder }}" />
+    <input
+        type="{{ type }}"
+        class="w-100"
+        placeholder="{{ placeholder }}"
+        *ngIf="!isDisabled"
+    />
+    <input
+        type="{{ type }}"
+        class="w-100"
+        placeholder="{{ placeholder }}"
+        *ngIf="isDisabled"
+        disabled
+    />
     <p class="addition" *ngIf="addition != null">{{ addition }}</p>
 </div>
