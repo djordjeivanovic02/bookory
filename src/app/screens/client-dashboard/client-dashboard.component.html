@@ -21,5 +21,8 @@
     </div>
     <div class="main-container">
         <app-saved-list *ngIf="selectedContainer === 1"></app-saved-list>
+        <app-client-dashboard-part
+            *ngIf="selectedContainer === 0"
+        ></app-client-dashboard-part>
     </div>
 </div>

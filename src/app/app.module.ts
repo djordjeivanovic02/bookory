@@ -40,6 +40,7 @@ import { AllAuthorsComponent } from './screens/all-authors/all-authors.component
 import { AuthorSmallWidgetComponent } from './shared/components/author-small-widget/author-small-widget.component';
 import { ClientDashboardComponent } from './screens/client-dashboard/client-dashboard.component';
 import { ClientDashboardPartComponent } from './screens/client-dashboard-part/client-dashboard-part.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -73,6 +74,7 @@ import { ClientDashboardPartComponent } from './screens/client-dashboard-part/cl
         AuthorSmallWidgetComponent,
         ClientDashboardComponent,
         ClientDashboardPartComponent,
+        NotFoundComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

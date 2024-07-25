@@ -1,0 +1,26 @@
+.main {
+    border-left: 6px solid var(--dark-blue-color);
+    background-color: var(--blue-color);
+    color: white;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+}
+.main p {
+    font-weight: 300;
+    font-size: 14px;
+}
+.main a {
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+}
+.main a::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 0;
+    width: 1px;
+    height: 21px;
+    background-color: lightgray;
+}

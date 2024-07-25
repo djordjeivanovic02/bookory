@@ -1,0 +1,15 @@
+p {
+    font-size: 14px;
+    font-weight: 300;
+}
+p span {
+    font-weight: 600;
+}
+p a {
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.3s;
+}
+p a:hover {
+    color: var(--main-color);
+}
