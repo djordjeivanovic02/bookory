@@ -38,6 +38,8 @@ import { SavedListComponent } from './shared/lists/saved-list/saved-list.compone
 import { SavedItemComponent } from './shared/components/saved-item/saved-item.component';
 import { AllAuthorsComponent } from './screens/all-authors/all-authors.component';
 import { AuthorSmallWidgetComponent } from './shared/components/author-small-widget/author-small-widget.component';
+import { ClientDashboardComponent } from './screens/client-dashboard/client-dashboard.component';
+import { ClientDashboardPartComponent } from './screens/client-dashboard-part/client-dashboard-part.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -69,6 +71,8 @@ import { AuthorSmallWidgetComponent } from './shared/components/author-small-wid
         SavedItemComponent,
         AllAuthorsComponent,
         AuthorSmallWidgetComponent,
+        ClientDashboardComponent,
+        ClientDashboardPartComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

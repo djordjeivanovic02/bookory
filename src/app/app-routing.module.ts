@@ -7,6 +7,7 @@ import { AuthorComponent } from "./screens/author/author.component";
 import { ShopComponent } from "./screens/shop/shop.component";
 import { SavedComponent } from "./screens/saved/saved.component";
 import { AllAuthorsComponent } from "./screens/all-authors/all-authors.component";
+import { ClientDashboardComponent } from "./screens/client-dashboard/client-dashboard.component";
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: "shop", component: ShopComponent },
   { path: "saved", component: SavedComponent },
   { path: "all-authors", component: AllAuthorsComponent },
+  { path: "client-dashboard", component: ClientDashboardComponent },
 ];
 
 @NgModule({

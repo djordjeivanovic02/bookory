@@ -1,0 +1,25 @@
+<app-headtag
+    title="Sačuvane Knjige"
+    [link]="link"
+    currentLink="sačuvane knjige"
+></app-headtag>
+<div class="main w-100 d-flex">
+    <div class="navigation-container">
+        <ul class="lista w-100">
+            <li *ngFor="let action of actions; index as i">
+                <a
+                    href=""
+                    class="d-flex justify-content-between"
+                    [ngClass]="{ active: i === selectedContainer }"
+                    (click)="showContainer(i, $event)"
+                >
+                    <p class="m-0">{{ action.name }}</p>
+                    <fa-icon [icon]="action.icon"></fa-icon>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main-container">
+        <app-saved-list *ngIf="selectedContainer === 1"></app-saved-list>
+    </div>
+</div>

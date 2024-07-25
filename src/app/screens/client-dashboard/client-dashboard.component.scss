@@ -1,0 +1,38 @@
+.main {
+    margin: 80px 0px;
+    padding: 0px 20px;
+    column-gap: 30px;
+    flex-direction: row;
+    align-items: start;
+}
+.navigation-container {
+    width: 30%;
+}
+.lista {
+    list-style: none;
+    border-top: 1px solid lightgray;
+    padding: 0;
+}
+.lista li {
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    padding: 15px 0px;
+}
+.lista li a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    color: black;
+    transition-duration: 0.3s;
+}
+.lista li a fa-icon {
+    color: lightgray;
+}
+.lista li a.active,
+.lista li a.active fa-icon {
+    color: var(--main-color);
+}
+.lista li a:hover,
+.lista li a:hover fa-icon {
+    color: var(--main-color);
+}
