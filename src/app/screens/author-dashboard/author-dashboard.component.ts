@@ -21,7 +21,7 @@ export class AuthorDashboardComponent {
   faShutdown = faSignOut;
 
   actions = authorDashboardActions;
-  selectedContainer = 0;
+  selectedContainer = 1;
 
   showContainer(index: number, event: Event) {
     event.preventDefault();

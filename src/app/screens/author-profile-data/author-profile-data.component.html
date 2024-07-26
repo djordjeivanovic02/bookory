@@ -1,0 +1,35 @@
+<div class="w-100">
+    <h1>Promeni Svoje Podatke</h1>
+    <div class="twoinrow d-flex w-100">
+        <app-custom-input title="Ime" placeholder="Vaše ime"></app-custom-input
+        ><app-custom-input
+            title="Prezime"
+            placeholder="Vaše prezime"
+        ></app-custom-input>
+    </div>
+    <app-custom-input
+        title="Email (ne može da se menja)"
+        [isDisabled]="true"
+        placeholder="idjordje63@gmail.com"
+    ></app-custom-input>
+
+    <div class="threeinrow d-flex w-100">
+        <app-custom-input
+            title="Facebook"
+            [isRequired]="false"
+            placeholder="www.facebook.com/..."
+        >
+        </app-custom-input>
+        <app-custom-input
+            title="Instagram"
+            [isRequired]="false"
+            placeholder="www.instagram.com/..."
+        ></app-custom-input>
+        <app-custom-input
+            title="LinkedIn"
+            [isRequired]="false"
+            placeholder="www.linkedin.com/..."
+        ></app-custom-input>
+    </div>
+    <app-change-password></app-change-password>
+</div>

@@ -40,7 +40,14 @@
                     ></a>
                 </div>
             </div>
-            <div class="main-container2"></div>
+            <div class="main-container2">
+                <app-author-profile-data
+                    *ngIf="selectedContainer === 2"
+                ></app-author-profile-data>
+                <app-author-my-books
+                    *ngIf="selectedContainer === 1"
+                ></app-author-my-books>
+            </div>
         </div>
     </div>
 </div>

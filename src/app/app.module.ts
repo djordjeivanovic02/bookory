@@ -46,6 +46,9 @@ import { ChangePasswordComponent } from './shared/components/change-password/cha
 import { ClientDownloadsPartComponent } from './screens/client-downloads-part/client-downloads-part.component';
 import { DownloadedListComponent } from './shared/lists/downloaded-list/downloaded-list.component';
 import { AuthorDashboardComponent } from './screens/author-dashboard/author-dashboard.component';
+import { AuthorProfileDataComponent } from './screens/author-profile-data/author-profile-data.component';
+import { AuthorMyBooksComponent } from './screens/author-my-books/author-my-books.component';
+import { BookWidget3Component } from './shared/components/book-widget-3/book-widget-3.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -85,6 +88,9 @@ import { AuthorDashboardComponent } from './screens/author-dashboard/author-dash
         ClientDownloadsPartComponent,
         DownloadedListComponent,
         AuthorDashboardComponent,
+        AuthorProfileDataComponent,
+        AuthorMyBooksComponent,
+        BookWidget3Component,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
