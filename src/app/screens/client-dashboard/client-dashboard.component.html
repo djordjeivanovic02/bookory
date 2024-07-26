@@ -3,32 +3,38 @@
     [link]="link"
     currentLink="kontrolna tabla"
 ></app-headtag>
-<div class="main w-100 d-flex">
-    <div class="navigation-container">
-        <ul class="lista w-100">
-            <li *ngFor="let action of actions; index as i">
-                <a
-                    href=""
-                    class="d-flex justify-content-between"
-                    [ngClass]="{ active: i === selectedContainer }"
-                    (click)="showContainer(i, $event)"
-                >
-                    <p class="m-0">{{ action.name }}</p>
-                    <fa-icon [icon]="action.icon"></fa-icon>
-                </a>
-            </li>
-        </ul>
-    </div>
+<div class="d-flex align-items-center justify-content-center w-100">
     <div class="main-container">
-        <app-saved-list *ngIf="selectedContainer === 1"></app-saved-list>
-        <app-client-dashboard-part
-            *ngIf="selectedContainer === 0"
-        ></app-client-dashboard-part>
-        <app-client-profile-data
-            *ngIf="selectedContainer === 3"
-        ></app-client-profile-data>
-        <app-client-downloads-part
-            *ngIf="selectedContainer === 2"
-        ></app-client-downloads-part>
+        <div class="main w-100 d-flex">
+            <div class="navigation-container">
+                <ul class="lista w-100">
+                    <li *ngFor="let action of actions; index as i">
+                        <a
+                            href=""
+                            class="d-flex justify-content-between"
+                            [ngClass]="{ active: i === selectedContainer }"
+                            (click)="showContainer(i, $event)"
+                        >
+                            <p class="m-0">{{ action.name }}</p>
+                            <fa-icon [icon]="action.icon"></fa-icon>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-container2">
+                <app-saved-list
+                    *ngIf="selectedContainer === 1"
+                ></app-saved-list>
+                <app-client-dashboard-part
+                    *ngIf="selectedContainer === 0"
+                ></app-client-dashboard-part>
+                <app-client-profile-data
+                    *ngIf="selectedContainer === 3"
+                ></app-client-profile-data>
+                <app-client-downloads-part
+                    *ngIf="selectedContainer === 2"
+                ></app-client-downloads-part>
+            </div>
+        </div>
     </div>
 </div>

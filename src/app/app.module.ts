@@ -45,6 +45,7 @@ import { ClientProfileDataComponent } from './screens/client-profile-data/client
 import { ChangePasswordComponent } from './shared/components/change-password/change-password.component';
 import { ClientDownloadsPartComponent } from './screens/client-downloads-part/client-downloads-part.component';
 import { DownloadedListComponent } from './shared/lists/downloaded-list/downloaded-list.component';
+import { AuthorDashboardComponent } from './screens/author-dashboard/author-dashboard.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -83,6 +84,7 @@ import { DownloadedListComponent } from './shared/lists/downloaded-list/download
         ChangePasswordComponent,
         ClientDownloadsPartComponent,
         DownloadedListComponent,
+        AuthorDashboardComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

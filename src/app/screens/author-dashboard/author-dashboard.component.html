@@ -1,0 +1,46 @@
+<app-headtag
+    title="Kontrolna Tabla"
+    [link]="link"
+    currentLink="kontrolna tabla"
+></app-headtag>
+<div class="w-100 d-flex align-items-center justify-content-center">
+    <div class="main-container">
+        <div class="main w-100 d-flex align-items-stretch">
+            <div class="navigation-container">
+                <ul class="lista">
+                    <li
+                        *ngFor="let action of actions; index as i"
+                        [ngClass]="{ active: i === selectedContainer }"
+                    >
+                        <a
+                            href=""
+                            class="d-flex align-items-center"
+                            [ngClass]="{ active: i === selectedContainer }"
+                            (click)="showContainer(i, $event)"
+                        >
+                            <fa-icon [icon]="action.icon"></fa-icon>
+                            <p class="m-0 mx-3">{{ action.name }}</p>
+                        </a>
+                    </li>
+                </ul>
+                <div class="addition d-flex">
+                    <a
+                        href=""
+                        class="w-50 d-flex align-items-center justify-content-center"
+                        [ngClass]="{ active: selectedContainer === 2 }"
+                        (click)="showContainer(2, $event)"
+                        ><fa-icon [icon]="faUser"></fa-icon
+                    ></a>
+                    <a
+                        href=""
+                        class="w-50 d-flex align-items-center justify-content-center"
+                        [ngClass]="{ active: selectedContainer === 3 }"
+                        (click)="showContainer(3, $event)"
+                        ><fa-icon [icon]="faShutdown"></fa-icon
+                    ></a>
+                </div>
+            </div>
+            <div class="main-container2"></div>
+        </div>
+    </div>
+</div>
