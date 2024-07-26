@@ -43,6 +43,8 @@ import { ClientDashboardPartComponent } from './screens/client-dashboard-part/cl
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { ClientProfileDataComponent } from './screens/client-profile-data/client-profile-data.component';
 import { ChangePasswordComponent } from './shared/components/change-password/change-password.component';
+import { ClientDownloadsPartComponent } from './screens/client-downloads-part/client-downloads-part.component';
+import { DownloadedListComponent } from './shared/lists/downloaded-list/downloaded-list.component';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -79,6 +81,8 @@ import { ChangePasswordComponent } from './shared/components/change-password/cha
         NotFoundComponent,
         ClientProfileDataComponent,
         ChangePasswordComponent,
+        ClientDownloadsPartComponent,
+        DownloadedListComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

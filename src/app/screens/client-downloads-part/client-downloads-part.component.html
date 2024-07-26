@@ -1,0 +1,44 @@
+<app-not-found title="Još uvek nemate preuzetih knjiga."></app-not-found>
+<!-- <table class="table">
+    <tbody>
+        <tr *ngFor="let item of [].constructor(3)">
+            <td>
+                <a href="" class="remove">X</a>
+            </td>
+            <td>
+                <img
+                    src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/29.jpg"
+                    class="image"
+                />
+            </td>
+            <td class="w-50">
+                <div>
+                    <a href="" class="title">Treachery: Alpha Colony Book 8</a>
+                    <p class="price">BESPLATNO</p>
+                    <p class="date">14. jul, 2024</p>
+                </div>
+            </td>
+            <td class="w-50">
+                <app-button-with-icon
+                    [icon]="faDownload"
+                ></app-button-with-icon>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+<div class="main-container w-100">
+    <div
+        class="grid-item d-flex justify-content-between align-items-center"
+        *ngFor="let i of [].constructor(5)"
+    >
+        <img
+            src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/29.jpg"
+            class="image"
+        />
+        <div class="mx-3">
+            <a href="" class="title">Treachery: Alpha Colony Book 8</a>
+            <p class="price">BESPLATNO</p>
+            <p class="date">14. jul, 2024</p>
+        </div>
+    </div>
+</div>
