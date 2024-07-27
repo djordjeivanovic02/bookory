@@ -3,7 +3,32 @@
     background-color: var(--light-background);
     padding: 0px 20px;
 }
+.main-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 .header-container h1 {
     font-size: 64px;
     font-weight: 600;
+}
+@media only screen and (max-width: 640px) {
+}
+
+@media only screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+    .header-container h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 1280px) {
+}
+@media only screen and (max-width: 1366px) {
 }

@@ -3,7 +3,9 @@
     [link]="link"
     currentLink="moj nalog"
 ></app-headtag>
-<div class="w-100 d-flex flex-column justify-content-center align-items-center">
+<div
+    class="main w-100 d-flex flex-column justify-content-center align-items-center"
+>
     <div class="main-container error-container w-100">
         <span>Error: </span>
         <p class="m-0 d-inline-block">The password field is empty.</p>
@@ -11,9 +13,7 @@
     <div
         class="main-container login-register-main d-flex justify-content-center"
     >
-        <div
-            class="login-main-container center-container d-flex justify-content-end"
-        >
+        <div class="login-main-container center-container d-flex">
             <div class="login-container">
                 <h2>Prijava</h2>
                 <app-custom-input
@@ -42,7 +42,7 @@
                 ></app-login-register-button>
             </div>
         </div>
-        <div class="register-main-container center-container">
+        <div class="register-main-container center-container d-flex">
             <div class="register-container">
                 <h2>Registracija</h2>
                 <app-custom-input
@@ -82,8 +82,9 @@
                         value="0"
                         checked="checked"
                         (click)="toggleWriter(false)"
+                        id="visitor"
                     />
-                    <label>Ja sam posetilac</label>
+                    <label for="visitor">Ja sam posetilac</label>
                 </div>
                 <div class="profileType">
                     <input
@@ -91,8 +92,9 @@
                         name="profileType"
                         value="0"
                         (click)="toggleWriter(true)"
+                        id="author"
                     />
-                    <label>Ja sam pisac</label>
+                    <label for="author">Ja sam pisac</label>
                 </div>
 
                 <p class="description m-0">

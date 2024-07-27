@@ -1,3 +1,7 @@
+.main {
+    padding: 0px 20px;
+    margin-bottom: 80px;
+}
 .login-register-main {
     margin-top: 80px;
 }
@@ -15,9 +19,11 @@
     max-width: 440px;
 }
 .login-main-container {
+    justify-content: end;
     padding-right: 5%;
 }
 .register-main-container {
+    justify-content: start;
     padding-left: 5%;
 }
 .remember {
@@ -42,6 +48,7 @@
 .profileType label {
     margin-left: 10px;
     font-size: 14px;
+    cursor: pointer;
 }
 .profileType {
     margin-bottom: 20px;
@@ -72,4 +79,32 @@
 
 .field-animation-true {
     max-height: 1000px;
+}
+
+@media only screen and (max-width: 640px) {
+}
+
+@media only screen and (max-width: 768px) {
+    .login-register-main {
+        flex-direction: column;
+    }
+    .register-main-container,
+    .login-main-container {
+        width: 100%;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+    .register-main-container {
+        margin-top: 80px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 1280px) {
+}
+@media only screen and (max-width: 1366px) {
 }
