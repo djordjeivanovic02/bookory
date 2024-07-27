@@ -6,6 +6,7 @@
     width: 150px;
 }
 .search-container {
+    display: flex;
     max-width: 45%;
 }
 .input {
@@ -67,6 +68,9 @@
 .book-actions a:hover .icon {
     scale: 0.92;
 }
+.navigation {
+    display: flex;
+}
 .navigation a {
     color: black;
     padding: 20px;
@@ -114,7 +118,55 @@
 .contact .heart {
     padding-right: 0;
 }
+.main-container.second {
+    height: 67px;
+    display: flex;
+}
+.main-container.first {
+    height: 48px;
+}
 .main-container.second,
 .main-container.first {
     padding: 0px 20px;
+}
+.hamburger {
+    width: 20px;
+}
+.hamburger span {
+    display: inline-block;
+    height: 2px;
+    margin-bottom: 3px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+.icon-1,
+.icon-3 {
+    width: 14px;
+}
+.icon-2 {
+    width: 18px;
+}
+.hamburger:hover span {
+    width: 20px;
+    background-color: black;
+}
+
+@media only screen and (max-width: 640px) {
+}
+
+@media only screen and (max-width: 768px) {
+    .main-container.second {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .search-container,
+    .navigation {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
 }

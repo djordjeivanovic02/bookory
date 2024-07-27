@@ -1,10 +1,20 @@
 import { Component } from "@angular/core";
-import { faSearch, faUser, faHeart, faNewspaper, faPhone } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faUser,
+  faHeart,
+  faNewspaper,
+  faPhone,
+  faMobile,
+  fa0,
+  fa1,
+  faMobileScreenButton,
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-navi",
   templateUrl: "./navi.component.html",
-  styleUrl: "./navi.component.scss"
+  styleUrl: "./navi.component.scss",
 })
 export class NaviComponent {
   faSearch = faSearch;
@@ -12,4 +22,5 @@ export class NaviComponent {
   faHeart = faHeart;
   faNewspaper = faNewspaper;
   faPhone = faPhone;
+  faHamburger = faMobileScreenButton;
 }

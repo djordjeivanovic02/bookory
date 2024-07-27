@@ -24,7 +24,7 @@
 }
 .bookcase {
     width: 600px;
-    left: 240px;
+    left: 20%;
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
@@ -57,6 +57,9 @@
     line-height: 20px;
     font-weight: 600;
 }
+.newest-main {
+    padding: 0px 20px;
+}
 .index-right h1 {
     font-size: 64px;
     line-height: 72px;
@@ -71,10 +74,12 @@
     padding: 40px 0px;
 }
 .tutorial-main {
+    padding: 0px 20px;
     border-bottom: 1px solid var(--light-gray-text-color);
     margin-bottom: 80px;
 }
 .newest-books {
+    flex-direction: row;
     margin-bottom: 80px;
 }
 .newest-books .newest-left {
@@ -124,4 +129,48 @@
 }
 .categories-main {
     margin-bottom: 80px;
+}
+
+@media only screen and (max-width: 640px) {
+}
+
+@media only screen and (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: auto;
+    }
+    .grid-item:nth-child(odd) {
+        border-right: none;
+    }
+    .newest-books .newest-left .newest-container {
+        padding: 20px;
+    }
+    .newest-books {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .newest-books {
+        flex-direction: column;
+    }
+    .newest-books .newest-left {
+        width: 100%;
+        padding-right: 0px;
+    }
+    .best-authors {
+        margin-top: 40px;
+        padding: 0;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+}
+@media only screen and (max-width: 1366px) {
+    .index-left {
+        display: none;
+    }
+    .index-right {
+        width: 100%;
+    }
 }
