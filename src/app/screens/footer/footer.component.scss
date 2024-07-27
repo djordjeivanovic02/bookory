@@ -7,6 +7,11 @@ footer {
     flex-direction: row;
     align-items: start;
     justify-content: space-between;
+    column-gap: 50px;
+}
+.firsttwo,
+.secondtwo {
+    justify-content: space-between;
 }
 .first {
     padding-right: 60px;
@@ -41,6 +46,10 @@ footer {
 }
 .links fa-icon:hover {
     color: var(--main-color);
+}
+.second,
+.third {
+    margin-left: 30px;
 }
 .second h2,
 .third h2 {
@@ -83,4 +92,40 @@ footer {
 }
 .second-footer p span {
     color: var(--main-color);
+}
+
+@media only screen and (max-width: 640px) {
+    .firsttwo,
+    .secondtwo {
+        flex-direction: column;
+    }
+    .second {
+        margin: 0;
+        margin-top: 40px;
+    }
+    .third {
+        margin: 0;
+        margin-top: 40px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 1280px) {
+    .footer-main {
+        flex-direction: column;
+    }
+    .firsttwo,
+    .secondtwo {
+        justify-content: center;
+    }
+    .secondtwo {
+        margin-top: 80px;
+    }
+}
+@media only screen and (max-width: 1366px) {
 }
