@@ -5,10 +5,11 @@
     align-items: start;
 }
 .main-container2 {
+    width: calc(100% - 300px);
     padding-left: 30px;
 }
 .navigation-container {
-    max-width: 300px;
+    width: 300px;
     background-color: var(--main-dark-color);
     padding: 0px 20px;
 }

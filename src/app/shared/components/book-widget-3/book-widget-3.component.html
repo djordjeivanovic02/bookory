@@ -1,5 +1,26 @@
-<div class="w-100 d-flex">
+<div class="main d-flex flex-fill align-items-center justify-content-between">
     <img
         src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/35.jpg"
     />
+    <div class="info">
+        <a href="#" class="title my-4">Rich Dad Poor Dad</a>
+        <app-stars class="stars"></app-stars>
+        <a href="" class="author">Misty Figueroa</a>
+        <p class="description">
+            Est numquam harum aut ut. Pariatur cum blanditiis est delectus
+            accusamus eveniet. Quis fugiat eligendi magni eos dignissimos
+            numquam.
+        </p>
+        <p class="price">BESPLATNO</p>
+    </div>
+    <div
+        class="socials d-flex flex-column justifu-content-center align-items-end"
+    >
+        <div class="social d-flex align-items-center justify-content-center">
+            <fa-icon [icon]="faRemove"></fa-icon>
+        </div>
+        <div class="social d-flex align-items-center justify-content-center">
+            <fa-icon [icon]="faEdit"></fa-icon>
+        </div>
+    </div>
 </div>

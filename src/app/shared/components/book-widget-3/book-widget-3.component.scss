@@ -1,6 +1,73 @@
+.main {
+    margin-bottom: 30px;
+}
+.info {
+    padding-left: 30px;
+}
 img {
     width: 190px;
     height: 266px;
     object-fit: cover;
     border-radius: 15px;
+}
+.title {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    transition-duration: 0.3s;
+}
+.title:hover {
+    color: var(--main-color);
+}
+.author {
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
+    color: var(--light-gray-text-color);
+    transition-duration: 0.3s;
+    margin: 8px 0px;
+}
+.author:hover {
+    color: var(--main-color);
+}
+.description {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 300;
+    color: var(--light-gray-text-color);
+    margin: 10px 0px;
+}
+.price {
+    margin: 8px 0px 10px 0px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--main-color);
+}
+.stars {
+    margin-bottom: 20px;
+}
+.socials {
+    padding: 20px 0 20px 65px;
+    border-left: 1px solid lightgray;
+}
+.social {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid lightgray;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+.social fa-icon {
+    color: var(--light-gray-text-color);
+    transition-duration: 0.3s;
+}
+.social:hover {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+.social:hover fa-icon {
+    color: white;
 }
