@@ -20,4 +20,6 @@ export class CustomInputComponent {
   addition: string | null = null;
   @Input()
   isDisabled: boolean = false;
+  @Input()
+  formControlName: string = "";
 }

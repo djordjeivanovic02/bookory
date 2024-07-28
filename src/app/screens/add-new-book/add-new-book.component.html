@@ -1,0 +1,96 @@
+<!-- <div class="w-100">
+    <h1>Promeni Svoje Podatke</h1>
+    <div class="twoinrow d-flex w-100">
+        <app-custom-input title="Ime" placeholder="Vaše ime"></app-custom-input
+        ><app-custom-input
+            title="Prezime"
+            placeholder="Vaše prezime"
+        ></app-custom-input>
+    </div>
+    <app-custom-input
+        title="Email (ne može da se menja)"
+        [isDisabled]="true"
+        placeholder="idjordje63@gmail.com"
+    ></app-custom-input>
+
+    <div class="threeinrow d-flex w-100">
+        <app-custom-input
+            class="w-100"
+            title="Facebook"
+            [isRequired]="false"
+            placeholder="www.facebook.com/..."
+        >
+        </app-custom-input>
+        <app-custom-input
+            class="w-100"
+            title="Instagram"
+            [isRequired]="false"
+            placeholder="www.instagram.com/..."
+        ></app-custom-input>
+        <app-custom-input
+            class="w-100"
+            title="LinkedIn"
+            [isRequired]="false"
+            placeholder="www.linkedin.com/..."
+        ></app-custom-input>
+    </div>
+    <app-change-password></app-change-password>
+</div> -->
+<div class="w-100">
+    <form (ngSubmit)="(onSubmit)">
+        <h1>Promeni Svoje Podatke</h1>
+        <app-upload-image></app-upload-image>
+        <div class="d-flex w-100">
+            <app-custom-input
+                class="w-100"
+                title="Naslov"
+                placeholder="Unesite naslov knjige"
+                formControlName="title"
+            ></app-custom-input>
+        </div>
+        <div class="d-flex w-100">
+            <app-custom-textarea
+                class="w-100"
+                title="Opis"
+                placeholder="Unesite opis knjige"
+                addition="Max 3000 karaktera"
+                formControlName="title"
+            ></app-custom-textarea>
+        </div>
+        <div class="twoinrow d-flex w-100">
+            <app-custom-select
+                title="Kategorija"
+                class="w-100"
+            ></app-custom-select>
+            <app-custom-input
+                class="w-100"
+                title="Tagovi"
+                [isRequired]="false"
+                placeholder="Unesite tag"
+                formControlName="title"
+            ></app-custom-input>
+        </div>
+        <p class="mb-1 pdf-title">PDF knjige <span>*</span></p>
+        <div class="pdf w-100">
+            <input type="file" id="pdf" (change)="onPdfPicked($event)" />
+            <!-- <div *ngIf="pdfFileName">
+                <p>Selected PDF: {{ pdfFileName }}</p>
+            </div> -->
+        </div>
+        <div class="add">
+            <app-button-with-icon
+                class="add w-100"
+                [showIcon]="false"
+                text="Dodaj knjigu"
+            ></app-button-with-icon>
+        </div>
+    </form>
+
+    <!-- <div
+        class="drop-container"
+        (drop)="onImagePicked($event)"
+        (dragover)="onDragOver($event)"
+    >
+        <p>Drag & Drop your image here</p>
+    </div> -->
+</div>

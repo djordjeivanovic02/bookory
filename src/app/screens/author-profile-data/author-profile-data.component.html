@@ -1,5 +1,6 @@
 <div class="w-100">
     <h1>Promeni Svoje Podatke</h1>
+    <app-upload-image text="Dodaj profilnu sliku"></app-upload-image>
     <div class="twoinrow d-flex w-100">
         <app-custom-input title="Ime" placeholder="Vaše ime"></app-custom-input
         ><app-custom-input
@@ -12,6 +13,9 @@
         [isDisabled]="true"
         placeholder="idjordje63@gmail.com"
     ></app-custom-input>
+
+    <app-custom-textarea title="O meni" placeholder="Unesite nešto o sebi">
+    </app-custom-textarea>
 
     <div class="threeinrow d-flex w-100">
         <app-custom-input

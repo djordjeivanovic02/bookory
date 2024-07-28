@@ -1,0 +1,12 @@
+<div class="main w-100">
+    <p class="title">
+        {{ title }}
+        <span *ngIf="isRequired" class="required">*</span>
+    </p>
+    <select class="w-100" formControlName="formControlName">
+        <option *ngFor="let categorie of categories" value="{{ categorie }}">
+            {{ categorie }}
+        </option>
+    </select>
+    <p class="addition" *ngIf="addition != null">{{ addition }}</p>
+</div>

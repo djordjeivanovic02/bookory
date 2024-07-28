@@ -3,19 +3,11 @@
         {{ title }}
         <span *ngIf="isRequired" class="required">*</span>
     </p>
-    <input
-        type="{{ type }}"
+    <textarea
         class="w-100"
         placeholder="{{ placeholder }}"
-        *ngIf="!isDisabled"
         formControlName="formControlName"
-    />
-    <input
-        type="{{ type }}"
-        class="w-100"
-        placeholder="{{ placeholder }}"
-        *ngIf="isDisabled"
-        disabled
-    />
+    >
+    </textarea>
     <p class="addition" *ngIf="addition != null">{{ addition }}</p>
 </div>

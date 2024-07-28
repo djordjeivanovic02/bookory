@@ -1,0 +1,15 @@
+.main {
+    margin-bottom: 40px;
+    border: 2px dashed lightgray;
+    height: 300px;
+    cursor: pointer;
+    padding: 20px;
+}
+
+.image-preview {
+    height: 100%;
+}
+.image-preview img {
+    height: 100%;
+    object-fit: cover;
+}
