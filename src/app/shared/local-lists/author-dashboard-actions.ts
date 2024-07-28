@@ -1,4 +1,9 @@
-import { faBook, faDashboard, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faBook,
+  faDashboard,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { AuthorNavigation } from "../../core/interfaces/dashboard-author-links.interface";
 
 export const authorDashboardActions: AuthorNavigation[] = [
@@ -9,5 +14,9 @@ export const authorDashboardActions: AuthorNavigation[] = [
   {
     name: "Moje knjige",
     icon: faBook,
+  },
+  {
+    name: "Dodaj novu knjigu",
+    icon: faAdd,
   },
 ];
