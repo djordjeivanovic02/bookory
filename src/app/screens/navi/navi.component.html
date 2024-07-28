@@ -3,7 +3,11 @@
         <div
             class="main-container first d-flex align-items-center justify-content-between"
         >
-            <a href="" class="mobileNavigation">
+            <a
+                href=""
+                class="mobileNavigation"
+                (click)="toggleShowMobileMenu(true, $event)"
+            >
                 <div class="hamburger d-flex flex-column">
                     <span class="icon-1"></span>
                     <span class="icon-2"></span>
@@ -36,27 +40,39 @@
         </div>
     </div>
     <div
-        class="main-container second align-items-center justify-content-between"
+        class="second-background w-100"
+        [ngClass]="{ active: showMobileMenu === true }"
+        (click)="toggleShowMobileMenu(false, $event)"
     >
-        <div class="book-actions align-items-center justify-content-center">
-            <a href="" class="d-flex">
-                <fa-icon [icon]="faNewspaper" class="icon"></fa-icon>
-                <p class="mx-2 my-0">Najnovije knjige</p>
-            </a>
-        </div>
-        <!-- <a href=""><img src="assets/images/logo.svg" class="logo"/></a> -->
-        <div class="navigation">
-            <a href="">Početna</a>
-            <a href="">Knjige</a>
-            <a href="">Svi autori</a>
-            <a href="">Blog</a>
-            <a href="">O nama</a>
-        </div>
-        <div class="contact align-items-center justify-content-center">
-            <a href="" class="d-flex">
-                <fa-icon [icon]="faPhone" class="icon"></fa-icon>
-                <p class="mx-2 my-0">+381 63 73 03 883</p>
-            </a>
+        <div
+            class="main-container second"
+            [ngClass]="{ active: showMobileMenu === true }"
+        >
+            <div class="mobile-header w-100">
+                <img src="assets/images/logo.svg" />
+            </div>
+            <div
+                class="book-actions newest-books align-items-center justify-content-center"
+            >
+                <a href="" class="d-flex">
+                    <fa-icon [icon]="faNewspaper" class="icon"></fa-icon>
+                    <p class="mx-2 my-0">Najnovije knjige</p>
+                </a>
+            </div>
+            <!-- <a href=""><img src="assets/images/logo.svg" class="logo"/></a> -->
+            <div class="navigation">
+                <a href="">Početna</a>
+                <a href="">Knjige</a>
+                <a href="">Svi autori</a>
+                <a href="">Blog</a>
+                <a href="">O nama</a>
+            </div>
+            <div class="contact align-items-center justify-content-center">
+                <a href="" class="d-flex">
+                    <fa-icon [icon]="faPhone" class="icon"></fa-icon>
+                    <p class="mx-2 my-0">+381 63 73 03 883</p>
+                </a>
+            </div>
         </div>
     </div>
 </nav>

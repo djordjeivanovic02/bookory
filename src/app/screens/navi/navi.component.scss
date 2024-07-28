@@ -121,9 +121,17 @@
 .contact .heart {
     padding-right: 0;
 }
+.newest-books {
+    display: block;
+}
+.mobile-header {
+    display: none;
+}
 .main-container.second {
     height: 67px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .main-container.first {
     height: 48px;
@@ -154,17 +162,11 @@
     width: 20px;
     background-color: black;
 }
-
-@media only screen and (max-width: 640px) {
+.second-background {
+    display: flex;
+    justify-content: center;
 }
-
-@media only screen and (max-width: 768px) {
-    .main-container.second {
-        display: none;
-    }
-    .mobileNavigation {
-        display: block;
-    }
+@media only screen and (max-width: 640px) {
 }
 
 @media only screen and (max-width: 1024px) {
@@ -173,6 +175,69 @@
         display: none;
     }
 }
+@media only screen and (max-width: 768px) {
+    .main-container.second,
+    .second-background {
+        position: fixed;
+        top: 0px;
+        left: -100%;
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        background-color: white;
+        z-index: 10;
+    }
 
+    .main-container.second.active,
+    .second-background.active {
+        animation: showMobile 0.3s ease-in-out forwards;
+    }
+    @keyframes showMobile {
+        from {
+            left: -100%;
+        }
+        to {
+            left: 0%;
+        }
+    }
+    .second-background {
+        max-width: none;
+        height: 100%;
+        background-color: var(--lite-background);
+    }
+    .mobileNavigation {
+        display: block;
+    }
+    .main-container.second.active {
+        flex-direction: column;
+        padding: 0;
+        justify-content: start;
+    }
+    .mobile-header {
+        display: block;
+        background-color: var(--main-color);
+        height: 68px;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        margin-bottom: 40px;
+    }
+    .navigation {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    .navigation a {
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid lightgray;
+    }
+    .newest-books {
+        display: none;
+    }
+    .navigation {
+        display: flex;
+        flex-direction: column;
+    }
+}
 @media only screen and (max-width: 1280px) {
 }

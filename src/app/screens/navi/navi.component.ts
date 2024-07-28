@@ -23,4 +23,11 @@ export class NaviComponent {
   faNewspaper = faNewspaper;
   faPhone = faPhone;
   faHamburger = faMobileScreenButton;
+
+  showMobileMenu: boolean = false;
+
+  toggleShowMobileMenu(value: boolean, event: Event) {
+    event.preventDefault();
+    this.showMobileMenu = value;
+  }
 }
