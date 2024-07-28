@@ -12,6 +12,7 @@ button {
 button:hover {
     background-color: var(--red-color-hover);
 }
-button fa-icon {
-    margin-right: 8px;
+button p {
+    margin: 0;
+    margin-left: 8px;
 }

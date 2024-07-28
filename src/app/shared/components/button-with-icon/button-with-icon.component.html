@@ -1,4 +1,4 @@
 <button class="d-flex align-items-center justify-content-center">
     <fa-icon [icon]="icon" *ngIf="showIcon"></fa-icon>
-    <p class="m-0">{{ text }}</p>
+    <p *ngIf="text !== ''">{{ text }}</p>
 </button>
