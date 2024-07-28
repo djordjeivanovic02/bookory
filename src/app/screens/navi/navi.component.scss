@@ -19,6 +19,9 @@
     padding-left: 30px;
     font-weight: 400;
 }
+.mobileNavigation {
+    display: none;
+}
 .search {
     width: 60px;
     height: 48px;
@@ -158,6 +161,9 @@
 @media only screen and (max-width: 768px) {
     .main-container.second {
         display: none;
+    }
+    .mobileNavigation {
+        display: block;
     }
 }
 
