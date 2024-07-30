@@ -3,6 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserModule } from './user/user.module';
+import { AuthorModule } from './author/author.module';
+import { User } from './user/entities/user.entity';
+import { Author } from './author/entities/author.entity';
 
 @Module({
   imports: [
@@ -18,11 +22,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         username: configService.get<string>('POSTGRES_USERNAME'),
         password: configService.get<string>('POSTGRES_PASSWORD'),
         database: configService.get<string>('POSTGRES_DATABASE'),
+        entities: [User, Author],
         autoLoadEntities: true,
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
+    UserModule,
+    AuthorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
