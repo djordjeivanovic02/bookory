@@ -46,41 +46,41 @@ export class AuthService {
         );
     }
     registerAuthor({ email, password, firstName, lastName, website }: CreateAuthorDto): Observable<{ token: string }> {
-        return from(this.userRepository.findOne({ where: { email } })).pipe(
+      return from(this.userRepository.findOne({ where: { email } })).pipe(
           switchMap(existingUser => {
-            if (existingUser) {
-              return throwError(() => new ConflictException('Korisnik sa ovim email-om već postoji'));
-            }
-            return from(bcrypt.hash(password, 10)).pipe(
-              switchMap(hashedPassword => {
-                const user = new User();
-                user.email = email;
-                user.password = hashedPassword;
-    
-                const author = new Author();
-                author.firstName = firstName;
-                author.lastName = lastName;
-                author.website = website;
-                
-                author.user = user;
-    
-                return from(this.authorRepository.save(author)).pipe(
-                  switchMap(savedAuthor => {
-                    user.author = savedAuthor;
-                    return from(this.userRepository.save(user)).pipe(
-                      map(savedUser => {
-                        const { password, ...userWithoutPassword } = savedUser;
-                        return { token: this.jwtService.sign(userWithoutPassword) };
-                      })
-                    );
+              if (existingUser) {
+                  return throwError(() => new ConflictException('Korisnik sa ovim email-om već postoji'));
+              }
+              return from(bcrypt.hash(password, 10)).pipe(
+                  switchMap(hashedPassword => {
+                      const user = new User();
+                      user.email = email;
+                      user.password = hashedPassword;
+  
+                      return from(this.userRepository.save(user)).pipe(
+                          switchMap(savedUser => {
+                              const author = new Author();
+                              author.firstName = firstName;
+                              author.lastName = lastName;
+                              author.website = website;
+                              author.user = savedUser;
+  
+                              return from(this.authorRepository.save(author)).pipe(
+                                  map(savedAuthor => {
+                                      savedUser.author = savedAuthor;
+                                      const { password, ...userWithoutPassword } = savedUser;
+                                      const { author, ...userWithoutAuthor } = userWithoutPassword;
+                                      return { token: this.jwtService.sign(userWithoutAuthor) };
+                                  })
+                              );
+                          })
+                      );
                   })
-                );
-              })
-            );
+              );
           }),
           catchError(err => throwError(() => err))
-        );
-      }
+      );
+  }
 
     login({ username, password }: AuthPayloadDto): Observable<{ token: string }> {
         return from(this.userRepository.findOne({ where: { email: username } })).pipe(

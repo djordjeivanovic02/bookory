@@ -12,7 +12,7 @@ export class User {
   @Column()
   password: string;
 
-  @OneToOne(() => Author, author => author.user, { nullable: true })
+  @OneToOne(() => Author, author => author.user, { nullable: true, cascade: true} )
   author?: Author;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
