@@ -4,6 +4,8 @@ import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/createUser.dto';
 import { from, map, Observable } from 'rxjs';
+import { Author } from 'src/author/entities/author.entity';
+import { CreateAuthorDto } from 'src/author/dtos/createAuthor.dto';
 
 @Injectable()
 export class UserService {
@@ -24,6 +26,7 @@ export class UserService {
   findOne(id: number): Observable<User> {
     return from(this.userRepository.findOneBy({ id }));
   }
+
 
   remove(id: number): Observable<void> {
     return from(this.userRepository.delete(id)).pipe(map(() => undefined));
