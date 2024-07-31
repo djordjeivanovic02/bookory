@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { AuthorService } from '../services/services.service';
 import { CreateAuthorDto } from '../dtos/createAuthor.dto';
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { User } from 'src/user/entities/user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UpdateResult } from 'typeorm';
 import { UpdateAuthorDto } from '../dtos/updateAuthor.dto';
+import { AuthorDataDto } from '../dtos/authorData.dto';
 
 @Controller('author')
 export class ControllersController {
@@ -18,13 +19,18 @@ export class ControllersController {
   }
 
   @Get()
-  findAll(): Observable<Author[]> {
+  findAll(): Observable<AuthorDataDto[]> {
     return this.authorService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: number): Observable<Author> {
     return this.authorService.findOne(id);
+  }
+  
+  @Get('by-first-letter')
+  findByFirstLetter(@Query('letter') letter: string): Observable<AuthorDataDto[]> {
+    return this.authorService.findByFirstLetter(letter);
   }
 
   @Put(':id')

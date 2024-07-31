@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Author } from '../entities/author.entity';
-import { Repository, UpdateResult, DeleteResult } from 'typeorm';
+import { Repository, UpdateResult, Like } from 'typeorm';
 import { CreateAuthorDto } from '../dtos/createAuthor.dto';
 import { from, map, Observable, switchMap } from 'rxjs';
 import { User } from 'src/user/entities/user.entity';
 import { UpdateAuthorDto } from '../dtos/updateAuthor.dto';
+import { AuthorDataDto } from '../dtos/authorData.dto';
 
 @Injectable()
 export class AuthorService {
@@ -37,12 +38,47 @@ export class AuthorService {
     );
   }
 
-  findAll(): Observable<Author[]> {
-    return from(this.authorRepository.find());
+  findAll(): Observable<AuthorDataDto[]> {
+    return from(this.authorRepository.find()).pipe(
+      map(authors =>
+        authors.map(author => ({
+          firstName: author.firstName,
+          lastName: author.lastName,
+          picture: author.picture,
+          about: author.about,
+          website: author.website,
+          facebook: author.facebook,
+          instagram: author.instagram,
+          linkedin: author.linkedin,
+        })),
+      ),
+    );
   }
 
   findOne(id: number): Observable<Author> {
     return from(this.authorRepository.findOneBy({ id }));
+  }
+
+  findByFirstLetter(letter: string): Observable<AuthorDataDto[]>{
+    return from(
+      this.authorRepository.find({
+        where: {
+          firstName: Like(`${letter}%`)
+        }
+      })
+    ).pipe(
+      map(authors =>
+        authors.map(author => ({
+          firstName: author.firstName,
+          lastName: author.lastName,
+          picture: author.picture,
+          website: author.website,
+          facebook: author.facebook,
+          instagram: author.instagram,
+          linkedin: author.linkedin,
+        })),
+      ),
+    );
   }
 
   update(id: number, authorData: UpdateAuthorDto): Observable<UpdateResult>{

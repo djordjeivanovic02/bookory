@@ -15,6 +15,9 @@ export class Author {
 
   @Column()
   lastName: string;
+  
+  @Column({ nullable: true })
+  about: string;
 
   @Column({ nullable: true })
   picture: string;
