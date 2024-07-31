@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { AuthorModule } from './author/author.module';
 import { User } from './user/entities/user.entity';
 import { Author } from './author/entities/author.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { Author } from './author/entities/author.entity';
     }),
     UserModule,
     AuthorModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
