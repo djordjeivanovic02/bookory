@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Author } from '../entities/author.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult, DeleteResult } from 'typeorm';
 import { CreateAuthorDto } from '../dtos/createAuthor.dto';
 import { from, map, Observable, switchMap } from 'rxjs';
 import { User } from 'src/user/entities/user.entity';
+import { UpdateAuthorDto } from '../dtos/updateAuthor.dto';
 
 @Injectable()
 export class AuthorService {
@@ -27,7 +28,6 @@ export class AuthorService {
     author.website = authorData.website;
 
     user.author = author;
-    // author.user = user;
 
     return from(this.authorRepository.save(author)).pipe(
       switchMap(savedAuthor => {
@@ -43,6 +43,10 @@ export class AuthorService {
 
   findOne(id: number): Observable<Author> {
     return from(this.authorRepository.findOneBy({ id }));
+  }
+
+  update(id: number, authorData: UpdateAuthorDto): Observable<UpdateResult>{
+    return from(this.authorRepository.update(id, authorData));
   }
 
   remove(id: number): Observable<void> {

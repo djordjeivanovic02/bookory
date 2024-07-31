@@ -1,9 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { AuthorService } from '../services/services.service';
 import { CreateAuthorDto } from '../dtos/createAuthor.dto';
 import { Observable } from 'rxjs';
 import { Author } from '../entities/author.entity';
 import { User } from 'src/user/entities/user.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UpdateResult } from 'typeorm';
+import { UpdateAuthorDto } from '../dtos/updateAuthor.dto';
 
 @Controller('author')
 export class ControllersController {
@@ -23,6 +26,20 @@ export class ControllersController {
   findOne(@Param('id') id: number): Observable<Author> {
     return this.authorService.findOne(id);
   }
+
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('picture', {
+    dest: './uploads',
+  }))
+  update(
+    @Param('id') id: number,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() authorData: UpdateAuthorDto
+  ): Observable<UpdateResult>{
+    const picturePath = file ? file.path : null;
+    return this.authorService.update(id, { ...authorData, picture: picturePath });
+  }
+
 
   @Delete(':id')
   remove(@Param('id') id: number): Observable<void> {
