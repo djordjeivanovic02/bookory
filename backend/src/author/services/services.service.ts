@@ -81,6 +81,11 @@ export class AuthorService {
     );
   }
 
+  getMostFamous(): Observable<AuthorDataDto[]>{
+    //TODO implementirati funkciju
+    return null;
+  }
+
   update(id: number, authorData: UpdateAuthorDto): Observable<UpdateResult>{
     return from(this.authorRepository.update(id, authorData));
   }

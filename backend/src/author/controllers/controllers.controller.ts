@@ -23,7 +23,7 @@ export class ControllersController {
     return this.authorService.findAll();
   }
 
-  @Get(':id')
+  @Get('findById/:id')
   findOne(@Param('id') id: number): Observable<Author> {
     return this.authorService.findOne(id);
   }
