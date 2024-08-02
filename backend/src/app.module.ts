@@ -9,6 +9,7 @@ import { User } from './user/entities/user.entity';
 import { Author } from './author/entities/author.entity';
 import { AuthModule } from './auth/auth.module';
 import { BookModule } from './book/book.module';
+import { Book } from './book/entities/book.entity';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { BookModule } from './book/book.module';
       }),
       inject: [ConfigService],
     }),
+    TypeOrmModule.forFeature([Author, Book, User]),
     UserModule,
     AuthorModule,
     AuthModule,

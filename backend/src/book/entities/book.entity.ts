@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
+import { Author } from 'src/author/entities/author.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 
 @Entity()
-export class BookEntity {
+export class Book {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -22,4 +23,10 @@ export class BookEntity {
 
     @Column()
     pdf: string;
+
+    @ManyToOne(() => Author, (author) => author.books)
+    author: Author;
+
+    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    created_at: Date;
 }

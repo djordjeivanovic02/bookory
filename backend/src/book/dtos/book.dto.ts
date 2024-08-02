@@ -1,5 +1,6 @@
-export class createBookDto {
+export class CreateBookDto {
     id: number;
+    author: number;
     title: string;
     description: string;
     image: string;
