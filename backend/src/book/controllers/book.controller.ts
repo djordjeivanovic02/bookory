@@ -8,6 +8,8 @@ import { Book } from '../entities/book.entity';
 import { BookService } from '../services/book.service';
 import { BookInfo } from '../dtos/book-info.dto';
 import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
+import { Author } from 'src/author/entities/author.entity';
+import { AuthorBooksDto } from '../dtos/author-books.dto';
 
 @Controller('book')
 export class BookController {
@@ -58,6 +60,12 @@ export class BookController {
       @Query() pagination: PaginationDto
     ): Observable<BookInfo[]> {
       return this.bookService.getAuthorBooks(id, pagination);
+    }
+
+    
+    @Get('authors-by-genre')
+    findAuthorsByGenre(@Body() genreDto: {genre: string}): Observable<AuthorBooksDto[]> {
+      return this.bookService.findAuthorsByGenre(genreDto.genre);
     }
 
     @Get(':id')

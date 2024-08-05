@@ -7,6 +7,7 @@ import { from, map, Observable, switchMap } from 'rxjs';
 import { Author } from 'src/author/entities/author.entity';
 import { BookInfo } from '../dtos/book-info.dto';
 import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
+import { AuthorBooksDto } from '../dtos/author-books.dto';
 
 @Injectable()
 export class BookService {
@@ -99,5 +100,33 @@ export class BookService {
          }))
        )
      )
+    }
+
+
+    findAuthorsByGenre(genre: string): Observable<AuthorBooksDto[]> {
+      return from(this.bookRepository.find({
+        where: { category: genre },
+        relations: ['author'],
+      })).pipe(
+        map(books => {
+          const authorBookCount = new Map<number, { author: Author, count: number }>();
+  
+          books.forEach(book => {
+            if (book.author) {
+              const authorData = authorBookCount.get(book.author.id);
+              if (authorData) {
+                authorData.count += 1;
+              } else {
+                authorBookCount.set(book.author.id, { author: book.author, count: 1 });
+              }
+            }
+          });
+  
+          return Array.from(authorBookCount.values()).map(({ author, count }) => ({
+            author,
+            booksCount: count,
+          }));
+        })
+      );
     }
 }
