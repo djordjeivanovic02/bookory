@@ -51,7 +51,15 @@ export class BookController {
     getNewestBooks(): Observable<BookInfo[]> {
       return this.bookService.getNewestBooks();
     }
-    
+
+    @Get('author-books/:id')
+    getAuthorBooks(
+      @Param('id') id: number,
+      @Query() pagination: PaginationDto
+    ): Observable<BookInfo[]> {
+      return this.bookService.getAuthorBooks(id, pagination);
+    }
+
     @Get(':id')
     findOne(@Param('id') id: number): Observable<BookInfo>{
       return this.bookService.findOne(id);

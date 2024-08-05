@@ -73,4 +73,31 @@ export class BookService {
         relations: ['author']
       }))
     }
+
+    getAuthorBooks(
+      id: number,
+      pagination: PaginationDto
+    ): Observable<BookInfo[]> {
+      const {page, limit} = pagination;
+      const skip = (page - 1) * limit;
+
+      return from(this.bookRepository.find({
+        where: {author: {id}},
+        skip: skip,
+        take: limit
+       })).pipe(
+       map(books => 
+         books.map(book => ({
+             id: book.id,
+             author: book.author,
+             title: book.title,
+             description: book.description,
+             image: book.image,
+             category: book.category,
+             tags: book.tags,
+             pdf: book.pdf,
+         }))
+       )
+     )
+    }
 }
