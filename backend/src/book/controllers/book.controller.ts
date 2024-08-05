@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -45,5 +45,10 @@ export class BookController {
     @Get()
     findAll(@Query() pagination: PaginationDto): Observable<BookInfo[]>{
       return this.bookService.findAll(pagination);
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: number): Observable<BookInfo>{
+      return this.bookService.findOne(id);
     }
 }
