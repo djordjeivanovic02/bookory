@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -6,6 +6,8 @@ import { CreateBookDto } from '../dtos/book.dto';
 import { Observable } from 'rxjs';
 import { Book } from '../entities/book.entity';
 import { BookService } from '../services/book.service';
+import { BookInfo } from '../dtos/book-info.dto';
+import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
 
 @Controller('book')
 export class BookController {
@@ -40,4 +42,8 @@ export class BookController {
       return this.bookService.create(createBookDto);
     }
 
+    @Get()
+    findAll(@Query() pagination: PaginationDto): Observable<BookInfo[]>{
+      return this.bookService.findAll(pagination);
+    }
 }

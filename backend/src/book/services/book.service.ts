@@ -3,8 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult, Like } from 'typeorm';
 import { Book } from '../entities/book.entity';
 import { CreateBookDto } from '../dtos/book.dto';
-import { from, Observable, switchMap } from 'rxjs';
+import { from, map, Observable, switchMap } from 'rxjs';
 import { Author } from 'src/author/entities/author.entity';
+import { BookInfo } from '../dtos/book-info.dto';
+import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
 
 @Injectable()
 export class BookService {
@@ -35,4 +37,28 @@ export class BookService {
           }),
         );
       }
+    
+    findAll(pagination: PaginationDto): Observable<BookInfo[]> {
+      const { page, limit } = pagination;
+      const skip = (page - 1) * limit;
+      
+      return from(this.bookRepository.find({
+         relations: ['author'] ,
+         skip: skip,
+         take: limit
+        })).pipe(
+        map(books => 
+          books.map(book => ({
+              id: book.id,
+              author: book.author,
+              title: book.title,
+              description: book.description,
+              image: book.image,
+              category: book.category,
+              tags: book.tags,
+              pdf: book.pdf,
+          }))
+        )
+      )
+    }
 }
