@@ -46,9 +46,15 @@ export class BookController {
     findAll(@Query() pagination: PaginationDto): Observable<BookInfo[]>{
       return this.bookService.findAll(pagination);
     }
-
+    
+    @Get('newest')
+    getNewestBooks(): Observable<BookInfo[]> {
+      return this.bookService.getNewestBooks();
+    }
+    
     @Get(':id')
     findOne(@Param('id') id: number): Observable<BookInfo>{
       return this.bookService.findOne(id);
     }
+
 }
