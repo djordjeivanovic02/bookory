@@ -129,4 +129,18 @@ export class BookService {
         })
       );
     }
+
+    findBooksByGenre(
+      input: {genre: string, page: number, limit: number}
+    ): Observable<BookInfo[]> {
+      const {page, limit} = input;
+      const skip = (page - 1) * limit;
+      console.log(input.genre);
+      return from(this.bookRepository.find({
+        where: {category: input.genre},
+        relations: ['author'],
+        skip: skip,
+        take: limit
+      }))
+    }
 }

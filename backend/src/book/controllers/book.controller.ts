@@ -68,6 +68,13 @@ export class BookController {
       return this.bookService.findAuthorsByGenre(genreDto.genre);
     }
 
+    @Get('filter')
+    findBooksByGenre(
+      @Query() input: {genre: string, page: number, limit: number},
+    ){
+      return this.bookService.findBooksByGenre(input);
+    }
+
     @Get(':id')
     findOne(@Param('id') id: number): Observable<BookInfo>{
       return this.bookService.findOne(id);
