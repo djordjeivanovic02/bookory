@@ -4,8 +4,6 @@ import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/createUser.dto';
 import { from, map, Observable } from 'rxjs';
-import { Author } from 'src/author/entities/author.entity';
-import { CreateAuthorDto } from 'src/author/dtos/createAuthor.dto';
 
 @Injectable()
 export class UserService {

@@ -10,6 +10,8 @@ import { Author } from './author/entities/author.entity';
 import { AuthModule } from './auth/auth.module';
 import { BookModule } from './book/book.module';
 import { Book } from './book/entities/book.entity';
+import { SavedModule } from './saved/saved.module';
+import { SavedBook } from './saved/entities/saved.entity';
 
 @Module({
   imports: [
@@ -31,11 +33,12 @@ import { Book } from './book/entities/book.entity';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([Author, Book, User]),
+    TypeOrmModule.forFeature([Author, Book, User, SavedBook]),
     UserModule,
     AuthorModule,
     AuthModule,
     BookModule,
+    SavedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
