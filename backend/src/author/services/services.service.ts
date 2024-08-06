@@ -3,10 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Author } from '../entities/author.entity';
 import { Repository, UpdateResult, Like } from 'typeorm';
 import { CreateAuthorDto } from '../dtos/createAuthor.dto';
-import { from, map, Observable, switchMap } from 'rxjs';
+import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
 import { User } from 'src/user/entities/user.entity';
 import { UpdateAuthorDto } from '../dtos/updateAuthor.dto';
 import { AuthorDataDto } from '../dtos/authorData.dto';
+import { Book } from 'src/book/entities/book.entity';
+import { Review } from 'src/reviews/entities/reviews.entity';
+import { SavedBook } from 'src/saved/entities/saved.entity';
+import { AuthorStatDto } from '../dtos/authorStat.dto';
 
 @Injectable()
 export class AuthorService {
@@ -15,6 +19,12 @@ export class AuthorService {
     private authorRepository: Repository<Author>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(Book)
+    private readonly bookRepository: Repository<Book>,
+    @InjectRepository(Review)
+    private readonly reviewRepository: Repository<Review>,
+    @InjectRepository(SavedBook)
+    private readonly savedBookRepository: Repository<SavedBook>,
   ) { }
 
 
@@ -83,9 +93,39 @@ export class AuthorService {
     );
   }
 
-  getMostFamous(): Observable<AuthorDataDto[]>{
-    //TODO implementirati funkciju
-    return null;
+  getMostFamous(): Observable<AuthorStatDto[]> {
+    return from(this.authorRepository.find({ relations: ['books'] })).pipe(
+      mergeMap(authors => from(authors)),
+      mergeMap(author =>
+        from(Promise.all(author.books.map(async book => {
+          const reviews = await this.reviewRepository.find({ where: { book: { id: book.id } } });
+          const saves = await this.savedBookRepository.count({ where: { book: { id: book.id } } });
+          const averageRating = reviews.length > 0
+            ? reviews.reduce((sum, review) => sum + review.rate, 0) / reviews.length
+            : 0;
+          return { averageRating, saves };
+        }))).pipe(
+          map(bookStats => {
+            const totalAverageRating = bookStats.reduce((sum, stats) => sum + stats.averageRating, 0) / bookStats.length;
+            const totalSaves = bookStats.reduce((sum, stats) => sum + stats.saves, 0);
+            return { author, totalAverageRating, totalSaves };
+          })
+        )
+      ),
+      toArray(),
+      map(authorStats =>
+        authorStats
+          .map(({ author, totalAverageRating, totalSaves }) => ({
+            id: author.id,
+            firstName: author.firstName,
+            lastName: author.lastName,
+            averageRating: totalAverageRating,
+            totalSaves,
+          }))
+          .sort((a, b) => b.averageRating - a.averageRating || b.totalSaves - a.totalSaves)
+      ),
+      map(authorStats => authorStats.slice(0, 6))
+    );
   }
 
   update(id: number, authorData: UpdateAuthorDto): Observable<UpdateResult>{

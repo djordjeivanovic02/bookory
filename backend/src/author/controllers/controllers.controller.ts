@@ -8,6 +8,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { UpdateResult } from 'typeorm';
 import { UpdateAuthorDto } from '../dtos/updateAuthor.dto';
 import { AuthorDataDto } from '../dtos/authorData.dto';
+import { AuthorStatDto } from '../dtos/authorStat.dto';
 
 @Controller('author')
 export class ControllersController {
@@ -46,6 +47,10 @@ export class ControllersController {
     return this.authorService.update(id, { ...authorData, picture: picturePath });
   }
 
+  @Get('most-famous')
+  getMostFamous():Observable<AuthorStatDto[]> {
+    return this.authorService.getMostFamous();
+  }
 
   @Delete(':id')
   remove(@Param('id') id: number): Observable<void> {
