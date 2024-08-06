@@ -13,6 +13,7 @@ import { Book } from './book/entities/book.entity';
 import { SavedModule } from './saved/saved.module';
 import { SavedBook } from './saved/entities/saved.entity';
 import { DownloadsModule } from './downloads/downloads.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { DownloadsModule } from './downloads/downloads.module';
     BookModule,
     SavedModule,
     DownloadsModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
