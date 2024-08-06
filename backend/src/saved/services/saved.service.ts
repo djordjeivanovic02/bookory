@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SavedBook } from '../entities/saved.entity';
-import { Repository } from 'typeorm';
+import { Repository, DeleteResult } from 'typeorm';
 import { CreateSavedDto } from '../dtos/createSaved.dto';
 import { from, Observable, switchMap } from 'rxjs';
 import { User } from 'src/user/entities/user.entity';
 import { Book } from 'src/book/entities/book.entity';
+import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
 
 @Injectable()
 export class SavedService {
@@ -44,5 +45,24 @@ export class SavedService {
                 book: {id: data.book_id}     
             }
         }));
+    }
+
+    findUserSavedAds(
+        pagination: PaginationDto,
+        id: number
+    ): Observable<SavedBook[]>{
+        const {page, limit} = pagination;
+        const skip = (page-1) * limit;
+
+        return from(this.savedRepository.find({
+            where: {user: {id}},
+            relations: ['book'],
+            skip: skip,
+            take: limit
+        }));
+    }
+
+    remove(id: number): Observable<DeleteResult> {
+        return from(this.bookRepository.delete(id));
     }
 }
