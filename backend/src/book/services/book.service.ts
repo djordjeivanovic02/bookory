@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult, Like } from 'typeorm';
+import { Repository, UpdateResult, Like, In } from 'typeorm';
 import { Book } from '../entities/book.entity';
 import { CreateBookDto } from '../dtos/book.dto';
 import { from, map, Observable, switchMap } from 'rxjs';
@@ -103,9 +103,12 @@ export class BookService {
     }
 
 
-    findAuthorsByGenre(genre: string): Observable<AuthorBooksDto[]> {
+    findAuthorsByGenre(genre: string[] | string): Observable<AuthorBooksDto[]> {
+      console.log("Genre",genre);
+      const genreCondition = Array.isArray(genre) ? { category: In(genre) } : { category: genre };
+
       return from(this.bookRepository.find({
-        where: { category: genre },
+        where: genreCondition ,
         relations: ['author'],
       })).pipe(
         map(books => {
@@ -131,16 +134,34 @@ export class BookService {
     }
 
     findBooksByGenre(
-      input: {genre: string, page: number, limit: number}
+      input: {genre: string[] | string, page: number, limit: number}
     ): Observable<BookInfo[]> {
       const {page, limit} = input;
       const skip = (page - 1) * limit;
-      console.log(input.genre);
+
+      const genreCondition = Array.isArray(input.genre) ? { category: In(input.genre) } : { category: input.genre };
+
       return from(this.bookRepository.find({
-        where: {category: input.genre},
+        where: genreCondition,
         relations: ['author'],
         skip: skip,
         take: limit
       }))
+    }
+
+    findCategoriesByAuthors(authors: number[]): Observable<string[]> {
+      const authorsCondition = Array.isArray(authors) ? { author: {id: In(authors)} } : { author: { id: authors } };
+      return from(this.bookRepository.find({
+        where: authorsCondition,
+        relations: ['author'],
+      })).pipe(
+        map(books => {
+          const categories = new Set<string>();
+          books.forEach(book => {
+            categories.add(book.category);
+          });
+          return Array.from(categories);
+        }),
+      );
     }
 }

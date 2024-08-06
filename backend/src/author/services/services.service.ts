@@ -42,6 +42,7 @@ export class AuthorService {
     return from(this.authorRepository.find()).pipe(
       map(authors =>
         authors.map(author => ({
+          id: author.id,
           firstName: author.firstName,
           lastName: author.lastName,
           picture: author.picture,
@@ -69,6 +70,7 @@ export class AuthorService {
     ).pipe(
       map(authors =>
         authors.map(author => ({
+          id: author.id,
           firstName: author.firstName,
           lastName: author.lastName,
           picture: author.picture,

@@ -62,15 +62,19 @@ export class BookController {
       return this.bookService.getAuthorBooks(id, pagination);
     }
 
-    
     @Get('authors-by-genre')
-    findAuthorsByGenre(@Body() genreDto: {genre: string}): Observable<AuthorBooksDto[]> {
+    findAuthorsByGenre(@Query() genreDto: {genre: string[] | string}): Observable<AuthorBooksDto[]> {
       return this.bookService.findAuthorsByGenre(genreDto.genre);
+    }
+
+    @Get('categories-by-authors')
+    findCategoriesByAuthors(@Query('authors') authors: number[]): Observable<string[]> {
+      return this.bookService.findCategoriesByAuthors(authors);
     }
 
     @Get('filter')
     findBooksByGenre(
-      @Query() input: {genre: string, page: number, limit: number},
+      @Query() input: {genre: string[] | string, page: number, limit: number},
     ){
       return this.bookService.findBooksByGenre(input);
     }
