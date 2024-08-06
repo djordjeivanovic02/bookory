@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult, Like, In } from 'typeorm';
+import { Repository, UpdateResult, ILike, In } from 'typeorm';
 import { Book } from '../entities/book.entity';
 import { CreateBookDto } from '../dtos/book.dto';
 import { from, map, Observable, switchMap } from 'rxjs';
@@ -170,5 +170,11 @@ export class BookService {
           return Array.from(categories);
         }),
       );
+    }
+
+    searchBook(text: string): Observable<BookInfo[]> {
+      return from(this.bookRepository.find({
+        where: { title: ILike(`${text}%`)}
+      }));
     }
 }

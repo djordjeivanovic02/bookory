@@ -80,6 +80,13 @@ export class BookController {
       return this.bookService.filterBook(input);
     }
 
+    @Get('search')
+    searchBook(
+      @Query('text') text: string
+    ): Observable<BookInfo[]>{
+      return this.bookService.searchBook(text);
+    }
+
     @Get(':id')
     findOne(@Param('id') id: number): Observable<BookInfo>{
       return this.bookService.findOne(id);
