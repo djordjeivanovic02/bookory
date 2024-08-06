@@ -10,6 +10,7 @@ import { BookInfo } from '../dtos/book-info.dto';
 import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
 import { Author } from 'src/author/entities/author.entity';
 import { AuthorBooksDto } from '../dtos/author-books.dto';
+import { FilterDto } from '../dtos/filter.dto';
 
 @Controller('book')
 export class BookController {
@@ -74,9 +75,9 @@ export class BookController {
 
     @Get('filter')
     findBooksByGenre(
-      @Query() input: {genre: string[] | string, page: number, limit: number},
+      @Query() input: FilterDto,
     ){
-      return this.bookService.findBooksByGenre(input);
+      return this.bookService.filterBook(input);
     }
 
     @Get(':id')

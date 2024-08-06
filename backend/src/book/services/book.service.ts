@@ -8,6 +8,8 @@ import { Author } from 'src/author/entities/author.entity';
 import { BookInfo } from '../dtos/book-info.dto';
 import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
 import { AuthorBooksDto } from '../dtos/author-books.dto';
+import { FilterDto } from '../dtos/filter.dto';
+import { title } from 'process';
 
 @Injectable()
 export class BookService {
@@ -133,20 +135,25 @@ export class BookService {
       );
     }
 
-    findBooksByGenre(
-      input: {genre: string[] | string, page: number, limit: number}
-    ): Observable<BookInfo[]> {
-      const {page, limit} = input;
+    filterBook(input: FilterDto): Observable<BookInfo[]> {
+      const { page, limit, sort } = input;
       const skip = (page - 1) * limit;
-
+  
       const genreCondition = Array.isArray(input.genre) ? { category: In(input.genre) } : { category: input.genre };
-
+      const authorsCondition = Array.isArray(input.authors) ? { author: { id: In(input.authors) } } : { author: { id: input.authors } };
+  
+      let orderBy: { [key: string]: 'ASC' | 'DESC' } = {};
+  
+      if(sort == 1) orderBy = { created_at: 'DESC' };
+      else orderBy = { title: 'ASC' }
+  
       return from(this.bookRepository.find({
-        where: genreCondition,
+        where: { ...genreCondition, ...authorsCondition },
         relations: ['author'],
         skip: skip,
-        take: limit
-      }))
+        take: limit,
+        order: orderBy,
+      }));
     }
 
     findCategoriesByAuthors(authors: number[]): Observable<string[]> {
