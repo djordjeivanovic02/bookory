@@ -1,4 +1,5 @@
 import { Author } from 'src/author/entities/author.entity';
+import { DownloadedBook } from 'src/downloads/entities/downloads.entity';
 import { SavedBook } from 'src/saved/entities/saved.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany} from 'typeorm';
 
@@ -30,6 +31,9 @@ export class Book {
 
     @OneToMany(() => SavedBook, savedBook => savedBook.book)
     savedBooks: SavedBook[];
+
+    @OneToMany(() => DownloadedBook, downloadedBook => downloadedBook.book)
+    downloadedBooks: DownloadedBook[];
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
