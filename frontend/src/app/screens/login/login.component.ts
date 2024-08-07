@@ -10,7 +10,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "../../core/interfaces/navlink.interface";
 import { AuthService } from "../../shared/services/auth/auth.service";
 import { Store } from "@ngrx/store";
-import { setToken } from "../../shared/store/auth/auth.actions";
+import { login } from "../../shared/store/auth/auth.actions";
 
 @Component({
   selector: "app-login",
@@ -41,16 +41,7 @@ export class LoginComponent {
     this.password = value;
   }
   login(){
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
-        const token = response.token;
-        this.store.dispatch(setToken({ token }));
-        console.log('Login successful', response);
-      },
-      error: (error) => {
-        console.error('Login failed', error);
-      }
-    });
+    this.store.dispatch(login({username: this.email, password: this.password}));
   }
 
   toggleWriter(value: Boolean) {
