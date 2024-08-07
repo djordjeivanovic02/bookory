@@ -58,6 +58,12 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { UploadImageComponent } from './shared/components/upload-image/upload-image.component';
 import { CustomTextareaComponent } from './shared/components/custom-textarea/custom-textarea.component';
 import { CustomSelectComponent } from './shared/components/custom-select/custom-select.component';
+import { StoreModule } from "@ngrx/store";
+import { authReducer } from "./shared/store/auth/auth.reducer";
+import { EffectsModule } from "@ngrx/effects";
+import { AuthEffects } from "./shared/store/auth/auth.effects";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -114,6 +120,13 @@ import { CustomSelectComponent } from './shared/components/custom-select/custom-
     FontAwesomeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot({auth: authReducer}),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    })
   ],
   providers: [
     provideClientHydration(),
