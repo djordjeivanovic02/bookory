@@ -1,23 +1,18 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from "@angular/animations";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "../../core/interfaces/navlink.interface";
-import { AuthService } from "../../shared/services/auth/auth.service";
 import { Store } from "@ngrx/store";
 import { login } from "../../shared/store/auth/auth.actions";
+import { Observable } from "rxjs";
+import { selectAuthError, selectAuthState } from "../../shared/store/auth/auth.selectores";
+import { AuthState } from "../../shared/store/auth/auth.reducer";
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.scss",
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   faArrowRight = faArrowRight;
   isWriter: Boolean = false;
   link: NavLink[] = [
@@ -26,19 +21,23 @@ export class LoginComponent {
       route: "/",
     },
   ];
+  isError: Boolean = false;
+  isSuccess: Boolean = false;
+  notification: string = "";
+  loginButtonDisabled = true;
+
+  authError$: Observable<any>;
+
   email: string = '';
   password: string = '';
-
-  constructor(
-    private authService: AuthService,
-    private store: Store
-  ){}
-
+  
   onEmailValueChange(value: string){
     this.email = value;
+    if(this.email !== '' && this.password !== '') this.loginButtonDisabled = false;
   }
   onPasswordValueChange(value: string){
     this.password = value;
+    if(this.email !== '' && this.password !== '') this.loginButtonDisabled = false;
   }
   login(){
     this.store.dispatch(login({username: this.email, password: this.password}));
@@ -46,5 +45,21 @@ export class LoginComponent {
 
   toggleWriter(value: Boolean) {
     this.isWriter = value;
+  }
+
+  constructor(
+    private store: Store
+  ){
+    this.authError$ = this.store.select(selectAuthError);
+  }
+  
+  ngOnInit() {
+    this.authError$.subscribe(error => {
+      if (error) {
+        console.log(error);
+        this.isError = true;
+        this.notification = error;
+      }
+    });
   }
 }

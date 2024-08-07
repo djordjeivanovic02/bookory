@@ -6,9 +6,13 @@
 <div
     class="main w-100 d-flex flex-column justify-content-center align-items-center"
 >
-    <div class="main-container error-container w-100">
-        <span>Error: </span>
-        <p class="m-0 d-inline-block">The password field is empty.</p>
+    <div class="main-container w-100"
+        [ngClass]="{'error-container': isError, 'success-container': isSuccess}"
+        *ngIf="isError || isSuccess"
+    >
+        <span *ngIf="isError">Greška: </span>
+        <span *ngIf="isSuccess">Uspešna registracija: </span>
+        <p class="m-0 d-inline-block">{{notification}}</p>
     </div>
     <div
         class="main-container login-register-main d-flex justify-content-center"
@@ -42,6 +46,7 @@
                 <app-login-register-button
                     text="Prijavi se"
                     (buttonClicked)="login()"
+                    [disabled] = "loginButtonDisabled"
                 ></app-login-register-button>
             </div>
         </div>

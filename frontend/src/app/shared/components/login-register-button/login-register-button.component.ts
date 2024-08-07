@@ -8,6 +8,8 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class LoginRegisterButtonComponent {
   @Input()
   text: string = "";
+  @Input()
+  disabled: boolean = false;
   
   @Output()
   buttonClicked = new EventEmitter<void>();

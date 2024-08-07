@@ -16,8 +16,12 @@ export class AuthEffects {
       mergeMap(action =>
         this.authService.login(action.username, action.password).pipe(
           map(response => {
-            const { token } = response; 
-            return loginSuccess({ token });
+            if(response){
+              const { token } = response; 
+              return loginSuccess({ token });
+            }else{
+              return loginFailure({error: "Pogrešna email adresa ili lozinka!"})
+            }
           }),
           catchError(error => of(loginFailure({ error })))
         )

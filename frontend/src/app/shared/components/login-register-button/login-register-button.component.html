@@ -1,1 +1,7 @@
-<button class="w-100" (click)="onButtonClick()">{{ text }}</button>
+<button 
+    class="w-100" 
+    (click)="onButtonClick()"
+    [disabled]="disabled"
+>
+    {{ text }}
+</button>
