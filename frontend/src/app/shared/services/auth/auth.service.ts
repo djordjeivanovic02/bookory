@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginResponse } from '../../dtos/login-response.dto'
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { registerResponse } from '../../dtos/register-response.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,14 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, {username, password});
   }
 
+  registerUser(email: string, password: string): Observable<registerResponse> {
+    return this.http.post<registerResponse>(`${this.apiUrl}/auth/registerUser`, { email, password });
+  }
+
   register(name: string, surname: string, email: string, password: string): Observable<any> {
     return this.http.post<{ token: string }>(`${this.apiUrl}/auth/register`, { name, surname, email, password });
   }
+
 
   decodeToken(token: string): JwtPayload | null {
     try {

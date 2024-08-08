@@ -11,4 +11,4 @@ export const selectToken = createSelector(
 export const selectAuthError = createSelector(
     selectAuthState,
     (authState) => authState.error
-  );
+);

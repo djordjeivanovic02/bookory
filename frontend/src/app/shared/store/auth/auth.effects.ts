@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { AuthService } from "../../services/auth/auth.service";
-import { login, loginFailure, loginSuccess, logout, registerFailure, registerr, registerSuccess } from "./auth.actions";
+import { login, loginFailure, loginSuccess, logout, registerFailure, registerr, registerSuccess, registerUser, registerUserFailure, registerUserSuccess } from "./auth.actions";
 import { catchError, filter, map, mergeMap, of, tap } from "rxjs";
 import { LocalstorageService } from "../../services/localstorage/localstorage.service";
 import { Router } from "@angular/router";
@@ -59,6 +59,28 @@ export class AuthEffects {
           return logout();
         }
       })
+    )
+  );
+
+  registerUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(registerUser),
+      mergeMap(action =>
+        this.authService.registerUser(action.email, action.password).pipe(
+          map(response => {
+            if(response){
+              const { success, data, message } = response; 
+              if(success)
+                return registerUserSuccess({ status: success, data: data });
+              else
+                return registerUserFailure({status: success, message: message})
+            }else{
+              return registerUserFailure({status: false, message: "Došlo je do greške prilikom registracije!"})
+            }
+          }),
+          catchError(error => of(registerUserFailure({status: false, message: "Došlo je do greške prilikom registracije!"})))
+        )
+      )
     )
   );
 

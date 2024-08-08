@@ -57,6 +57,7 @@
                     title="Email adresa"
                     placeholder="Unesite vašu email adresu"
                     [isRequired]="true"
+                    (valueChange)="onRegisterEmailChange($event)"
                 ></app-custom-input>
                 <app-custom-input
                     title="Lozinka"
@@ -64,6 +65,7 @@
                     type="password"
                     [isPassword]="true"
                     [isRequired]="true"
+                    (valueChange)="onRegisterPasswordChange($event)"
                 ></app-custom-input>
                 <div
                     class="additional-fields"
@@ -114,6 +116,7 @@
 
                 <app-login-register-button
                     text="Registruj se"
+                    (buttonClicked)="register()"
                 ></app-login-register-button>
             </div>
         </div>

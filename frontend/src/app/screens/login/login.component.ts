@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "../../core/interfaces/navlink.interface";
 import { Store } from "@ngrx/store";
-import { login } from "../../shared/store/auth/auth.actions";
+import { login, registerUser } from "../../shared/store/auth/auth.actions";
 import { Observable } from "rxjs";
 import { selectAuthError, selectAuthState } from "../../shared/store/auth/auth.selectores";
 import { AuthState } from "../../shared/store/auth/auth.reducer";
@@ -41,6 +41,24 @@ export class LoginComponent implements OnInit {
   }
   login(){
     this.store.dispatch(login({username: this.email, password: this.password}));
+  }
+
+  registerEmail: string = '';
+  registerPassword: string = '';
+
+  onRegisterEmailChange(value: string){
+    this.registerEmail = value;
+  }
+  onRegisterPasswordChange(value: string){
+    this.registerPassword = value;
+  }
+
+  register(){
+    if(this.isWriter){
+
+    }else{
+      this.store.dispatch(registerUser({email: this.registerEmail, password: this.registerPassword}));
+    }
   }
 
   toggleWriter(value: Boolean) {
