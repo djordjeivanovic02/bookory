@@ -34,19 +34,19 @@ export const registerUserFailure = createAction(
 )
 
 //REGISTER AUTHOR
-export const registerr = createAction(
+export const registerAuthor = createAction(
   '[Auth] Register',
-  props<{ name: string; surname: string; email: string; password: string }>()
+  props<{ email: string; password: string; name: string; surname: string; website?: string}>()
 );
 
-export const registerSuccess = createAction(
+export const registerAuthorSuccess = createAction(
   '[Auth] Register Success',
-  props<{ token: string}>()
+  props<{status: boolean, data?: string}>()
 );
 
-export const registerFailure = createAction(
+export const registerAuthorFailure = createAction(
   '[Auth] Register Failure',
-  props<{ error: any }>()
+  props<{status: boolean, message?: string}>()
 );
 
 

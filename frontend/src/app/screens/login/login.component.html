@@ -74,15 +74,18 @@
                     <app-custom-input
                         title="Ime"
                         [isRequired]="true"
+                        (valueChange)="onRegisterNameChange($event)"
                     ></app-custom-input>
                     <app-custom-input
                         title="Prezime"
                         [isRequired]="true"
+                        (valueChange)="onRegisterSurnameChange($event)"
                     ></app-custom-input>
                     <app-custom-input
                         title="Websajt"
                         [isRequired]="true"
                         addition="https://www.vasvebsajt.com/about"
+                        (valueChange)="onRegisterWebsiteChange($event)"
                     ></app-custom-input>
                 </div>
                 <div class="profileType">
@@ -117,6 +120,7 @@
                 <app-login-register-button
                     text="Registruj se"
                     (buttonClicked)="register()"
+                    [disabled] = "registerButtonDisabled"
                 ></app-login-register-button>
             </div>
         </div>

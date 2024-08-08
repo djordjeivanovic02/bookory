@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { AuthService } from "../../services/auth/auth.service";
-import { login, loginFailure, loginSuccess, logout, registerFailure, registerr, registerSuccess, registerUser, registerUserFailure, registerUserSuccess } from "./auth.actions";
+import { login, loginFailure, loginSuccess, logout, registerAuthor, registerAuthorFailure, registerAuthorSuccess, registerUser, registerUserFailure, registerUserSuccess } from "./auth.actions";
 import { catchError, filter, map, mergeMap, of, tap } from "rxjs";
 import { LocalstorageService } from "../../services/localstorage/localstorage.service";
 import { Router } from "@angular/router";
@@ -85,17 +85,23 @@ export class AuthEffects {
   );
 
   
-  register$ = createEffect(() =>
+  registerAuthor$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(registerr),
+      ofType(registerAuthor),
       mergeMap(action =>
-        this.authService.register(action.name, action.surname, action.email, action.password).pipe(
+        this.authService.registerAuthor(action.name, action.surname, action.email, action.password, action.website).pipe(
           map(response => {
-            const { token, user } = response.data; 
-            this.localStorageService.setItem('authToken', token);
-            return registerSuccess({ token });
+            if(response){
+              const { success, data, message } = response; 
+              if(success)
+                return registerAuthorSuccess({ status: success, data: data });
+              else
+                return registerAuthorFailure({status: success, message: message})
+            }else{
+              return registerAuthorFailure({status: false, message: "Došlo je do greške prilikom registracije"})
+            }
           }),
-          catchError(error => of(registerFailure({ error })))
+          catchError(error => of(registerAuthorFailure({status: false, message: "Došlo je do greške prilikom registracije"})))
         )
       )
     )
@@ -103,7 +109,7 @@ export class AuthEffects {
 
   registerSuccess$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(registerSuccess),
+      ofType(registerAuthorSuccess),
       tap(action => {
         this.router.navigate(['/dashboard']);
       })
