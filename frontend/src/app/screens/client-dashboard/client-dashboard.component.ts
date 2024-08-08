@@ -15,7 +15,7 @@ export class ClientDashboardComponent {
     },
   ];
   actions = clientDashboardActions;
-  selectedContainer = 2;
+  selectedContainer = 0;
 
   showContainer(index: number, event: Event) {
     event.preventDefault();

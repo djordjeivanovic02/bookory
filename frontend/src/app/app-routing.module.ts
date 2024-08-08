@@ -9,6 +9,7 @@ import { SavedComponent } from "./screens/saved/saved.component";
 import { AllAuthorsComponent } from "./screens/all-authors/all-authors.component";
 import { ClientDashboardComponent } from "./screens/client-dashboard/client-dashboard.component";
 import { AuthorDashboardComponent } from "./screens/author-dashboard/author-dashboard.component";
+import { AuthGuard } from "./shared/guards/auth.guard";
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
@@ -18,7 +19,7 @@ const routes: Routes = [
   { path: "shop", component: ShopComponent },
   { path: "saved", component: SavedComponent },
   { path: "all-authors", component: AllAuthorsComponent },
-  { path: "client-dashboard", component: ClientDashboardComponent },
+  { path: "client-dashboard", component: ClientDashboardComponent, canActivate:[AuthGuard] },
   { path: "author-dashboard", component: AuthorDashboardComponent },
 ];
 
