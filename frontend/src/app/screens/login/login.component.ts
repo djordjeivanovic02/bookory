@@ -4,8 +4,7 @@ import { NavLink } from "../../core/interfaces/navlink.interface";
 import { Store } from "@ngrx/store";
 import { login, registerAuthor, registerUser } from "../../shared/store/auth/auth.actions";
 import { Observable } from "rxjs";
-import { selectAuthError, selectAuthState, selectAuthSuccess } from "../../shared/store/auth/auth.selectores";
-import { AuthState } from "../../shared/store/auth/auth.reducer";
+import { selectAuthError, selectAuthSuccess } from "../../shared/store/auth/auth.selectores";
 
 @Component({
   selector: "app-login",

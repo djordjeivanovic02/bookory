@@ -52,3 +52,13 @@ export const registerAuthorFailure = createAction(
 
 //LOGOUT
 export const logout = createAction('[Auth] Logout');
+
+//CHECK TOKEN
+export const loadTokenSuccess = createAction(
+  '[Auth] Token Loadedd Successfully',
+  props<{token: string}>()
+);
+
+export const loadTokenFailure= createAction(
+  '[Auth] Token Loadedd Failure'
+);

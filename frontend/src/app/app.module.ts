@@ -64,6 +64,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { AuthEffects } from "./shared/store/auth/auth.effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
+import { reducers } from "./app.state";
 
 @NgModule({
   declarations: [
@@ -121,7 +122,7 @@ import { environment } from "../environments/environment";
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({auth: authReducer}),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

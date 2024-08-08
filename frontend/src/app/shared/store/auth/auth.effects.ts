@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { AuthService } from "../../services/auth/auth.service";
-import { login, loginFailure, loginSuccess, logout, registerAuthor, registerAuthorFailure, registerAuthorSuccess, registerUser, registerUserFailure, registerUserSuccess } from "./auth.actions";
+import { loadTokenFailure, loadTokenSuccess, login, loginFailure, loginSuccess, logout, registerAuthor, registerAuthorFailure, registerAuthorSuccess, registerUser, registerUserFailure, registerUserSuccess } from "./auth.actions";
 import { catchError, filter, map, mergeMap, of, tap } from "rxjs";
 import { LocalstorageService } from "../../services/localstorage/localstorage.service";
 import { Router } from "@angular/router";
@@ -54,12 +54,30 @@ export class AuthEffects {
       map(token => {
         if (this.authService.isValidToken(token!)) {
           const user = this.authService.getUserFromToken(token!);
-          return loginSuccess({ token: token! });
+          return loadTokenSuccess({ token: token! });
         } else {
-          return logout();
+          return loadTokenFailure();
         }
       })
     )
+  );
+
+  storeToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadTokenSuccess),
+      tap(action => {
+        this.localStorageService.setItem('authToken', action.token);
+      })
+    ), { dispatch: false }
+  );
+
+  removeToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadTokenFailure),
+      tap(() => {
+        this.localStorageService.removeItem('authToken');
+      })
+    ), { dispatch: false }
   );
 
   registerUser$ = createEffect(() =>
