@@ -13,7 +13,7 @@
                             href=""
                             class="d-flex justify-content-between"
                             [ngClass]="{ active: i === selectedContainer }"
-                            (click)="showContainer(i, $event)"
+                            (click)="(i !== actions.length-1) ? showContainer(i, $event) : logout()"
                         >
                             <p class="m-0">{{ action.name }}</p>
                             <fa-icon [icon]="action.icon"></fa-icon>

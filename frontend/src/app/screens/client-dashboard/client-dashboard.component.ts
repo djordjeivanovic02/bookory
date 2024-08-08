@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { NavLink } from "../../core/interfaces/navlink.interface";
 import { clientDashboardActions } from "../../shared/local-lists/client-dashboard-actions";
+import { Store } from "@ngrx/store";
+import { logout } from "../../shared/store/auth/auth.actions";
 
 @Component({
   selector: "app-client-dashboard",
@@ -21,4 +23,9 @@ export class ClientDashboardComponent {
     event.preventDefault();
     this.selectedContainer = index;
   }
+
+  logout(){
+    this.store.dispatch(logout());
+  }
+  constructor(private store: Store){}
 }
