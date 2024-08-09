@@ -1,6 +1,13 @@
 <!-- <app-not-found title="Još uvek nemate sačuvane knjige."></app-not-found> -->
 <p>
-    Zdravo <span>Djorde Ivanovic</span> (niste <span>Djordje Ivanovic</span>?
+    Zdravo 
+    <span *ngIf="userData && userData.author">{{userData.author.firstName}} {{userData.author.lastName}}</span> 
+    <span *ngIf="userData && !userData.author">{{userData.email}}</span> 
+    
+    (niste 
+    <span *ngIf="userData && userData.author">{{userData.author.firstName}} {{userData.author.lastName}}</span> 
+    <span *ngIf="userData && !userData.author">{{userData.email}}</span> 
+    ?
     <a href="">Odjavi se</a>)
 </p>
 
@@ -10,6 +17,7 @@
     <a href="">preuzete knjige</a>.
 </p>
 <app-button-with-icon
+    *ngIf="userData && userData.author"
     [showIcon]="false"
     text="Autorska kontrolna tabla"
 ></app-button-with-icon>

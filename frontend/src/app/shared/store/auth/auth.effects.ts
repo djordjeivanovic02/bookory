@@ -59,7 +59,6 @@ export class AuthEffects {
       filter(token => !!token),
       map(token => {
         if (this.authService.isValidToken(token!)) {
-          console.log("Tu sam");
           return loadTokenSuccess({ token: token! });
         } else {
           return loadTokenFailure();
@@ -73,11 +72,6 @@ export class AuthEffects {
       ofType(loadTokenSuccess),
       tap(action => {
         this.localStorageService.setItem('authToken', action.token);
-      }),
-      switchMap(action => {
-        console.log("Tua dasds");
-        const userId = this.authService.getUserFromToken(action.token).id;
-        return of(loadUserData({ id: userId }));
       })
     )
   );

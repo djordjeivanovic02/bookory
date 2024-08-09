@@ -5,6 +5,8 @@ import { Store } from "@ngrx/store";
 import { logout } from "../../shared/store/auth/auth.actions";
 import { Observable } from "rxjs";
 import { selectAuthSuccess } from "../../shared/store/auth/auth.selectores";
+import { UserDataDto } from "../../shared/dtos/user-data.dto";
+import { selectUserData } from "../../shared/store/user/user.selectors";
 
 @Component({
   selector: "app-client-dashboard",
@@ -20,7 +22,8 @@ export class ClientDashboardComponent implements OnInit {
   ];
   actions = clientDashboardActions;
   selectedContainer = 0;
-  userData$: Observable<any>;
+  userData$: Observable<UserDataDto | undefined | null>;
+
 
   showContainer(index: number, event: Event) {
     event.preventDefault();
@@ -32,7 +35,7 @@ export class ClientDashboardComponent implements OnInit {
   }
 
   constructor(private store: Store){
-    this.userData$ = this.store.select(selectAuthSuccess);
+    this.userData$ = this.store.select(selectUserData);
   }
 
   ngOnInit(): void {

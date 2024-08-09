@@ -22,18 +22,19 @@
                 </ul>
             </div>
             <div class="main-container2 w-100">
+                <app-client-dashboard-part
+                    *ngIf="selectedContainer === 0"
+                    [userData]="userData$ | async"
+                ></app-client-dashboard-part>
                 <app-saved-list
                     *ngIf="selectedContainer === 1"
                 ></app-saved-list>
-                <app-client-dashboard-part
-                    *ngIf="selectedContainer === 0"
-                ></app-client-dashboard-part>
-                <app-client-profile-data
-                    *ngIf="selectedContainer === 3"
-                ></app-client-profile-data>
                 <app-client-downloads-part
                     *ngIf="selectedContainer === 2"
                 ></app-client-downloads-part>
+                <app-client-profile-data
+                    *ngIf="selectedContainer === 3"
+                ></app-client-profile-data>
             </div>
         </div>
     </div>
