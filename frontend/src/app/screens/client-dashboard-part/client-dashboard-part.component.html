@@ -16,8 +16,10 @@
     upravljati sa <a href="">podacima o nalogu</a>, pregledati
     <a href="">preuzete knjige</a>.
 </p>
-<app-button-with-icon
-    *ngIf="userData && userData.author"
-    [showIcon]="false"
-    text="Autorska kontrolna tabla"
-></app-button-with-icon>
+<a href="/author-dashboard" class="btn">
+    <app-button-with-icon
+        *ngIf="userData && userData.author"
+        [showIcon]="false"
+        text="Autorska kontrolna tabla"
+    ></app-button-with-icon>
+</a>

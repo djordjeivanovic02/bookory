@@ -11,19 +11,18 @@ import { ClientDashboardComponent } from "./screens/client-dashboard/client-dash
 import { AuthorDashboardComponent } from "./screens/author-dashboard/author-dashboard.component";
 import { AuthGuard } from "./shared/guards/auth.guard";
 import { NotAuthGuard } from "./shared/guards/not-auth.guard";
+import { AuthorGuard } from "./shared/guards/author.guard";
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
-  // { path: "login", component: LoginComponent, canActivate: [NotAuthGuard]},
-  { path: "login", component: LoginComponent},
+  { path: "login", component: LoginComponent, canActivate: [NotAuthGuard]},
   { path: "book", component: BookComponent },
   { path: "author", component: AuthorComponent },
   { path: "shop", component: ShopComponent },
   // { path: "saved", component: SavedComponent },
   { path: "all-authors", component: AllAuthorsComponent },
-  // { path: "client-dashboard", component: ClientDashboardComponent},
   { path: "client-dashboard", component: ClientDashboardComponent, canActivate:[AuthGuard] },
-  { path: "author-dashboard", component: AuthorDashboardComponent},
+  { path: "author-dashboard", component: AuthorDashboardComponent, canActivate:[AuthorGuard]},
 ];
 
 @NgModule({

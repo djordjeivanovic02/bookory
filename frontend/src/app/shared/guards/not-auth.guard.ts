@@ -23,11 +23,12 @@ export class NotAuthGuard implements CanActivate {
             select(selectToken),
             take(1),
             map(token => {
+                console.log("Token", token);
                 if(token && this.authService.isValidToken(token)){
                     this.router.navigate(['/client-dashboard']);
                     return false;
                 }
-                return false;
+                return true;
             })
         )
     }
