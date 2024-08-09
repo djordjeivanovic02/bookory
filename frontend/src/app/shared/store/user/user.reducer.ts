@@ -13,6 +13,7 @@ export const initialState: UserState = {
 export const userReducer = createReducer(
     initialState,
     on(loadUserDataSuccess, (state, {user}) => ({
+        ...state,
         user: user
     }))
 );

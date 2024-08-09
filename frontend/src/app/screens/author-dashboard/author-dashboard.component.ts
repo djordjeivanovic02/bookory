@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { NavLink } from "../../core/interfaces/navlink.interface";
-import { clientDashboardActions } from "../../shared/local-lists/client-dashboard-actions";
 import { authorDashboardActions } from "../../shared/local-lists/author-dashboard-actions";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faSignOut, faTurnDown } from "@fortawesome/free-solid-svg-icons";

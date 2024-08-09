@@ -66,6 +66,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { reducers } from "./app.state";
 import { UserEffects } from "./shared/store/user/user.effects";
+import { BookEffects } from "./shared/store/book/book.effects";
 
 @NgModule({
   declarations: [
@@ -124,7 +125,7 @@ import { UserEffects } from "./shared/store/user/user.effects";
     BrowserAnimationsModule,
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, UserEffects]),
+    EffectsModule.forRoot([AuthEffects, UserEffects, BookEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
