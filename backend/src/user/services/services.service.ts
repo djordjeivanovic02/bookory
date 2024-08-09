@@ -22,7 +22,10 @@ export class UserService {
   }
 
   findOne(id: number): Observable<User> {
-    return from(this.userRepository.findOneBy({ id }));
+    return from(this.userRepository.findOne({
+      where: {id: id},
+      relations: ['author']
+    }));
   }
 
 

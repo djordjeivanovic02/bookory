@@ -10,17 +10,20 @@ import { AllAuthorsComponent } from "./screens/all-authors/all-authors.component
 import { ClientDashboardComponent } from "./screens/client-dashboard/client-dashboard.component";
 import { AuthorDashboardComponent } from "./screens/author-dashboard/author-dashboard.component";
 import { AuthGuard } from "./shared/guards/auth.guard";
+import { NotAuthGuard } from "./shared/guards/not-auth.guard";
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
-  { path: "login", component: LoginComponent },
+  // { path: "login", component: LoginComponent, canActivate: [NotAuthGuard]},
+  { path: "login", component: LoginComponent},
   { path: "book", component: BookComponent },
   { path: "author", component: AuthorComponent },
   { path: "shop", component: ShopComponent },
-  { path: "saved", component: SavedComponent },
+  // { path: "saved", component: SavedComponent },
   { path: "all-authors", component: AllAuthorsComponent },
+  // { path: "client-dashboard", component: ClientDashboardComponent},
   { path: "client-dashboard", component: ClientDashboardComponent, canActivate:[AuthGuard] },
-  { path: "author-dashboard", component: AuthorDashboardComponent },
+  { path: "author-dashboard", component: AuthorDashboardComponent},
 ];
 
 @NgModule({
@@ -28,3 +31,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+

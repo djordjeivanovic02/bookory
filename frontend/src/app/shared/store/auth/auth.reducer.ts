@@ -1,10 +1,13 @@
 import { createReducer, on } from "@ngrx/store";
 import { loadTokenSuccess, loginFailure, loginSuccess, logout, registerAuthorFailure, registerAuthorSuccess, registerUserFailure, registerUserSuccess } from "./auth.actions";
+import { loadUserDataSuccess } from "../user/user.actions";
+import { AuthorDataDto } from "../../dtos/author-data.dto";
 
 export interface AuthState {
     token: string | null;
     user: any | null;
     error: any;
+    author?: AuthorDataDto | null
   }
   
   export const initialState: AuthState = {
@@ -56,10 +59,10 @@ export interface AuthState {
       user: null,
       error: message
     })),
-    on(loadTokenSuccess, (state, { token }) => ({
+    on(loadTokenSuccess, (state, { token, user }) => ({
       ...state,
       token: token,
-      user: null,
+      user: user,
       error: null
     })),
   );

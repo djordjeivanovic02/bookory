@@ -2,10 +2,12 @@ import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { AuthService } from "../../services/auth/auth.service";
 import { loadTokenFailure, loadTokenSuccess, login, loginFailure, loginSuccess, logout, registerAuthor, registerAuthorFailure, registerAuthorSuccess, registerUser, registerUserFailure, registerUserSuccess } from "./auth.actions";
-import { catchError, filter, map, mergeMap, of, tap } from "rxjs";
+import { catchError, filter, map, mergeMap, Observable, of, switchMap, tap, throwError } from "rxjs";
 import { LocalstorageService } from "../../services/localstorage/localstorage.service";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { UserService } from "../../services/user/user.service";
+import { loadUserData } from "../user/user.actions";
 
 
 @Injectable()
@@ -35,8 +37,12 @@ export class AuthEffects {
       tap(action => {
         this.localStorageService.setItem('authToken', action.token);
         this.router.navigate(['/client-dashboard']);
+      }),
+      switchMap(action => {
+        const userId = this.authService.getUserFromToken(action.token).id;
+        return of(loadUserData({ id: userId }));
       })
-    ), { dispatch: false }
+    )
   );
 
   loginFailure$ = createEffect(() =>
@@ -53,12 +59,12 @@ export class AuthEffects {
       filter(token => !!token),
       map(token => {
         if (this.authService.isValidToken(token!)) {
-          const user = this.authService.getUserFromToken(token!);
+          console.log("Tu sam");
           return loadTokenSuccess({ token: token! });
         } else {
           return loadTokenFailure();
         }
-      })
+      }),
     )
   );
 
@@ -67,8 +73,13 @@ export class AuthEffects {
       ofType(loadTokenSuccess),
       tap(action => {
         this.localStorageService.setItem('authToken', action.token);
+      }),
+      switchMap(action => {
+        console.log("Tua dasds");
+        const userId = this.authService.getUserFromToken(action.token).id;
+        return of(loadUserData({ id: userId }));
       })
-    ), { dispatch: false }
+    )
   );
 
   removeToken$ = createEffect(() =>
@@ -147,6 +158,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private userService: UserService,
     private localStorageService: LocalstorageService,
     private router: Router,
     private store: Store

@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { UserDataDto } from "../../dtos/user-data.dto";
 
 //LOGIN
 export const login = createAction(
@@ -8,7 +9,7 @@ export const login = createAction(
 
 export const loginSuccess = createAction(
   '[Auth] Login Success',
-  props<{ token: string }>()
+  props<{ token: string, user?: UserDataDto }>()
 );
 
 export const loginFailure = createAction(
@@ -55,10 +56,10 @@ export const logout = createAction('[Auth] Logout');
 
 //CHECK TOKEN
 export const loadTokenSuccess = createAction(
-  '[Auth] Token Loadedd Successfully',
-  props<{token: string}>()
+  '[Auth] Token Loaded Successfully',
+  props<{token: string, user?: UserDataDto}>()
 );
 
 export const loadTokenFailure= createAction(
-  '[Auth] Token Loadedd Failure'
+  '[Auth] Token Loaded Failure'
 );
