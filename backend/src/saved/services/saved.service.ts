@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SavedBook } from '../entities/saved.entity';
 import { Repository, DeleteResult } from 'typeorm';
 import { CreateSavedDto } from '../dtos/createSaved.dto';
-import { from, Observable, switchMap } from 'rxjs';
+import { from, map, Observable, switchMap, tap } from 'rxjs';
 import { User } from 'src/user/entities/user.entity';
 import { Book } from 'src/book/entities/book.entity';
 import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
@@ -45,6 +45,15 @@ export class SavedService {
                 book: {id: data.book_id}     
             }
         }));
+    }
+
+    getUserSaves(id:number): Observable<number[]>{
+        return from(this.savedRepository.find({
+            where: {user: {id}},
+            relations: ['book']
+        })).pipe(
+            map(saves => saves.map(save => save.book.id))
+        )
     }
 
     findUserSavedAds(

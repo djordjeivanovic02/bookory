@@ -21,7 +21,7 @@ export const loadSavedBooks = createAction(
 );
 export const loadSavedBooksSuccess = createAction(
     '[Saved Books Success] Load Saved Books Success',
-    props<{savedBooks: BookInfoDto[]}>()
+    props<{savedBooks: number[]}>()
 );
 export const loadSavedBooksFailed = createAction(
     '[Saced Books Failed] Load Saved Books Success',

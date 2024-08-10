@@ -1,8 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBooks } from "./book.actions";
+import { loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBooks, loadSavedBooksFailed, loadSavedBooksSuccess } from "./book.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
+import { SavedService } from "../../services/saved/saved.service";
+import { response } from "express";
+import { environment } from "../../../../environments/environment";
 
 @Injectable()
 export class BookEffects {
@@ -13,10 +16,9 @@ export class BookEffects {
         this.bookService.loadNewestBooks().pipe(
           map(response => {
             if(response){
-              console.log("Ucitane su nove knjige");
               const mappedBooks = response.map(element => ({
                 ...element,
-                image: `http://127.0.0.1:3000/${element.image}`
+                image: `${environment.apiUrl}/${element.image}`
               }));
               return loadNewestBooksSuccess({ books: mappedBooks });
             }else{
@@ -29,17 +31,27 @@ export class BookEffects {
     )
   );
 
-  // loadSavedBooks = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(loadSavedBooks),
-  //     mergeMap(action =>
-  //       // this.books
-  //     )
-  //   )
-  // );
+  loadSavedBooks = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadSavedBooks),
+      mergeMap(action =>
+        this.savedService.loadUserSaves(action.id).pipe(
+          map(response => {
+            if(response){
+              return loadSavedBooksSuccess({savedBooks: response})
+            }else{
+              return loadSavedBooksFailed({error: "Greska"})
+            }
+          }),
+          catchError(error => of(loadSavedBooksFailed(error)))
+        )
+      )
+    )
+  );
 
   constructor(
     private actions$: Actions,
-    private bookService: BookService
+    private bookService: BookService,
+    private savedService: SavedService
   ){}
 }

@@ -1,16 +1,21 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { loadNewestBooksSuccess } from "./book.actions";
+import { loadNewestBooksSuccess, loadSavedBooksSuccess } from "./book.actions";
 
 export interface BookState{
     newestBooks: BookInfoDto[] | null;
     newestBooksLoaded: boolean;
 
+    savedBooks: number[] | null;
+    savedBooksLoaded: boolean;
 }
 
 export const initialState: BookState = {
     newestBooks: null,
-    newestBooksLoaded: false
+    newestBooksLoaded: false,
+
+    savedBooks: null,
+    savedBooksLoaded: false
 }
 
 export const bookReducer = createReducer(
@@ -19,5 +24,10 @@ export const bookReducer = createReducer(
         ...state,
         newestBooks: books,
         newestBooksLoaded: true
-    }))
+    })),
+    on(loadSavedBooksSuccess, (state, {savedBooks}) => ({
+        ...state,
+        savedBooks: savedBooks,
+        savedBooksLoaded: true
+    })),
 )

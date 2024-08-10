@@ -27,6 +27,11 @@ export class SavedController {
         return this.savedService.findUserSavedAds({page, limit}, id);
     }
 
+    @Get('all-user-saves/:id')
+    findUserAllSaves(@Param('id') id: number){
+        return this.savedService.getUserSaves(id);
+    }
+
     @Delete(':id')
     remove(@Param('id') id: number) {
         return this.savedService.remove(id);
