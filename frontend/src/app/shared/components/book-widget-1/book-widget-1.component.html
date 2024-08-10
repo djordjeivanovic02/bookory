@@ -7,9 +7,9 @@
         />
     </div>
     <div class="info d-flex flex-column justify-content-start">
-        <a href="" class="title text-start">{{book?.title}}</a>
+        <a href="/book/{{book?.id}}" class="title text-start">{{book?.title}}</a>
         <app-stars></app-stars>
-        <a href="" class="author text-start">{{book?.author?.firstName}} {{book?.author?.lastName}}</a>
+        <a href="/author/{{book?.author?.id}}" class="author text-start">{{book?.author?.firstName}} {{book?.author?.lastName}}</a>
         <div class="download">{{book?.category}}</div>
         <p class="reviews text-start">23 recenzija</p>
     </div>

@@ -16,8 +16,8 @@ import { AuthorGuard } from "./shared/guards/author.guard";
 const routes: Routes = [
   { path: "", component: IndexComponent },
   { path: "login", component: LoginComponent, canActivate: [NotAuthGuard]},
-  { path: "book", component: BookComponent },
-  { path: "author", component: AuthorComponent },
+  { path: "book/:id", component: BookComponent },
+  { path: "author/:id", component: AuthorComponent },
   { path: "shop", component: ShopComponent },
   // { path: "saved", component: SavedComponent },
   { path: "all-authors", component: AllAuthorsComponent },
