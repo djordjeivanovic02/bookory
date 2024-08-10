@@ -31,8 +31,8 @@
             <div class="newest-left">
                 <h2 class="m-0">Najnovije Knjige</h2>
                 <div class="newest-container w-100">
-                    <div class="grid-container w-100" *ngIf="newestBook$ | async as newestBooks">
-                        <div class="grid-item" *ngFor="let book of newestBooks">
+                    <div class="grid-container w-100" *ngIf="newestBooksWithStatus">
+                        <div class="grid-item" *ngFor="let book of newestBooksWithStatus">
                           <app-book-widget-1 [book]="book"></app-book-widget-1>
                         </div>
                       </div>

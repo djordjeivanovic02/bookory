@@ -16,7 +16,9 @@
 
     <div
         class="save position-absolute d-flex align-items-center justify-content-center"
+        [ngClass]="{'active': book?.isSaved}"
     >
-        <fa-icon [icon]="faHeart"></fa-icon>
+        <fa-icon [icon]="faHeart" *ngIf="!book?.isSaved"></fa-icon>
+        <fa-icon [icon]="faHeartFill" *ngIf="book?.isSaved"></fa-icon>
     </div>
 </div>

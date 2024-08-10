@@ -60,17 +60,21 @@ img {
 .save {
     top: 0;
     right: 10px;
-    width: 30px;
-    height: 30px;
+    width: 33px;
+    height: 33px;
     border-radius: 50%;
     border: 1px solid var(--light-gray-text-color);
     font-size: 20px;
     cursor: pointer;
 }
+.save.active fa-icon{
+    color: var(--main-color);
+}
 .save fa-icon {
     transition-duration: 0.3s;
-    font-size: 16px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 18px;
+    color: var(--light-gray-text-color);
 }
 .save:hover fa-icon {
     scale: 1.2;
