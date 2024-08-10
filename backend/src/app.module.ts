@@ -14,6 +14,7 @@ import { SavedModule } from './saved/saved.module';
 import { SavedBook } from './saved/entities/saved.entity';
 import { DownloadsModule } from './downloads/downloads.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -33,7 +34,7 @@ import { ReviewsModule } from './reviews/reviews.module';
         autoLoadEntities: true,
         synchronize: true,
       }),
-      inject: [ConfigService],
+      inject: [ConfigService]
     }),
     TypeOrmModule.forFeature([Author, Book, User, SavedBook]),
     UserModule,

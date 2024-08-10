@@ -3,17 +3,21 @@ import { BookInfoDto } from "../../dtos/book-info.dto";
 import { loadNewestBooksSuccess } from "./book.actions";
 
 export interface BookState{
-    newestBoox: BookInfoDto[] | null;
+    newestBooks: BookInfoDto[] | null;
+    newestBooksLoaded: boolean;
+
 }
 
 export const initialState: BookState = {
-    newestBoox: null
+    newestBooks: null,
+    newestBooksLoaded: false
 }
 
 export const bookReducer = createReducer(
     initialState,
     on(loadNewestBooksSuccess, (state, {books}) => ({
         ...state,
-        newestBoox: books
+        newestBooks: books,
+        newestBooksLoaded: true
     }))
 )

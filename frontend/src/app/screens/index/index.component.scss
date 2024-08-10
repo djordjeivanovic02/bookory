@@ -107,7 +107,7 @@
     padding: 20px 0;
     font-size: 30px;
     // border-bottom: 1px solid var(--light-background);
-    max-width: 450px;
+    width: 450px;
 }
 .separator {
     width: 1px;
@@ -121,9 +121,6 @@
 .best-authors h3 {
     font-size: 26px;
     font-weight: 600;
-}
-.grid-item:nth-child(odd) {
-    // border-right: 1px solid var(--light-background);
 }
 .best-authors-container {
     margin-top: 40px;

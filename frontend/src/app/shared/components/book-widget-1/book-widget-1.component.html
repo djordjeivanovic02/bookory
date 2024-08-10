@@ -1,16 +1,16 @@
 <div
-    class="main w-100 d-flex align-items-center justify-content-start position-relative"
+    class="main w-100 h-100 d-flex align-items-center justify-content-start position-relative"
 >
     <div class="image">
         <img
-            src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/31.jpg"
+            src='{{book?.image}}'
         />
     </div>
     <div class="info d-flex flex-column justify-content-start">
         <a href="" class="title text-start">{{book?.title}}</a>
         <app-stars></app-stars>
-        <a href="" class="author text-start">Ernesto Wade</a>
-        <div class="download">Fikcija</div>
+        <a href="" class="author text-start">{{book?.author?.firstName}} {{book?.author?.lastName}}</a>
+        <div class="download">{{book?.category}}</div>
         <p class="reviews text-start">23 recenzija</p>
     </div>
 

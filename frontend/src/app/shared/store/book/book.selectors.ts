@@ -5,5 +5,9 @@ export const selectBookState = createFeatureSelector<BookState>('book');
 
 export const selectNewestBooks = createSelector(
     selectBookState,
-    (userState) => userState.newestBoox
-)
+    (bookSate) => bookSate.newestBooks
+);
+export const selectNewestBooksLoaded = createSelector(
+    selectBookState,
+    (bookSate) => bookSate.newestBooksLoaded
+);

@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'libracorner-frontend';
+
+  // constructor(private store: Store){
+  //   this.store.dispatch(loadNewestBooks());
+  // }
 }
