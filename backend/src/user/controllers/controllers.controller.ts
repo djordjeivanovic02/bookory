@@ -27,5 +27,4 @@ export class ControllersController {
   remove(@Param('id') id: number): Observable<void> {
     return this.userService.remove(id);
   }
-
 }

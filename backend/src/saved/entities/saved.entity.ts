@@ -10,7 +10,7 @@ export class SavedBook{
     @ManyToOne(() => User, user => user.savedBooks)
     user: User;
 
-    @ManyToOne(() => Book, book => book.savedBooks)
+    @ManyToOne(() => Book, book => book.savedBooks, { eager: true })
     book: Book;
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
