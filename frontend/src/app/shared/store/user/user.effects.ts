@@ -5,8 +5,7 @@ import { loadUserData, loadUserDataFailure, loadUserDataSuccess } from "./user.a
 import { catchError, filter, map, mergeMap, of } from "rxjs";
 import { LocalstorageService } from "../../services/localstorage/localstorage.service";
 import { AuthService } from "../../services/auth/auth.service";
-import { UserDataDto } from "../../dtos/user-data.dto";
-import { SavedDto } from "../../dtos/saved.dto";
+import { UserDataDto, UserDataStoreDto } from "../../dtos/user-data.dto";
 
 @Injectable()
 export class UserEffects {
@@ -17,14 +16,13 @@ export class UserEffects {
       mergeMap(action => 
         this.userService.loadData(action.id).pipe(
           map(response => {
-            console.log('Response:' + response.savedBooks);
             if (response) {
-              const user: UserDataDto = {
+              const user: UserDataStoreDto = {
                 id: response.id,
                 email: response.email,
                 created_at: response.created_at,
                 author: response.author,
-                savedBooks: response.savedBooks? response.savedBooks : []
+                savedBooks: response.savedBooks? response.savedBooks.map(element => element.book.id) : []
               }
               return loadUserDataSuccess({ user: user });
             } else {

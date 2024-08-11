@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { UserDataDto } from "../../dtos/user-data.dto";
+import { UserDataDto, UserDataStoreDto } from "../../dtos/user-data.dto";
 
 export const loadUserData = createAction(
     '[User] Load Data',
@@ -7,7 +7,7 @@ export const loadUserData = createAction(
 );
 export const loadUserDataSuccess = createAction(
     '[User] Load Data Success',
-    props<{user: UserDataDto}>()
+    props<{user: UserDataStoreDto}>()
 );
 export const loadUserDataFailure = createAction(
     '[User] Load Data Failure',

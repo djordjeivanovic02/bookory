@@ -58,6 +58,7 @@ export class AuthEffects {
     of(this.localStorageService.getItem('authToken')).pipe(
       filter(token => !!token),
       map(token => {
+        console.log("Pozvan sam");
         if (this.authService.isValidToken(token!)) {
           return loadTokenSuccess({ token: token! });
         } else {

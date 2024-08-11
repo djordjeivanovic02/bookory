@@ -6,4 +6,8 @@ export const selectUserState = createFeatureSelector<UserState>('user');
 export const selectUserData = createSelector(
     selectUserState,
     (userState) => userState.user
-)
+);
+export const userDataLoaded = createSelector(
+    selectUserState,
+    (userState) => userState.userDataLoaded
+);

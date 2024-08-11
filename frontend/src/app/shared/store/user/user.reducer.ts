@@ -1,19 +1,22 @@
 import { createReducer, on } from "@ngrx/store";
-import { UserDataDto } from "../../dtos/user-data.dto";
+import { UserDataStoreDto } from "../../dtos/user-data.dto";
 import { loadUserDataSuccess } from "./user.actions";
 
 export interface UserState {
-    user: UserDataDto | null;
+    user: UserDataStoreDto | null;
+    userDataLoaded: boolean;
 }
 
 export const initialState: UserState = {
-    user: null
+    user: null,
+    userDataLoaded: false
 }
 
 export const userReducer = createReducer(
     initialState,
     on(loadUserDataSuccess, (state, {user}) => ({
         ...state,
-        user: user
+        user: user,
+        userDataLoaded: true
     }))
 );

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UserDataDto } from '../../shared/dtos/user-data.dto';
+import { UserDataDto, UserDataStoreDto } from '../../shared/dtos/user-data.dto';
 
 @Component({
   selector: 'app-client-dashboard-part',
@@ -8,5 +8,5 @@ import { UserDataDto } from '../../shared/dtos/user-data.dto';
 })
 export class ClientDashboardPartComponent {
   @Input()
-  userData: UserDataDto | undefined | null = null;
+  userData: UserDataStoreDto | undefined | null = null;
 }

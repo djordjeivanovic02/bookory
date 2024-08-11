@@ -8,3 +8,12 @@ export interface UserDataDto {
     author: AuthorDataDto | null;
     savedBooks: SavedDto[] | null;
 }
+
+
+export interface UserDataStoreDto {
+    id: number;
+    email: string;
+    created_at: Date | null;
+    author: AuthorDataDto | null;
+    savedBooks: number[] | null;
+}

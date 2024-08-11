@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import { logout } from "../../shared/store/auth/auth.actions";
 import { Observable } from "rxjs";
 import { selectAuthSuccess } from "../../shared/store/auth/auth.selectores";
-import { UserDataDto } from "../../shared/dtos/user-data.dto";
+import { UserDataDto, UserDataStoreDto } from "../../shared/dtos/user-data.dto";
 import { selectUserData } from "../../shared/store/user/user.selectors";
 
 @Component({
@@ -22,7 +22,7 @@ export class ClientDashboardComponent implements OnInit {
   ];
   actions = clientDashboardActions;
   selectedContainer = 0;
-  userData$: Observable<UserDataDto | undefined | null>;
+  userData$: Observable<UserDataStoreDto | undefined | null>;
 
 
   showContainer(index: number, event: Event) {
