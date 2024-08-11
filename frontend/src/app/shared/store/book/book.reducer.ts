@@ -10,6 +10,8 @@ export interface BookState{
 
     savedBooks: BookInfoDto[] | null;
     savedBookLoaded: boolean;
+    savedBookPage: number;
+    savedBookLimit: number;
 }
 
 export const initialState: BookState = {
@@ -17,7 +19,9 @@ export const initialState: BookState = {
     newestBooksLoaded: false,
 
     savedBooks: null,
-    savedBookLoaded: false
+    savedBookLoaded: false,
+    savedBookPage: 1,
+    savedBookLimit:2
 }
 
 export const bookReducer = createReducer(
@@ -30,20 +34,21 @@ export const bookReducer = createReducer(
     on(loadSavedBookDataSuccess, (state, {savedBook}) => ({
         ...state,
         savedBooks: [...(state.savedBooks || []), ...savedBook],
-        savedBookLoaded: true
+        savedBookLoaded: true,
+        savedBookPage: state.savedBookPage+1
     })),
     //IZ USER SAVE BOOK
-    on(saveBookSuccess, (state, {savedBook}) => ({
-        ...state,
-        savedBooks: [...(state.savedBooks || []), savedBook.book],
-        savedBookLoaded: true
-    })),
+    // on(saveBookSuccess, (state, {savedBook}) => ({
+    //     ...state,
+    //     savedBooks: [...(state.savedBooks || []), savedBook.book],
+    //     savedBookLoaded: true
+    // })),
     //IZ USER REMOVE BOOK
-    on(removeSavedBookSuccess, (state, { book_id }) => ({
-        ...state,
-        savedBooks: state.savedBooks
-            ? state.savedBooks.filter(book => book.id !== book_id)
-            : null,
-        savedBookLoaded: true
-    }))
+    // on(removeSavedBookSuccess, (state, { book_id }) => ({
+    //     ...state,
+    //     savedBooks: state.savedBooks
+    //         ? state.savedBooks.filter(book => book.id !== book_id)
+    //         : null,
+    //     savedBookLoaded: true
+    // }))
 )
