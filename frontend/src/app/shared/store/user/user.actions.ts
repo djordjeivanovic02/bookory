@@ -2,6 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { UserDataDto, UserDataStoreDto } from "../../dtos/user-data.dto";
 import { SavedDto } from "../../dtos/saved.dto";
 
+//UCITAJ KORISNIKOVE PODATKE
 export const loadUserData = createAction(
     '[User] Load Data',
     props<{id: number}>()
@@ -42,3 +43,4 @@ export const removeSavedBookFailed = createAction(
     '[Remove Saved Book] Remove Saved Book Failed',
     props<{error: string}>()
 )
+

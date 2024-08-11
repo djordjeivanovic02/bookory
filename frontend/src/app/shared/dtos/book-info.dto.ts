@@ -1,4 +1,5 @@
 import { AuthorDataDto } from "./author-data.dto";
+import { ReviewDto } from "./review.dto";
 
 export interface BookInfoDto {
     id: number;
@@ -9,4 +10,5 @@ export interface BookInfoDto {
     category: string;
     tags?: string;
     pdf: string;
+    reviews?: ReviewDto[];
 }

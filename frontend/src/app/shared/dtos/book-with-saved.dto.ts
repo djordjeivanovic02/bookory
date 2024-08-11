@@ -1,4 +1,5 @@
 import { AuthorDataDto } from "./author-data.dto";
+import { ReviewDto } from "./review.dto";
 
 export interface BookWithSaved{
     isSaved: boolean | undefined; 
@@ -10,4 +11,5 @@ export interface BookWithSaved{
     category: string; 
     tags?: string | undefined; 
     pdf: string;
+    reviews?: ReviewDto[];
 }

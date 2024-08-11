@@ -73,7 +73,7 @@ export class BookService {
       return from(this.bookRepository.find({
         order: {created_at: 'DESC'},
         take: 4,
-        relations: ['author', ]
+        relations: ['author', 'reviews']
       }))
     }
 

@@ -24,4 +24,12 @@ export class BookService {
   removeSavedBook(user_id: number, book_id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/saved/by-user-book/${user_id}/${book_id}`);
   }
+
+  loadSavedBook(
+    user_id: number,
+    page: number,
+    limit: number
+  ): Observable<SavedDto[]> {
+    return this.http.get<SavedDto[]>(`${this.apiUrl}/saved/user-saves/${user_id}?page=${page}&limit=${limit}`);
+  }
 }

@@ -10,10 +10,10 @@
         <a routerLink="/book/{{book?.id}}"
         routerLinkActive="active"
         ariaCurrentWhenActive="page" class="title text-start">{{book?.title}}</a>
-        <app-stars></app-stars>
+        <app-stars [rate]="bookAverageRate"></app-stars>
         <a href="/author/{{book?.author?.id}}" class="author text-start">{{book?.author?.firstName}} {{book?.author?.lastName}}</a>
         <div class="download">{{book?.category}}</div>
-        <p class="reviews text-start">23 recenzija</p>
+        <p class="reviews text-start">{{book?.reviews?.length}} recenzija</p>
     </div>
 
     <div

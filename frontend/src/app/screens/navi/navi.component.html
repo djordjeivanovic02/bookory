@@ -14,7 +14,11 @@
                     <span class="icon-3"></span>
                 </div>
             </a>
-            <a href=""><img src="assets/images/logo.svg" class="logo" /></a>
+            <a 
+                routerLink="/"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+            ><img src="assets/images/logo.svg" class="logo" /></a>
             <div class="search-container w-100">
                 <input
                     type="text"
@@ -33,7 +37,10 @@
                     ><fa-icon [icon]="faUser" class="icon"></fa-icon
                 ></a>
                 <div class="separator"></div>
-                <a href=""
+                <a
+                    routerLink="/client-dashboard"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
                     ><fa-icon [icon]="faHeart" class="icon heart"></fa-icon
                 ></a>
             </div>

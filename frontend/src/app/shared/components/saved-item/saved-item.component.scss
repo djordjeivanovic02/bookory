@@ -1,0 +1,78 @@
+.info,
+.actions {
+    width: 50%;
+}
+.table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
+.image {
+    width: 80px;
+    height: 110px;
+}
+.remove {
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.3s;
+}
+.remove:hover {
+    color: var(--main-color);
+}
+.title {
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.3s;
+    margin-bottom: 10px;
+}
+.title:hover {
+    color: var(--main-color);
+}
+.price,
+.date {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--light-gray-text-color);
+    margin: 0;
+}
+.date {
+    font-weight: 300;
+}
+.fullbutton {
+    display: block;
+}
+.onlyicon {
+    display: none;
+}
+
+@media only screen and (max-width: 640px) {
+}
+
+@media only screen and (max-width: 768px) {
+    .fullbutton {
+        display: none;
+    }
+    .onlyicon {
+        display: block;
+    }
+    .info {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .image {
+        width: 60px;
+        height: 90px;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+}
+
+@media only screen and (max-width: 1366px) {
+}

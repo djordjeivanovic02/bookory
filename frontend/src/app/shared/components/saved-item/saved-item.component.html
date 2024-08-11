@@ -1,0 +1,27 @@
+<td>
+    <a href="" class="remove">X</a>
+</td>
+<td class="image-cont">
+    <img
+        src="{{book?.image}}"
+        class="image"
+    />
+</td>
+<td class="info">
+    <div>
+        <a href="" class="title">{{book?.title}}</a>
+        <p class="price">BESPLATNO</p>
+        <p class="date">14. jul, 2024</p>
+    </div>
+</td>
+<td class="actions">
+    <app-button-with-icon
+        class="fullbutton"
+        [icon]="faDownload"
+    ></app-button-with-icon>
+    <app-button-with-icon
+        class="onlyicon"
+        [icon]="faDownload"
+        text=""
+    ></app-button-with-icon>
+</td>

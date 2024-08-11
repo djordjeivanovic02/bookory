@@ -11,3 +11,12 @@ export const selectNewestBooksLoaded = createSelector(
     selectBookState,
     (bookSate) => bookSate.newestBooksLoaded
 );
+
+export const selectSavedBooksData = createSelector(
+    selectBookState,
+    (bookState) => bookState.savedBooks
+);
+export const selectSavedBooksDataLoaded = createSelector(
+    selectBookState,
+    (bookState) => bookState.savedBookLoaded
+)

@@ -34,6 +34,7 @@ export const registerUserFailure = createAction(
   props<{status: boolean, message?: string}>()
 )
 
+
 //REGISTER AUTHOR
 export const registerAuthor = createAction(
   '[Auth] Register',

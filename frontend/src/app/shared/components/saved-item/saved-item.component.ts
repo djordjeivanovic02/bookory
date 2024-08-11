@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { BookInfoDto } from '../../dtos/book-info.dto';
 
 @Component({
   selector: 'app-saved-item',
@@ -6,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './saved-item.component.scss'
 })
 export class SavedItemComponent {
+  faDownload = faDownload;
 
+  @Input()
+  book: BookInfoDto | null= null;
 }

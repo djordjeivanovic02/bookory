@@ -7,6 +7,7 @@ import { LocalstorageService } from "../../services/localstorage/localstorage.se
 import { AuthService } from "../../services/auth/auth.service";
 import { UserDataDto, UserDataStoreDto } from "../../dtos/user-data.dto";
 import { BookService } from "../../services/book/book.service";
+import { environment } from "../../../../environments/environment";
 
 @Injectable()
 export class UserEffects {
@@ -58,6 +59,7 @@ export class UserEffects {
         this.bookService.saveBook(action.user_id, action.book_id).pipe(
           map(response => {
             if(response){
+              response.book.image = `${environment.apiUrl}/${response.book.image}`
               return saveBookSuccess({savedBook: response})
             }else{
               return saveBookFailed({error: "Greska"})

@@ -41,6 +41,7 @@ export class NewestListComponent implements OnInit {
       if(books && userData && userData.savedBooks){
         this.newestBooksWithStatus = books.map(book => {
           const isSaved = userData.savedBooks?.includes(book.id);
+
           return {...book, isSaved};
         });
       }else if(books){
