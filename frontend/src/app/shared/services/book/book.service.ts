@@ -20,4 +20,8 @@ export class BookService {
   saveBook(user_id: number, book_id: number): Observable<SavedDto> {
     return this.http.post<SavedDto>(`${this.apiUrl}/saved`, {user_id: user_id, book_id: book_id});
   }
+
+  removeSavedBook(user_id: number, book_id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/saved/by-user-book/${user_id}/${book_id}`);
+  }
 }

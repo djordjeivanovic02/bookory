@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { UserDataStoreDto } from "../../dtos/user-data.dto";
-import { loadUserDataFailure, loadUserDataSuccess, saveBookFailed, saveBookSuccess } from "./user.actions";
+import { loadUserDataFailure, loadUserDataSuccess, removeSavedBookSuccess, saveBookFailed, saveBookSuccess } from "./user.actions";
 
 export interface UserState {
     user: UserDataStoreDto | null;
@@ -36,5 +36,14 @@ export const userReducer = createReducer(
     on(saveBookFailed, (state, {error}) => ({
         ...state,
         error: error
-    }))
+    })),
+    on(removeSavedBookSuccess, (state, {book_id}) => ({
+        ...state,
+        user: state.user
+            ? {
+                ...state.user,
+                savedBooks: state.user.savedBooks?.filter(id => id !== book_id) || []
+            }
+            : null
+    })),
 );

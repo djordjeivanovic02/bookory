@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { selectNewestBooks, selectNewestBooksLoaded } from '../../store/book/book.selectors';
 import { selectUserData } from '../../store/user/user.selectors';
 import { loadNewestBooks } from '../../store/book/book.actions';
-import { saveBook } from '../../store/user/user.actions';
+import { removeSavedBook, saveBook } from '../../store/user/user.actions';
 
 @Component({
   selector: 'app-newest-list',
@@ -55,6 +55,11 @@ export class NewestListComponent implements OnInit {
         user_id: this.userData?.id,
         book_id: id
       }));
+    }else if(this.userData){
+      this.store.dispatch(removeSavedBook({
+        user_id: this.userData?.id,
+        book_id: id
+      }))
     }
   }
 }

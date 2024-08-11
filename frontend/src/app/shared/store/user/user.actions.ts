@@ -19,12 +19,26 @@ export const loadUserDataFailure = createAction(
 export const saveBook = createAction(
     '[Save Book] Save New Book',
     props<{user_id: number, book_id: number}>()
-)
+);
 export const saveBookSuccess = createAction(
     '[Save Book] Save Book Success',
     props<{savedBook: SavedDto}>()
-)
+);
 export const saveBookFailed = createAction(
     '[Save Book] Save Book Failed',
+    props<{error: string}>()
+);
+
+//UKLONI IZ SACUVANO
+export const removeSavedBook = createAction(
+    '[Remove Saved Book], Remove Saved Book',
+    props<{user_id: number, book_id: number}>()
+);
+export const removeSavedBookSuccess = createAction(
+    '[Remove Saved Book] Remove Saved Book Success',
+    props<{book_id: number}>()
+)
+export const removeSavedBookFailed = createAction(
+    '[Remove Saved Book] Remove Saved Book Failed',
     props<{error: string}>()
 )
