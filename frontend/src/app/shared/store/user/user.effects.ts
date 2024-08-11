@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "../../services/user/user.service";
-import { loadUserData, loadUserDataFailure, loadUserDataSuccess } from "./user.actions";
+import { loadUserData, loadUserDataFailure, loadUserDataSuccess, saveBook, saveBookFailed, saveBookSuccess } from "./user.actions";
 import { catchError, filter, map, mergeMap, of } from "rxjs";
 import { LocalstorageService } from "../../services/localstorage/localstorage.service";
 import { AuthService } from "../../services/auth/auth.service";
 import { UserDataDto, UserDataStoreDto } from "../../dtos/user-data.dto";
+import { BookService } from "../../services/book/book.service";
 
 @Injectable()
 export class UserEffects {
@@ -48,10 +49,31 @@ export class UserEffects {
     )
   );
 
+
+
+  saveBook = createEffect(() => 
+    this.actions$.pipe(
+      ofType(saveBook),
+      mergeMap(action => 
+        this.bookService.saveBook(action.user_id, action.book_id).pipe(
+          map(response => {
+            if(response){
+              return saveBookSuccess({savedBook: response})
+            }else{
+              return saveBookFailed({error: "Greska"})
+            }
+          }),
+          catchError(error => of(saveBookFailed({error})))
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private userService: UserService,
     private authService: AuthService,
+    private bookService: BookService,
     private localStorageService: LocalstorageService
   ){}
 }

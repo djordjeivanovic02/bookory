@@ -67,6 +67,7 @@ import { environment } from "../environments/environment";
 import { reducers } from "./app.state";
 import { UserEffects } from "./shared/store/user/user.effects";
 import { BookEffects } from "./shared/store/book/book.effects";
+import { NewestListComponent } from './shared/lists/newest-list/newest-list.component';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { BookEffects } from "./shared/store/book/book.effects";
     UploadImageComponent,
     CustomTextareaComponent,
     CustomSelectComponent,
+    NewestListComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

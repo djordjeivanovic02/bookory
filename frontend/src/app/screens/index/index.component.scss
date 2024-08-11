@@ -97,18 +97,7 @@
     border: 2px solid var(--main-color);
     border-radius: 15px;
 }
-.grid-container {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 10px;
-}
-.grid-item {
-    text-align: center;
-    padding: 20px 0;
-    font-size: 30px;
-    // border-bottom: 1px solid var(--light-background);
-    width: 450px;
-}
+
 .separator {
     width: 1px;
     background-color: var(--light-gray-text-color);

@@ -31,11 +31,7 @@
             <div class="newest-left">
                 <h2 class="m-0">Najnovije Knjige</h2>
                 <div class="newest-container w-100">
-                    <div class="grid-container w-100" *ngIf="newestBooksWithStatus">
-                        <div class="grid-item" *ngFor="let book of newestBooksWithStatus">
-                          <app-book-widget-1 [book]="book"></app-book-widget-1>
-                        </div>
-                      </div>
+                    <app-newest-list></app-newest-list>
                 </div>
             </div>
             <div class="best-authors">

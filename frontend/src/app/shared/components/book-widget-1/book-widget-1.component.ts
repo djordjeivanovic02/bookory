@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { BookInfoDto } from "../../dtos/book-info.dto";
@@ -18,4 +18,11 @@ export class BookWidget1Component {
 
   @Input()
   book: BookWithSaved | null = null;
+
+  @Output()
+  saveTrigger = new EventEmitter<{saved: boolean, id: number}>();
+
+  saveChange(value: boolean | undefined){
+    this.saveTrigger.emit({saved: value ? value : false, id: this.book?.id ? this.book.id : -1});
+  }
 }

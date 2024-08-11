@@ -3,8 +3,6 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
 import { loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess } from "./book.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
-import { SavedService } from "../../services/saved/saved.service";
-import { response } from "express";
 import { environment } from "../../../../environments/environment";
 
 @Injectable()

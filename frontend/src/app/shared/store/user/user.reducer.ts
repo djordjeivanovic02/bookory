@@ -1,15 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
 import { UserDataStoreDto } from "../../dtos/user-data.dto";
-import { loadUserDataSuccess } from "./user.actions";
+import { loadUserDataFailure, loadUserDataSuccess, saveBookFailed, saveBookSuccess } from "./user.actions";
 
 export interface UserState {
     user: UserDataStoreDto | null;
     userDataLoaded: boolean;
+    error: string | null;
 }
 
 export const initialState: UserState = {
     user: null,
-    userDataLoaded: false
+    userDataLoaded: false,
+    error: null
 }
 
 export const userReducer = createReducer(
@@ -18,5 +20,21 @@ export const userReducer = createReducer(
         ...state,
         user: user,
         userDataLoaded: true
+    })),
+    on(loadUserDataFailure, (state, {error}) => ({
+        ...state,
+        error: error
+    })),
+    on(saveBookSuccess, (state, {savedBook}) => ({
+        ...state,
+        user: state.user
+            ? {
+                ...state.user,
+                savedBooks: [...(state.user.savedBooks || []), savedBook.book.id]
+            }: null
+    })),
+    on(saveBookFailed, (state, {error}) => ({
+        ...state,
+        error: error
     }))
 );

@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BookInfoDto } from '../../dtos/book-info.dto';
+import { SavedDto } from '../../dtos/saved.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,9 @@ export class BookService {
 
   loadNewestBooks(): Observable<BookInfoDto[]> {
     return this.http.get<BookInfoDto[]>(`${this.apiUrl}/book/newest`);
+  }
+
+  saveBook(user_id: number, book_id: number): Observable<SavedDto> {
+    return this.http.post<SavedDto>(`${this.apiUrl}/saved`, {user_id: user_id, book_id: book_id});
   }
 }

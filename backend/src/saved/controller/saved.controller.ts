@@ -3,6 +3,7 @@ import { SavedService } from '../services/saved.service';
 import { CreateSavedDto } from '../dtos/createSaved.dto';
 import { Observable } from 'rxjs';
 import { SavedBook } from '../entities/saved.entity';
+import { DeleteResult } from 'typeorm';
 
 @Controller('saved')
 export class SavedController {
@@ -30,6 +31,14 @@ export class SavedController {
     @Get('all-user-saves/:id')
     findUserAllSaves(@Param('id') id: number){
         return this.savedService.getUserSaves(id);
+    }
+
+    @Delete('by-user-book/:user_id/:book_id')
+    removeWithUserAndBook(
+        @Param('user_id') user_id: number,
+        @Param('book_id') book_id: number
+    ): Observable<DeleteResult>{
+        return this.savedService.removeWithUserAndBook(user_id, book_id);
     }
 
     @Delete(':id')

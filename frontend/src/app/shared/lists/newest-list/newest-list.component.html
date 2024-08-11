@@ -1,0 +1,5 @@
+<div class="grid-container w-100" *ngIf="newestBooksWithStatus">
+    <div class="grid-item" *ngFor="let book of newestBooksWithStatus">
+      <app-book-widget-1 [book]="book" (saveTrigger)="saveBook($event)"></app-book-widget-1>
+    </div>
+</div>

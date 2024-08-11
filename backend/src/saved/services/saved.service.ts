@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SavedBook } from '../entities/saved.entity';
 import { Repository, DeleteResult } from 'typeorm';
 import { CreateSavedDto } from '../dtos/createSaved.dto';
-import { from, map, Observable, switchMap, tap } from 'rxjs';
+import { forkJoin, from, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
 import { User } from 'src/user/entities/user.entity';
 import { Book } from 'src/book/entities/book.entity';
 import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
@@ -71,7 +71,25 @@ export class SavedService {
         }));
     }
 
-    remove(id: number): Observable<DeleteResult> {
-        return from(this.bookRepository.delete(id));
+    removeWithUserAndBook(user_id: number, book_id: number): Observable<DeleteResult | null> {
+        return from(this.savedRepository.findOne({
+            where: {
+                user: { id: user_id },
+                book: { id: book_id }
+            }
+        })).pipe(
+            mergeMap(savedBook => {
+                if (savedBook) {
+                    return this.remove(savedBook.id);
+                } else {
+                    return of(null);
+                }
+            })
+        );
     }
+    
+    remove(id: number): Observable<DeleteResult> {
+        return from(this.savedRepository.delete(id));
+    }
+    
 }
