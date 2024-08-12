@@ -23,7 +23,6 @@ export class AuthGuard implements CanActivate {
             select(selectToken),
             take(1),
             map(token => {
-                console.log(token);
                 if(token && this.authService.isValidToken(token)){
                     return true;
                 }else{

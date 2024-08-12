@@ -39,8 +39,8 @@ export class ClientDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userData$.subscribe(userData =>
-      console.log('User Data: ', userData)
-    );
+    // this.userData$.subscribe(userData =>
+    //   console.log('User Data: ', userData)
+    // );
   }
 }

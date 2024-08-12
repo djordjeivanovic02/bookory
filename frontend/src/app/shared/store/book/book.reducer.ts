@@ -2,7 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
 import { loadNewestBooksSuccess, loadSavedBookDataSuccess } from "./book.actions";
 import { SavedDto } from "../../dtos/saved.dto";
-import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
+import { removeSavedBookSuccess, saveBook, saveBookSuccess } from "../user/user.actions";
 
 export interface BookState{
     newestBooks: BookInfoDto[] | null;
@@ -55,12 +55,25 @@ export const bookReducer = createReducer(
             savedBookLoaded: true
         };
     }),
-    //IZ USER REMOVE BOOK
-    // on(removeSavedBookSuccess, (state, { book_id }) => ({
-    //     ...state,
-    //     savedBooks: state.savedBooks
-    //         ? state.savedBooks.filter(book => book.id !== book_id)
-    //         : null,
-    //     savedBookLoaded: true
-    // }))
+    // IZ USER REMOVE BOOK
+    on(removeSavedBookSuccess, (state, { book_id }) => {
+        const updatedSavedBooks = state.savedBooks
+            ? state.savedBooks.filter(book => book.id !== book_id)
+            : [];
+
+        const newTotalBooks = updatedSavedBooks.length;
+        const newPage = Math.ceil(newTotalBooks / state.savedBookLimit);
+
+        let limitedSavedBooks = updatedSavedBooks;
+        if(newPage > 1) limitedSavedBooks= updatedSavedBooks.slice(0, (newPage-1) * state.savedBookLimit);
+        
+        return {
+            ...state,
+            savedBooks: limitedSavedBooks,
+            savedBookLoaded: true,
+            savedBookPage: newPage > 1 ? newPage : 2
+        };
+    })
+    
+    
 )

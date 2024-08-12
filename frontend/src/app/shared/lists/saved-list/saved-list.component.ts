@@ -62,7 +62,6 @@ export class SavedListComponent implements OnInit {
   }
 
   checkShowLoadMore() {
-    console.log("Provera:", this.userData?.savedBooks, this.savedBooks)
     if (this.userData?.savedBooks && this.savedBooks) {
       this.showLoadMore = this.userData.savedBooks.length > this.savedBooks.length;
     } else {
