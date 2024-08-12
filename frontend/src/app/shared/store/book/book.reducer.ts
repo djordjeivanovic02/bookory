@@ -38,11 +38,23 @@ export const bookReducer = createReducer(
         savedBookPage: state.savedBookPage+1
     })),
     //IZ USER SAVE BOOK
-    // on(saveBookSuccess, (state, {savedBook}) => ({
-    //     ...state,
-    //     savedBooks: [...(state.savedBooks || []), savedBook.book],
-    //     savedBookLoaded: true
-    // })),
+    on(saveBookSuccess, (state, { savedBook }) => {
+        const totalSavedBooks = state.savedBooks ? state.savedBooks.length : 0;
+        const maxSavedBooks = (state.savedBookPage - 1) * state.savedBookLimit;
+    
+        if (totalSavedBooks < maxSavedBooks) {
+            return {
+                ...state,
+                savedBooks: [...(state.savedBooks || []), savedBook.book],
+                savedBookLoaded: true
+            };
+        }
+    
+        return {
+            ...state,
+            savedBookLoaded: true
+        };
+    }),
     //IZ USER REMOVE BOOK
     // on(removeSavedBookSuccess, (state, { book_id }) => ({
     //     ...state,
