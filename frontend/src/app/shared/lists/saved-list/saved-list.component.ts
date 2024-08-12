@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { Store } from "@ngrx/store";
-import { loadSavedBookData } from "../../store/book/book.actions";
+import { loadSavedBookData, removeBookFromSavedList } from "../../store/book/book.actions";
 import { combineLatest, Observable } from "rxjs";
 import { BookInfoDto } from "../../dtos/book-info.dto";
 import { selectSavedBookLimit, selectSavedBookPage, selectSavedBooksData, selectSavedBooksDataLoaded } from "../../store/book/book.selectors";
@@ -37,6 +37,21 @@ export class SavedListComponent implements OnInit {
     }
   }
 
+  remove(event: Event, bookId: number){
+    event.preventDefault();
+    if(this.userData){
+      this.store.dispatch(removeBookFromSavedList({user_id: this.userData.id, book_id: bookId}))
+    }
+  }
+
+  checkShowLoadMore() {
+    if (this.userData?.savedBooks && this.savedBooks) {
+      this.showLoadMore = this.userData.savedBooks.length > this.savedBooks.length;
+    } else {
+      this.showLoadMore = false;
+    }
+  }
+
   ngOnInit(): void {
     combineLatest([
       this.userData$,
@@ -61,13 +76,6 @@ export class SavedListComponent implements OnInit {
     });
   }
 
-  checkShowLoadMore() {
-    if (this.userData?.savedBooks && this.savedBooks) {
-      this.showLoadMore = this.userData.savedBooks.length > this.savedBooks.length;
-    } else {
-      this.showLoadMore = false;
-    }
-  }
 
   constructor(private store: Store) {
     this.savedBook$ = this.store.select(selectSavedBooksData);

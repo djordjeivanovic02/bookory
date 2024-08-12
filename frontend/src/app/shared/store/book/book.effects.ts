@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess } from "./book.actions";
+import { loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess } from "./book.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { response } from "express";
@@ -50,6 +50,24 @@ export class BookEffects {
       )
     )
   );
+
+  removeFromSavedList = createEffect(() =>
+    this.actions$.pipe(
+      ofType(removeBookFromSavedList),
+      mergeMap(action =>
+        this.bookService.removeSavedBook(action.user_id, action.book_id).pipe(
+          map(response => {
+            if(response){
+              return removeBookFromSavedListSuccess({book_id: action.book_id})
+            }else{
+              return removeBookFromSavedListFailure({error: "Greska"})
+            }
+          }),
+          catchError(error => of(removeBookFromSavedListFailure({error})))
+        )
+      )
+    )
+  )
   
   
 

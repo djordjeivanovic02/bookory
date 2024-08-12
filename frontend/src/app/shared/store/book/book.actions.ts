@@ -29,4 +29,16 @@ export const loadSavedBookDataFailed = createAction(
     props<{error: string}>()
 )
 
-
+//UKLONI KNJIGU IZ LISTE SACUVANIH
+export const removeBookFromSavedList = createAction(
+    '[Remove Saved Book] Remove Saved Book',
+    props<{user_id: number, book_id: number}>()
+)
+export const removeBookFromSavedListSuccess = createAction(
+    '[Remove Saved Book] Remove Saved Book Success',
+    props<{book_id: number}>()
+)
+export const removeBookFromSavedListFailure = createAction(
+    '[Remove Saved Book] Remove Saved Book Failure',
+    props<{error: string}>()
+)

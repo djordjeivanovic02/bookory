@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { loadNewestBooksSuccess, loadSavedBookDataSuccess } from "./book.actions";
+import { loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookFromSavedListSuccess } from "./book.actions";
 import { SavedDto } from "../../dtos/saved.dto";
 import { removeSavedBookSuccess, saveBook, saveBookSuccess } from "../user/user.actions";
 
@@ -35,7 +35,7 @@ export const bookReducer = createReducer(
         ...state,
         savedBooks: [...(state.savedBooks || []), ...savedBook],
         savedBookLoaded: true,
-        savedBookPage: state.savedBookPage+1
+        savedBookPage: savedBook ? state.savedBookPage+1 : state.savedBookPage
     })),
     //IZ USER SAVE BOOK
     on(saveBookSuccess, (state, { savedBook }) => {
@@ -72,6 +72,16 @@ export const bookReducer = createReducer(
             savedBooks: limitedSavedBooks,
             savedBookLoaded: true,
             savedBookPage: newPage > 1 ? newPage : 2
+        };
+    }),
+    on(removeBookFromSavedListSuccess, (state, {book_id}) => {
+        const updatedSavedBooks = state.savedBooks
+            ? state.savedBooks.filter(book => book.id !== book_id)
+            : [];
+        return {
+            ...state,
+            savedBooks: updatedSavedBooks,
+            savedBookPage: updatedSavedBooks ? state.savedBookLimit-1 : 1
         };
     })
     

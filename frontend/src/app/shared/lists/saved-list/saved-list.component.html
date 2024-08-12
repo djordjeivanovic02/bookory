@@ -1,10 +1,10 @@
-<app-not-found *ngIf="!savedBooks" title="Još uvek nemate sačuvane knjige."></app-not-found>
+<app-not-found *ngIf="!savedBooks || savedBooks.length === 0" title="Još uvek nemate sačuvane knjige."></app-not-found>
 <table class="table">
     <tbody>
         <ng-container *ngIf="savedBooks">
             <tr *ngFor="let savedBook of savedBooks">
                 <td>
-                    <a href="" class="remove">X</a>
+                    <a href="" class="remove" (click)="remove($event, savedBook.id)">X</a>
                 </td>
                 <td class="image-cont">
                     <img
