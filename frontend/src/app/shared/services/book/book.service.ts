@@ -27,9 +27,9 @@ export class BookService {
 
   loadSavedBook(
     user_id: number,
-    page: number,
+    skip: number,
     limit: number
   ): Observable<SavedDto[]> {
-    return this.http.get<SavedDto[]>(`${this.apiUrl}/saved/user-saves/${user_id}?page=${page}&limit=${limit}`);
+    return this.http.get<SavedDto[]>(`${this.apiUrl}/saved/user-saves/${user_id}?skip=${skip}&limit=${limit}`);
   }
 }

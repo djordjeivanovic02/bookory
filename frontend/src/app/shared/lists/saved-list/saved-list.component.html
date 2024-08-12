@@ -34,4 +34,5 @@
         </ng-container>
     </tbody>
 </table>
-<button *ngIf="showLoadMore" (click)="loadMore()">Ucitaj jos</button>
+<app-loadmore *ngIf="showLoadMore" [minValue]="savedBooks?.length" [maxValue]="userData?.savedBooks?.length" (clickTrigger)="loadMore()"></app-loadmore>
+<!-- <button *ngIf="showLoadMore" (click)="loadMore()">Ucitaj jos</button> -->

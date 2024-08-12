@@ -34,7 +34,7 @@ export class BookEffects {
     this.actions$.pipe(
       ofType(loadSavedBookData),
       mergeMap(action =>
-        this.bookService.loadSavedBook(action.user_id, action.page, action.limit).pipe(
+        this.bookService.loadSavedBook(action.user_id, action.skip, action.limit).pipe(
           map(response => {
             if (response) {
               const mappedBooks = response.map(element => ({

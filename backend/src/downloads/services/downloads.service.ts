@@ -42,14 +42,11 @@ export class DownloadsService {
         pagination: PaginationDto,
         id: number
     ): Observable<DownloadedBook[]>{
-        const {page, limit} = pagination;
-        const skip = (page-1) * limit;
-
         return from(this.downloadedRepository.find({
             where: {user: {id}},
             relations: ['book'],
-            skip: skip,
-            take: limit
+            skip: pagination.skip,
+            take: pagination.limit
         }));
     }
 }

@@ -22,9 +22,9 @@ export const selectSavedBooksDataLoaded = createSelector(
     selectBookState,
     (bookState) => bookState.savedBookLoaded
 )
-export const selectSavedBookPage = createSelector(
+export const selectSavedBookSkip = createSelector(
     selectBookState,
-    (bookState) => bookState.savedBookPage
+    (bookState) => bookState.savedBookSkip
 )
 export const selectSavedBookLimit = createSelector(
     selectBookState,

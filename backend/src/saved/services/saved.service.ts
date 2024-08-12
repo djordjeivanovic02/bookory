@@ -60,14 +60,15 @@ export class SavedService {
         pagination: PaginationDto,
         id: number
     ): Observable<SavedBook[]>{
-        const {page, limit} = pagination;
-        const skip = (page-1) * limit;
 
         return from(this.savedRepository.find({
             where: {user: {id}},
             relations: ['book'],
-            skip: skip,
-            take: limit
+            skip: pagination.skip,
+            take: pagination.limit,
+            order: {
+                created_at: 'DESC'
+            }
         }));
     }
 

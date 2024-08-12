@@ -43,14 +43,12 @@ export class ReviewsService {
         pagination: PaginationDto,
         id: number
     ): Observable<ReviewDataDto[]>{
-        const {page, limit} = pagination;
-        const skip = (page-1) * limit;
 
         return from(this.reviewRepository.find({
             where: {book: {id}},
             relations: ['user'],
-            skip: skip,
-            take: limit
+            skip: pagination.skip,
+            take: pagination.limit
         })).pipe(
             map(reviews => 
                 reviews.map(review => ({

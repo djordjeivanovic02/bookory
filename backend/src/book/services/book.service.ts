@@ -42,13 +42,10 @@ export class BookService {
       }
     
     findAll(pagination: PaginationDto): Observable<BookInfo[]> {
-      const { page, limit } = pagination;
-      const skip = (page - 1) * limit;
-      
       return from(this.bookRepository.find({
          relations: ['author'] ,
-         skip: skip,
-         take: limit
+         skip: pagination.skip,
+         take: pagination.limit
         })).pipe(
         map(books => 
           books.map(book => ({
@@ -81,13 +78,10 @@ export class BookService {
       id: number,
       pagination: PaginationDto
     ): Observable<BookInfo[]> {
-      const {page, limit} = pagination;
-      const skip = (page - 1) * limit;
-
       return from(this.bookRepository.find({
         where: {author: {id}},
-        skip: skip,
-        take: limit
+        skip: pagination.skip,
+        take: pagination.limit
        })).pipe(
        map(books => 
          books.map(book => ({

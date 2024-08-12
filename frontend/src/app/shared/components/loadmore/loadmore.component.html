@@ -1,0 +1,8 @@
+<div class="main-container w-100 d-flex justify-content-center">
+    <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="main position-relative">
+            <div class="indicator" [ngStyle]="{ 'width': ((minValue? minValue : 0) / (maxValue ? maxValue : 1)) * 100 + '%' }"></div>
+        </div>
+        <a href="" (click)="clickHandler($event)">Učitaj još</a>
+    </div>
+</div>

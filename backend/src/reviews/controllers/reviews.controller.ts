@@ -18,10 +18,10 @@ export class ReviewsController {
     @Get('book-review/:id')
     findUserSavedAds(
         @Param('id') id: number,
-        @Query('page') page: number,
+        @Query('page') skip: number,
         @Query('limit') limit: number
     ): Observable<ReviewDataDto[]> {
-        return this.reviewService.findBookReviews({page, limit}, id);
+        return this.reviewService.findBookReviews({skip, limit}, id);
     }
 
     @Delete(':id')

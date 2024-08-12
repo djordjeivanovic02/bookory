@@ -68,6 +68,7 @@ import { reducers } from "./app.state";
 import { UserEffects } from "./shared/store/user/user.effects";
 import { BookEffects } from "./shared/store/book/book.effects";
 import { NewestListComponent } from './shared/lists/newest-list/newest-list.component';
+import { LoadmoreComponent } from './shared/components/loadmore/loadmore.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { NewestListComponent } from './shared/lists/newest-list/newest-list.comp
     CustomTextareaComponent,
     CustomSelectComponent,
     NewestListComponent,
+    LoadmoreComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

@@ -10,7 +10,7 @@ export interface BookState{
 
     savedBooks: BookInfoDto[] | null;
     savedBookLoaded: boolean;
-    savedBookPage: number;
+    savedBookSkip: number;
     savedBookLimit: number;
 }
 
@@ -20,7 +20,7 @@ export const initialState: BookState = {
 
     savedBooks: null,
     savedBookLoaded: false,
-    savedBookPage: 1,
+    savedBookSkip: 0,
     savedBookLimit:2
 }
 
@@ -34,56 +34,61 @@ export const bookReducer = createReducer(
     on(loadSavedBookDataSuccess, (state, {savedBook}) => ({
         ...state,
         savedBooks: [...(state.savedBooks || []), ...savedBook],
-        savedBookLoaded: true,
-        savedBookPage: savedBook ? state.savedBookPage+1 : state.savedBookPage
+        savedBookLoaded: savedBook.length !== 0,
+        savedBookSkip: state.savedBookSkip+savedBook.length
     })),
     //IZ USER SAVE BOOK
     on(saveBookSuccess, (state, { savedBook }) => {
-        const totalSavedBooks = state.savedBooks ? state.savedBooks.length : 0;
-        const maxSavedBooks = (state.savedBookPage - 1) * state.savedBookLimit;
-    
-        if (totalSavedBooks < maxSavedBooks) {
-            return {
-                ...state,
-                savedBooks: [...(state.savedBooks || []), savedBook.book],
-                savedBookLoaded: true
-            };
+        const totalSavedBooks = state.savedBooks?.length || 0;
+        let newBooks = [];
+        let step = 0;
+
+        if (state.savedBooks && totalSavedBooks) {
+            if (totalSavedBooks % state.savedBookLimit === 0) {
+                newBooks = [savedBook.book, ...state.savedBooks.slice(0, totalSavedBooks - 1)];
+            } else {
+                newBooks = [savedBook.book, ...state.savedBooks];
+                step = 1;
+            }
+        } else {
+            newBooks = [savedBook.book];
+            step = 1;
         }
-    
         return {
             ...state,
-            savedBookLoaded: true
+            savedBooks: newBooks,
+            savedBookLoaded: true,
+            savedBookSkip: state.savedBookSkip + step
         };
     }),
+    
     // IZ USER REMOVE BOOK
     on(removeSavedBookSuccess, (state, { book_id }) => {
         const updatedSavedBooks = state.savedBooks
             ? state.savedBooks.filter(book => book.id !== book_id)
             : [];
 
-        const newTotalBooks = updatedSavedBooks.length;
-        const newPage = Math.ceil(newTotalBooks / state.savedBookLimit);
+        const deff = (updatedSavedBooks.length < state.savedBooks?.length!) ? 1 : 0;
+        const newSkip = state.savedBookSkip - deff;
 
-        let limitedSavedBooks = updatedSavedBooks;
-        if(newPage > 1) limitedSavedBooks= updatedSavedBooks.slice(0, (newPage-1) * state.savedBookLimit);
-        
         return {
             ...state,
-            savedBooks: limitedSavedBooks,
-            savedBookLoaded: true,
-            savedBookPage: newPage > 1 ? newPage : 2
+            savedBooks: updatedSavedBooks.length === 0 ? null : updatedSavedBooks,
+            savedBookSkip: newSkip,
+            savedBookLoaded: newSkip === 0 ? false: true,
         };
     }),
-    on(removeBookFromSavedListSuccess, (state, {book_id}) => {
-        const updatedSavedBooks = state.savedBooks
-            ? state.savedBooks.filter(book => book.id !== book_id)
-            : [];
-        return {
-            ...state,
-            savedBooks: updatedSavedBooks,
-            savedBookPage: updatedSavedBooks ? state.savedBookLimit-1 : 1
-        };
-    })
+    // on(removeBookFromSavedListSuccess, (state, {book_id}) => {
+    //     const updatedSavedBooks = state.savedBooks
+    //         ? state.savedBooks.filter(book => book.id !== book_id)
+    //         : [];
+    //     return {
+    //         ...state,
+    //         savedBooks: updatedSavedBooks,
+    //         savedBookPage: updatedSavedBooks.length !==0 ? state.savedBookLimit-1 : 1,
+    //         savedBookLoaded: updatedSavedBooks.length !== 0 ? true : false
+    //     };
+    // })
     
     
 )

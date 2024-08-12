@@ -18,7 +18,7 @@ export const loadNewestBooksFailed = createAction(
 //SACUVANE KNJIGE
 export const loadSavedBookData = createAction(
     '[Saved Book Data] Load Saved Book Data',
-    props<{user_id: number, page: number, limit: number}>()
+    props<{user_id: number, skip: number, limit: number}>()
 );
 export const loadSavedBookDataSuccess = createAction(
     '[Saved Book Data] Load Saved Book Data Success',

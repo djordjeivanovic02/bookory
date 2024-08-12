@@ -22,10 +22,10 @@ export class SavedController {
     @Get('user-saves/:id')
     findUserSavedAds(
         @Param('id') id: number,
-        @Query('page') page: number,
+        @Query('skip') skip: number,
         @Query('limit') limit: number
     ): Observable<SavedBook[]> {
-        return this.savedService.findUserSavedAds({page, limit}, id);
+        return this.savedService.findUserSavedAds({skip, limit}, id);
     }
 
     @Get('all-user-saves/:id')
