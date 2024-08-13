@@ -23,11 +23,13 @@
                     <app-button-with-icon
                         class="fullbutton"
                         [icon]="faDownload"
+                        (clickEvent)="downloadPdf(savedBook.pdf, savedBook.title)"
                     ></app-button-with-icon>
                     <app-button-with-icon
                         class="onlyicon"
                         [icon]="faDownload"
                         text=""
+                        (clickEvent)="downloadPdf(savedBook.pdf, savedBook.title)"
                     ></app-button-with-icon>
                 </td>
             </tr>

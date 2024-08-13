@@ -39,7 +39,8 @@ export class BookEffects {
             if (response) {
               const mappedBooks = response.map(element => ({
                 ...element.book,
-                image: `${environment.apiUrl}/${element.book.image}`
+                image: `${environment.apiUrl}/${element.book.image}`,
+                pdf: `${environment.apiUrl}/${element.book.pdf}`,
               }));
               return loadSavedBookDataSuccess({ savedBook: mappedBooks });
             } else {

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { IconDefinition } from "@fortawesome/angular-fontawesome";
 import { faNotdef } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,4 +14,12 @@ export class ButtonWithIconComponent {
   icon: IconDefinition = faNotdef;
   @Input()
   text: String = "Preuzmi besplatno";
+
+
+  @Output()
+  clickEvent = new EventEmitter<void>();
+
+  clickTrigger(){
+    this.clickEvent.emit();
+  }
 }

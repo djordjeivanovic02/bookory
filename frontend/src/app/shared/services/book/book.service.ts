@@ -41,4 +41,15 @@ export class BookService {
   ):Observable<DownloadDto[]>{
     return this.http.get<DownloadDto[]>(`${this.apiUrl}/downloads/user-downloads/${user_id}?skip=${skip}&limit=${limit}`);
   }
+
+  downloadPdf(pdf: string, title: string){
+    this.http.get(pdf, { responseType: 'blob' }).subscribe(blob => {
+      const link = document.createElement('a');
+      const url = window.URL.createObjectURL(blob);
+      link.href = url;
+      link.download = `${title}.pdf`;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
 }

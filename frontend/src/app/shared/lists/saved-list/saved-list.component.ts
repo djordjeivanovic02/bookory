@@ -7,6 +7,7 @@ import { BookInfoDto } from "../../dtos/book-info.dto";
 import { selectSavedBookLimit, selectSavedBookSkip, selectSavedBooksData, selectSavedBooksDataLoaded } from "../../store/book/book.selectors";
 import { UserDataStoreDto } from "../../dtos/user-data.dto";
 import { selectUserData } from "../../store/user/user.selectors";
+import { BookService } from "../../services/book/book.service";
 
 @Component({
   selector: "app-saved-list",
@@ -52,6 +53,10 @@ export class SavedListComponent implements OnInit {
     }
   }
 
+  downloadPdf(pdf: string, title: string){
+    this.bookService.downloadPdf(pdf, title);
+  }
+
   ngOnInit(): void {
     combineLatest([
       this.userData$,
@@ -74,7 +79,7 @@ export class SavedListComponent implements OnInit {
   }
 
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private bookService: BookService) {
     this.savedBook$ = this.store.select(selectSavedBooksData);
     this.savedBooksLoaded$ = this.store.select(selectSavedBooksDataLoaded);
     this.userData$ = this.store.select(selectUserData);

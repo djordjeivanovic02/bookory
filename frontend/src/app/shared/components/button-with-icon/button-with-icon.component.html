@@ -1,4 +1,4 @@
-<button class="d-flex align-items-center justify-content-center">
+<button class="d-flex align-items-center justify-content-center" (click)="clickTrigger()">
     <fa-icon [icon]="icon" *ngIf="showIcon"></fa-icon>
     <p *ngIf="text !== ''">{{ text }}</p>
 </button>
