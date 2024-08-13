@@ -9,6 +9,12 @@ button {
     background-color: var(--main-color);
     transition-duration: 0.3s;
 }
+button.downloaded{
+    background-color: var(--dark-blue-color);
+}
+button.downloaded:hover{
+    background-color: #2b688c;
+}
 button:hover {
     background-color: var(--red-color-hover);
 }

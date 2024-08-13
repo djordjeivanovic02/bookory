@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { Store } from "@ngrx/store";
-import { loadSavedBookData, removeBookFromSavedList } from "../../store/book/book.actions";
+import { addBookToDownloaded, loadSavedBookData, removeBookFromSavedList } from "../../store/book/book.actions";
 import { combineLatest, Observable } from "rxjs";
 import { BookInfoDto } from "../../dtos/book-info.dto";
 import { selectSavedBookLimit, selectSavedBookSkip, selectSavedBooksData, selectSavedBooksDataLoaded } from "../../store/book/book.selectors";
@@ -53,8 +53,10 @@ export class SavedListComponent implements OnInit {
     }
   }
 
-  downloadPdf(pdf: string, title: string){
+  downloadPdf(pdf: string, title: string, book_id: number, downloaded: boolean){
     this.bookService.downloadPdf(pdf, title);
+    if(this.userData && !downloaded)
+      this.store.dispatch(addBookToDownloaded({user_id: this.userData.id, book_id: book_id}));
   }
 
   ngOnInit(): void {
@@ -72,10 +74,22 @@ export class SavedListComponent implements OnInit {
       }
     });
 
+    
     this.savedBook$.subscribe((savedBooks) => {
-      this.savedBooks = savedBooks;
+      if (savedBooks && this.userData && this.userData.downloadedBooks) {
+        this.savedBooks = savedBooks.map(book => {
+          const isDownloaded = this.userData!.downloadedBooks?.some(
+            downloadedBook => downloadedBook === book.id
+          );
+          return { ...book, downloaded: isDownloaded || false };
+        });
+      } else {
+        this.savedBooks = savedBooks;
+      }
+      console.log("Books:", this.savedBooks);
       this.checkShowLoadMore();
     });
+    
   }
 
 

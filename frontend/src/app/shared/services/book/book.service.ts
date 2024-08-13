@@ -52,4 +52,11 @@ export class BookService {
       window.URL.revokeObjectURL(url);
     });
   }
+
+  addBookToDowloadedList(
+    book_id: number,
+    user_id: number
+  ): Observable<DownloadDto>{
+  return this.http.post<DownloadDto>(`${this.apiUrl}/downloads`, {user_id: user_id, book_id: book_id});
+  }
 }

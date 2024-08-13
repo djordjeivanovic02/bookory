@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess } from "./book.actions";
+import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess } from "./book.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { response } from "express";
@@ -87,6 +87,26 @@ export class BookEffects {
             }
           }),
           catchError(error => of(loadDownloadedBooksFailure({error})))
+        )
+      )
+    )
+  );
+
+
+  addBookToDownloadedList = createEffect(() => 
+    this.actions$.pipe(
+      ofType(addBookToDownloaded),
+      mergeMap(action => 
+        this.bookService.addBookToDowloadedList(action.book_id, action.user_id).pipe(
+          map(response => {
+            if(response){
+              response.book.image = `${environment.apiUrl}/${response.book.image}`;
+              return addBookToDowloadedListSuccess({downloadedBook: response})
+            }else{
+              return addBookToDowloadedListFailure({error: "Greska"})
+            }
+          }),
+          catchError(error => of(addBookToDowloadedListFailure({error})))
         )
       )
     )

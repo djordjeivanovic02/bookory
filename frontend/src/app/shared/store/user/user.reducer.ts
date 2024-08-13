@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { UserDataStoreDto } from "../../dtos/user-data.dto";
 import { loadUserDataFailure, loadUserDataSuccess, removeSavedBookSuccess, saveBookFailed, saveBookSuccess } from "./user.actions";
+import { addBookToDowloadedListSuccess } from "../book/book.actions";
 
 export interface UserState {
     user: UserDataStoreDto | null;
@@ -46,4 +47,14 @@ export const userReducer = createReducer(
             }
             : null
     })),
+    // IZ LISTE PREUZETIH KNJIGA
+    on(addBookToDowloadedListSuccess, (state, {downloadedBook}) => ({
+        ...state,
+        user: state.user 
+            ? {
+                ...state.user,
+                downloadedBooks: [...state.user?.downloadedBooks || [], downloadedBook.book.id]
+            }
+            : null
+    }))
 );

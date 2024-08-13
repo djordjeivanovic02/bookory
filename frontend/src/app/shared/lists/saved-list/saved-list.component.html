@@ -23,13 +23,16 @@
                     <app-button-with-icon
                         class="fullbutton"
                         [icon]="faDownload"
-                        (clickEvent)="downloadPdf(savedBook.pdf, savedBook.title)"
+                        [text]="savedBook.downloaded ? 'Preuzmi ponovo' : 'Preuzmi besplatno'"
+                        [downloaded]="savedBook.downloaded!"
+                        (clickEvent)="downloadPdf(savedBook.pdf, savedBook.title, savedBook.id, savedBook.downloaded!)"
                     ></app-button-with-icon>
                     <app-button-with-icon
                         class="onlyicon"
                         [icon]="faDownload"
                         text=""
-                        (clickEvent)="downloadPdf(savedBook.pdf, savedBook.title)"
+                        (clickEvent)="downloadPdf(savedBook.pdf, savedBook.title, savedBook.id, savedBook.downloaded!)"
+                        [downloaded]="savedBook.downloaded!"
                     ></app-button-with-icon>
                 </td>
             </tr>

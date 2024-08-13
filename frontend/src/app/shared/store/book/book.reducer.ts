@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookFromSavedListSuccess } from "./book.actions";
+import { addBookToDowloadedListSuccess, loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookFromSavedListSuccess } from "./book.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 
@@ -94,5 +94,26 @@ export const bookReducer = createReducer(
         downloadedBooksSkip: downloadedBooks ? downloadedBooks.length : 0
     })),
 
-    
+    // on(addBookToDowloadedListSuccess, (state, {downloadedBook}) => {
+    //     const totalDownloadedBooks = state.downloadedBooks?.length || 0;
+    //     let newBooks = [];
+    //     let step = 0;
+
+    //     if (state.downloadedBooks && totalDownloadedBooks) {
+    //         if (totalDownloadedBooks % state.savedBookLimit === 0) {
+    //             newBooks = [downloadedBook, ...state.downloadedBooks.slice(0, totalDownloadedBooks - 1)];
+    //         } else {
+    //             newBooks = [downloadedBook, ...state.downloadedBooks];
+    //             step = 1;
+    //         }
+    //     } else {
+    //         newBooks = [downloadedBook];
+    //         step = 1;
+    //     }
+    //     return {
+    //         ...state,
+    //         downloadedBooks: newBooks,
+    //         downloadedBooksSkip: state.downloadedBooksSkip + step
+    //     };
+    // })
 )

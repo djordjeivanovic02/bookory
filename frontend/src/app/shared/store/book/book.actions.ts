@@ -49,12 +49,24 @@ export const removeBookFromSavedListFailure = createAction(
 export const loadDownloadedBooks = createAction(
     '[Downloaded Books] Load Downloaded Books',
     props<{user_id: number, skip: number, limit: number}>()
-)
+);
 export const loadDownloadedBooksSuccess = createAction(
     '[Downloaded Books] Load Downloaded Books Success',
     props<{downloadedBooks: DownloadDto[]}>()
-)
+);
 export const loadDownloadedBooksFailure = createAction(
     '[Downloaded Books] Load Downloaded Books Failure',
     props<{error: string}>()
-)
+);
+export const addBookToDownloaded = createAction(
+    '[Downloaded Books] New Book Added To Downloaded List',
+    props<{user_id: number, book_id: number}>()
+);
+export const addBookToDowloadedListSuccess = createAction(
+    '[Downloaded Books] New Book Added To Downloaded List Success',
+    props<{downloadedBook: DownloadDto}>()
+);
+export const addBookToDowloadedListFailure= createAction(
+    '[Downloaded Books] New Book Added To Downloaded List Failure',
+    props<{error: string}>()
+);

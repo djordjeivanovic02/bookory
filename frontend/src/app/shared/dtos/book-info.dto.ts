@@ -11,4 +11,6 @@ export interface BookInfoDto {
     tags?: string;
     pdf: string;
     reviews?: ReviewDto[];
+
+    downloaded?: boolean;
 }

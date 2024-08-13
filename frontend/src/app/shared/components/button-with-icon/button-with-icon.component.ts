@@ -14,6 +14,8 @@ export class ButtonWithIconComponent {
   icon: IconDefinition = faNotdef;
   @Input()
   text: String = "Preuzmi besplatno";
+  @Input()
+  downloaded: boolean = false;
 
 
   @Output()
