@@ -1,8 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookFromSavedListSuccess } from "./book.actions";
-import { SavedDto } from "../../dtos/saved.dto";
-import { removeSavedBookSuccess, saveBook, saveBookSuccess } from "../user/user.actions";
+import { loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookFromSavedListSuccess } from "./book.actions";
+import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
+import { DownloadDto } from "../../dtos/downloaded-book.dto";
 
 export interface BookState{
     newestBooks: BookInfoDto[] | null;
@@ -12,6 +12,11 @@ export interface BookState{
     savedBookLoaded: boolean;
     savedBookSkip: number;
     savedBookLimit: number;
+
+    downloadedBooks: DownloadDto[] | null;
+    downloadedBooksLoaded: boolean;
+    downloadedBooksSkip: number;
+    downloadedBooksLimit: number;
 }
 
 export const initialState: BookState = {
@@ -21,7 +26,12 @@ export const initialState: BookState = {
     savedBooks: null,
     savedBookLoaded: false,
     savedBookSkip: 0,
-    savedBookLimit:2
+    savedBookLimit:2,
+
+    downloadedBooks: null,
+    downloadedBooksLoaded: false,
+    downloadedBooksSkip: 0,
+    downloadedBooksLimit: 2
 }
 
 export const bookReducer = createReducer(
@@ -61,7 +71,6 @@ export const bookReducer = createReducer(
             savedBookSkip: state.savedBookSkip + step
         };
     }),
-    
     // IZ USER REMOVE BOOK
     on(removeSavedBookSuccess, (state, { book_id }) => {
         const updatedSavedBooks = state.savedBooks
@@ -78,17 +87,12 @@ export const bookReducer = createReducer(
             savedBookLoaded: newSkip === 0 ? false: true,
         };
     }),
-    // on(removeBookFromSavedListSuccess, (state, {book_id}) => {
-    //     const updatedSavedBooks = state.savedBooks
-    //         ? state.savedBooks.filter(book => book.id !== book_id)
-    //         : [];
-    //     return {
-    //         ...state,
-    //         savedBooks: updatedSavedBooks,
-    //         savedBookPage: updatedSavedBooks.length !==0 ? state.savedBookLimit-1 : 1,
-    //         savedBookLoaded: updatedSavedBooks.length !== 0 ? true : false
-    //     };
-    // })
-    
+    on(loadDownloadedBooksSuccess, (state, {downloadedBooks}) => ({
+        ...state,
+        downloadedBooks: [...(state.downloadedBooks || []), ...downloadedBooks],
+        downloadedBooksLoaded: downloadedBooks && downloadedBooks.length !== 0,
+        downloadedBooksSkip: downloadedBooks ? downloadedBooks.length : 0
+    })),
+
     
 )

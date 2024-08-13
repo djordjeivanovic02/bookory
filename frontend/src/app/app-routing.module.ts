@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: "shop", component: ShopComponent },
   // { path: "saved", component: SavedComponent },
   { path: "all-authors", component: AllAuthorsComponent },
-  { path: "client-dashboard", component: ClientDashboardComponent, canActivate:[AuthGuard] },
+  { path: "client-dashboard/:id", component: ClientDashboardComponent, canActivate:[AuthGuard] },
   { path: "author-dashboard", component: AuthorDashboardComponent, canActivate:[AuthorGuard]},
 ];
 

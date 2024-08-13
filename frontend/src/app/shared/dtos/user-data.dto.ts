@@ -1,4 +1,5 @@
 import { AuthorDataDto } from "./author-data.dto";
+import { DownloadDto } from "./downloaded-book.dto";
 import { SavedDto } from "./saved.dto";
 
 export interface UserDataDto {
@@ -7,6 +8,7 @@ export interface UserDataDto {
     created_at: Date | null;
     author: AuthorDataDto | null;
     savedBooks: SavedDto[] | null;
+    downloadedBooks: DownloadDto[] | null;
 }
 
 
@@ -16,4 +18,5 @@ export interface UserDataStoreDto {
     created_at: Date | null;
     author: AuthorDataDto | null;
     savedBooks: number[] | null;
+    downloadedBooks: number[] | null;
 }

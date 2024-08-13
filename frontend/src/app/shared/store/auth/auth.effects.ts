@@ -36,7 +36,7 @@ export class AuthEffects {
       ofType(loginSuccess),
       tap(action => {
         this.localStorageService.setItem('authToken', action.token);
-        this.router.navigate(['/client-dashboard']);
+        this.router.navigate(['/client-dashboard/0']);
       }),
       switchMap(action => {
         const userId = this.authService.getUserFromToken(action.token).id;

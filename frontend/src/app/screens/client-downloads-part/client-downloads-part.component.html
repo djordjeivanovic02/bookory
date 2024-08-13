@@ -1,17 +1,21 @@
-<app-not-found title="Još uvek nemate preuzetih knjiga."></app-not-found>
+<app-not-found *ngIf="!downloadedBooks || (downloadedBooks && downloadedBooks.length == 0)" title="Još uvek nemate preuzetih knjiga."></app-not-found>
 <div class="main-container w-100">
     <div
         class="grid-item d-flex align-items-center"
-        *ngFor="let i of [].constructor(5)"
+        *ngFor="let downloaded of downloadedBooks"
     >
         <img
-            src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/29.jpg"
+            src="{{downloaded.book.image}}"
             class="image"
         />
-        <div class="mx-3">
-            <a href="" class="title">Treachery: Alpha Colony Book 8</a>
+        <div class="mx-4">
+            <a routerLink="/book/{{downloaded.book.id}}"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            class="title">{{downloaded.book.title}}</a>
             <p class="price">BESPLATNO</p>
-            <p class="date">14. jul, 2024</p>
+            <p class="date">{{downloaded.formattedDate}}</p>
         </div>
     </div>
 </div>
+<app-loadmore *ngIf="showLoadMore" [minValue]="downloadedBooks?.length" [maxValue]="userData?.downloadedBooks?.length" (clickTrigger)="loadMore()"></app-loadmore>

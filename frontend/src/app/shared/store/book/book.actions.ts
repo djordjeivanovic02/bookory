@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
 import { SavedDto } from "../../dtos/saved.dto";
+import { DownloadDto } from "../../dtos/downloaded-book.dto";
 
 //NAJNOVIJE KNJIGE
 export const loadNewestBooks = createAction(
@@ -40,5 +41,20 @@ export const removeBookFromSavedListSuccess = createAction(
 )
 export const removeBookFromSavedListFailure = createAction(
     '[Remove Saved Book] Remove Saved Book Failure',
+    props<{error: string}>()
+)
+
+
+//PREUZETE KNJIGE
+export const loadDownloadedBooks = createAction(
+    '[Downloaded Books] Load Downloaded Books',
+    props<{user_id: number, skip: number, limit: number}>()
+)
+export const loadDownloadedBooksSuccess = createAction(
+    '[Downloaded Books] Load Downloaded Books Success',
+    props<{downloadedBooks: DownloadDto[]}>()
+)
+export const loadDownloadedBooksFailure = createAction(
+    '[Downloaded Books] Load Downloaded Books Failure',
     props<{error: string}>()
 )

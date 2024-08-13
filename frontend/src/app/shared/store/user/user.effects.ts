@@ -24,7 +24,9 @@ export class UserEffects {
                 email: response.email,
                 created_at: response.created_at,
                 author: response.author,
-                savedBooks: response.savedBooks? response.savedBooks.map(element => element.book.id) : []
+                savedBooks: response.savedBooks? response.savedBooks.map(element => element.book.id) : [],
+                downloadedBooks: response.downloadedBooks? response.downloadedBooks.map(element => element.book.id) : []
+                // downloadedBooks: [1, 2, 3]
               }
               return loadUserDataSuccess({ user: user });
             } else {

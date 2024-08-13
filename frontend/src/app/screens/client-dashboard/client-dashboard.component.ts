@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 import { selectAuthSuccess } from "../../shared/store/auth/auth.selectores";
 import { UserDataDto, UserDataStoreDto } from "../../shared/dtos/user-data.dto";
 import { selectUserData } from "../../shared/store/user/user.selectors";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-client-dashboard",
@@ -20,6 +21,9 @@ export class ClientDashboardComponent implements OnInit {
       route: "/",
     },
   ];
+  headerText: string = "Kontrolna Tabla";
+  currentLink: string = "Kontrolna Tabla";
+
   actions = clientDashboardActions;
   selectedContainer = 0;
   userData$: Observable<UserDataStoreDto | undefined | null>;
@@ -27,20 +31,28 @@ export class ClientDashboardComponent implements OnInit {
 
   showContainer(index: number, event: Event) {
     event.preventDefault();
-    this.selectedContainer = index;
+    this.router.navigate(['/client-dashboard', index]);
   }
 
   logout(){
     this.store.dispatch(logout());
   }
 
-  constructor(private store: Store){
+  constructor(private store: Store, private route: ActivatedRoute, private router: Router){
     this.userData$ = this.store.select(selectUserData);
   }
 
   ngOnInit(): void {
-    // this.userData$.subscribe(userData =>
-    //   console.log('User Data: ', userData)
-    // );
+    this.route.params.subscribe(params => {
+      const containerIndex = +params['id'];
+      if (!isNaN(containerIndex)) {
+        this.selectedContainer = containerIndex;
+        this.updateHeaderText(containerIndex);
+      }
+    });
+  }
+
+  updateHeaderText(index: number){
+    this.headerText = this.currentLink = clientDashboardActions[index].name;
   }
 }

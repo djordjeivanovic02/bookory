@@ -29,14 +29,13 @@
 
 .main-container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
 }
 .grid-item {
     padding: 30px;
     background-color: var(--light-background);
     border-radius: 15px;
-    justify-content: space-between;
 }
 
 @media only screen and (max-width: 640px) {

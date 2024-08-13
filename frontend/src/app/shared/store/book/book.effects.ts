@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess } from "./book.actions";
+import { loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess } from "./book.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { response } from "express";
@@ -67,7 +67,29 @@ export class BookEffects {
         )
       )
     )
-  )
+  );
+
+  loadDownloadedBooks = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadDownloadedBooks),
+      mergeMap(action => 
+        this.bookService.loadDownloadedBooks(action.user_id, action.skip, action.limit).pipe(
+          map(response => {
+            if(response){
+              const mappedBooks = response.map(element => ({
+                ...element,
+                book: {...element.book, image: `${environment.apiUrl}/${element.book.image}`}
+              }));
+              return loadDownloadedBooksSuccess({downloadedBooks: mappedBooks});
+            }else{
+              return loadDownloadedBooksFailure({error: "Greska"});
+            }
+          }),
+          catchError(error => of(loadDownloadedBooksFailure({error})))
+        )
+      )
+    )
+  );
   
   
 

@@ -63,7 +63,6 @@ export class SavedListComponent implements OnInit {
       if(limit) this.limit = limit;
       if(userData) this.userData = userData;
       if (userData && !loaded && skip!==null && limit) {
-        console.log(userData, loaded, skip, limit);
         this.store.dispatch(loadSavedBookData({ user_id: userData.id, skip: skip, limit: limit }));
       }
     });

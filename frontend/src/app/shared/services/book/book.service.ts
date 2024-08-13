@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BookInfoDto } from '../../dtos/book-info.dto';
 import { SavedDto } from '../../dtos/saved.dto';
+import { DownloadDto } from '../../dtos/downloaded-book.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,13 @@ export class BookService {
     limit: number
   ): Observable<SavedDto[]> {
     return this.http.get<SavedDto[]>(`${this.apiUrl}/saved/user-saves/${user_id}?skip=${skip}&limit=${limit}`);
+  }
+
+  loadDownloadedBooks(
+    user_id: number,
+    skip: number,
+    limit: number
+  ):Observable<DownloadDto[]>{
+    return this.http.get<DownloadDto[]>(`${this.apiUrl}/downloads/user-downloads/${user_id}?skip=${skip}&limit=${limit}`);
   }
 }

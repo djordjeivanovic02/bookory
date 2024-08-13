@@ -21,12 +21,30 @@ export const selectSavedBooksData = createSelector(
 export const selectSavedBooksDataLoaded = createSelector(
     selectBookState,
     (bookState) => bookState.savedBookLoaded
-)
+);
 export const selectSavedBookSkip = createSelector(
     selectBookState,
     (bookState) => bookState.savedBookSkip
-)
+);
 export const selectSavedBookLimit = createSelector(
     selectBookState,
     (bookState) => bookState.savedBookLimit
-)
+);
+
+//PREUZETE KNJIGE
+export const selectDownloadedBooks = createSelector(
+    selectBookState,
+    (bookState) => bookState.downloadedBooks
+);
+export const selectDownloadedBooksLoaded = createSelector(
+    selectBookState,
+    (bookState) => bookState.downloadedBooksLoaded
+);
+export const selectDownloadedBookSkip = createSelector(
+    selectBookState,
+    (bookState) => bookState.downloadedBooksSkip
+);
+export const selectDownloadedBookLimit = createSelector(
+    selectBookState,
+    (bookState) => bookState.downloadedBooksLimit
+);

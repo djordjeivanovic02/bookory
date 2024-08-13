@@ -16,7 +16,7 @@ export class DownloadsController {
     @Get('user-downloads/:id')
     findUserSavedAds(
         @Param('id') id: number,
-        @Query('page') skip: number,
+        @Query('skip') skip: number,
         @Query('limit') limit: number
     ): Observable<DownloadedBook[]> {
         return this.downloadedService.findUserDownloadedAds({skip, limit}, id);
