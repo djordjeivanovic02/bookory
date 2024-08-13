@@ -59,6 +59,15 @@ export class SavedListComponent implements OnInit {
       this.store.dispatch(addBookToDownloaded({user_id: this.userData.id, book_id: book_id}));
   }
 
+  updateDownloadedIndicator(savedBooks: BookInfoDto[]){
+    this.savedBooks = savedBooks.map(book => {
+      const isDownloaded = this.userData!.downloadedBooks?.some(
+        downloadedBook => downloadedBook === book.id
+      );
+      return { ...book, downloaded: isDownloaded || false };
+    });
+  }
+
   ngOnInit(): void {
     combineLatest([
       this.userData$,
@@ -74,15 +83,14 @@ export class SavedListComponent implements OnInit {
       }
     });
 
+    this.userData$.subscribe((userData) => {
+      this.userData = userData;
+      this.updateDownloadedIndicator(this.savedBooks || []);
+    });
     
     this.savedBook$.subscribe((savedBooks) => {
       if (savedBooks && this.userData && this.userData.downloadedBooks) {
-        this.savedBooks = savedBooks.map(book => {
-          const isDownloaded = this.userData!.downloadedBooks?.some(
-            downloadedBook => downloadedBook === book.id
-          );
-          return { ...book, downloaded: isDownloaded || false };
-        });
+        this.updateDownloadedIndicator(savedBooks);
       } else {
         this.savedBooks = savedBooks;
       }

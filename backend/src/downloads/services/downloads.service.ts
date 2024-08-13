@@ -46,7 +46,10 @@ export class DownloadsService {
             where: {user: {id}},
             relations: ['book'],
             skip: pagination.skip,
-            take: pagination.limit
+            take: pagination.limit,
+            order: {
+                created_at: 'DESC'
+            }
         }));
     }
 }
