@@ -16,6 +16,8 @@ export class ButtonWithIconComponent {
   text: String = "Preuzmi besplatno";
   @Input()
   downloaded: boolean = false;
+  @Input()
+  isDisabled: boolean = false;
 
 
   @Output()

@@ -1,5 +1,6 @@
 <button class="d-flex align-items-center justify-content-center" (click)="clickTrigger()"
-    [ngClass]="{'downloaded': downloaded}"
+    [ngClass]="{'downloaded': downloaded, 'disabled': isDisabled}"
+    [disabled]="isDisabled"
     >
     <fa-icon [icon]="icon" *ngIf="showIcon"></fa-icon>
     <p *ngIf="text !== ''">{{ text }}</p>

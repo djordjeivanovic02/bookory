@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { AuthPayloadDto } from '../dto/auth.dto';
 import { AuthService } from '../services/auth.service';
 import { LocalGuard } from '../guards/local.guard';
@@ -40,5 +40,13 @@ export class AuthController {
             map(result => ({ success: true, data: result })),
             catchError(error => of({ success: false, message: error.message })),
         );
+    }
+
+    @Put('changePassword/:id')
+    changePassword(
+        @Param('id') user_id: number,
+        @Body() data: { oldPassword: string; newPassword: string }
+    ): Observable<{ message: string }> {
+        return this.authService.changePassword(user_id, data.oldPassword, data.newPassword);
     }
 }

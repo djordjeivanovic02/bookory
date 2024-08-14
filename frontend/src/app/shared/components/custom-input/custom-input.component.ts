@@ -24,6 +24,7 @@ export class CustomInputComponent implements OnInit {
 
   @Output() 
   valueChange = new EventEmitter<string>();
+  
   formControlName = new FormControl({value: '', disabled: this.isDisabled});
 
   constructor(){

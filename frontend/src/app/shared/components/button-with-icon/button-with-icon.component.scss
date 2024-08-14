@@ -21,4 +21,6 @@ button:hover {
 button p {
     margin: 0;
     margin-left: 8px;
+}button:disabled{
+    background-color: var(--button-disabled);
 }

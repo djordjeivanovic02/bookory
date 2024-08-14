@@ -7,10 +7,18 @@
         [isDisabled]="true"
         [placeholder]="userData?.email!"
     ></app-custom-input>
-    <app-change-password></app-change-password>
+    <app-change-password 
+        (passwordsEmmit)="getPasswords($event)"
+        [isError]="isError"
+        [isSuccess]="isSuccess"
+        [title]="title"
+        [notification]="notification"
+    ></app-change-password>
 </div>
 
 <app-button-with-icon
     [showIcon]="false"
     text="Sačuvaj promene"
+    (clickEvent)="changeData()"
+    [isDisabled]="buttonDisabled"
 ></app-button-with-icon>

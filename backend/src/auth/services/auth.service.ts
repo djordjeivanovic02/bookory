@@ -102,4 +102,30 @@ export class AuthService {
         );
     }
 
+
+    changePassword(userId: number, oldPassword: string, newPassword: string): Observable<{ message: string }> {
+      return from(this.userRepository.findOne({ where: { id: userId } })).pipe(
+          switchMap(user => {
+              if (!user) {
+                  return throwError(() => new NotFoundException('User nije pronadjen'));
+              }
+              return from(bcrypt.compare(oldPassword, user.password)).pipe(
+                  switchMap(isOldPasswordValid => {
+                      if (!isOldPasswordValid) {
+                          return throwError(() => new UnauthorizedException('Stara lozinka nije tačna'));
+                      }
+                      return from(bcrypt.hash(newPassword, 10)).pipe(
+                          switchMap(hashedPassword => {
+                              user.password = hashedPassword;
+                              return from(this.userRepository.save(user)).pipe(
+                                  map(() => ({ message: 'Lozinka je uspešno promenjena' }))
+                              );
+                          })
+                      );
+                  })
+              );
+          }),
+          catchError(err => throwError(() => err))
+      );
+  }
 }

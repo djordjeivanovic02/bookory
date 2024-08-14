@@ -14,7 +14,7 @@
         <span *ngIf="isSuccess">Uspešna registracija: </span>
         <p class="m-0 d-inline-block">{{notification}}</p>
     </div> -->
-    <app-error class="error-cont w-100 d-flex justify-content-center" [isError]="isError" [isSuccess]="isSuccess" [notification]="notification" [title]="isError ? 'Greška: ' : 'Uspešna registracija: '"></app-error>
+    <app-error class="error-cont w-100 d-flex justify-content-center" *ngIf="isError || isSuccess" [isError]="isError" [isSuccess]="isSuccess" [notification]="notification" [title]="isError ? 'Greška: ' : 'Uspešna registracija: '"></app-error>
     <div
         class="main-container login-register-main d-flex justify-content-center"
     >
@@ -26,6 +26,7 @@
                     placeholder="Unesite vašu email adresu"
                     [isRequired]="true"
                     (valueChange)="onEmailValueChange($event)"
+                    [isDisabled]="false"
                 ></app-custom-input>
                 <app-custom-input
                     title="Lozinka"
@@ -34,6 +35,7 @@
                     [isPassword]="true"
                     [isRequired]="true"
                     (valueChange)="onPasswordValueChange($event)"
+                    [isDisabled]="false"
                 ></app-custom-input>
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
@@ -59,6 +61,7 @@
                     placeholder="Unesite vašu email adresu"
                     [isRequired]="true"
                     (valueChange)="onRegisterEmailChange($event)"
+                    [isDisabled]="false"
                 ></app-custom-input>
                 <app-custom-input
                     title="Lozinka"
@@ -67,6 +70,7 @@
                     [isPassword]="true"
                     [isRequired]="true"
                     (valueChange)="onRegisterPasswordChange($event)"
+                    [isDisabled]="false"
                 ></app-custom-input>
                 <div
                     class="additional-fields"
@@ -76,17 +80,20 @@
                         title="Ime"
                         [isRequired]="true"
                         (valueChange)="onRegisterNameChange($event)"
+                        [isDisabled]="false"
                     ></app-custom-input>
                     <app-custom-input
                         title="Prezime"
                         [isRequired]="true"
                         (valueChange)="onRegisterSurnameChange($event)"
+                        [isDisabled]="false"
                     ></app-custom-input>
                     <app-custom-input
                         title="Websajt"
                         [isRequired]="true"
                         addition="https://www.vasvebsajt.com/about"
                         (valueChange)="onRegisterWebsiteChange($event)"
+                        [isDisabled]="false"
                     ></app-custom-input>
                 </div>
                 <div class="profileType">
