@@ -4,7 +4,7 @@
         <ng-container *ngIf="savedBooks">
             <tr *ngFor="let savedBook of savedBooks">
                 <td>
-                    <a href="" class="remove" (click)="remove($event, savedBook.id)">X</a>
+                    <a href="" class="remove" (click)="remove($event, savedBook.id, savedBook.author.id)">X</a>
                 </td>
                 <td class="image-cont">
                     <img

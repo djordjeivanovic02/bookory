@@ -1,0 +1,5 @@
+<div class="best-authors-container w-100 h-100" *ngIf="bestAuthors">
+    <div *ngFor="let bestAuthor of bestAuthors; let i = index">
+        <app-author-widget-1 [bestAuthor]="bestAuthor" [index]="i"></app-author-widget-1>
+    </div>
+</div>

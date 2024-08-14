@@ -50,16 +50,17 @@ export class NewestListComponent implements OnInit {
     })
   }
 
-  saveBook({ saved, id }: { saved: boolean, id: number }) {
+  saveBook({ saved, book }: { saved: boolean, book: BookInfoDto | null }) {
     if(!saved && this.userData){
       this.store.dispatch(saveBook({ 
         user_id: this.userData?.id,
-        book_id: id
+        book_id: book ? book.id : -1
       }));
     }else if(this.userData){
       this.store.dispatch(removeSavedBook({
         user_id: this.userData?.id,
-        book_id: id
+        book_id: book ? book.id : -1,
+        author_id: book ? book.author.id : -1
       }))
     }
   }

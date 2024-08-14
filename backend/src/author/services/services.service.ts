@@ -120,6 +120,7 @@ export class AuthorService {
             firstName: author.firstName,
             lastName: author.lastName,
             averageRating: totalAverageRating,
+            image: author.picture,
             totalSaves,
           }))
           .sort((a, b) => b.averageRating - a.averageRating || b.totalSaves - a.totalSaves)

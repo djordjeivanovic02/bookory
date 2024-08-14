@@ -4,7 +4,6 @@ import { BookService } from "../../services/book/book.service";
 import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess } from "./book.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
 import { environment } from "../../../../environments/environment";
-import { response } from "express";
 
 @Injectable()
 export class BookEffects {
@@ -41,6 +40,7 @@ export class BookEffects {
                 ...element.book,
                 image: `${environment.apiUrl}/${element.book.image}`,
                 pdf: `${environment.apiUrl}/${element.book.pdf}`,
+                author: element.book.author
               }));
               return loadSavedBookDataSuccess({ savedBook: mappedBooks });
             } else {
@@ -59,7 +59,7 @@ export class BookEffects {
         this.bookService.removeSavedBook(action.user_id, action.book_id).pipe(
           map(response => {
             if(response){
-              return removeBookFromSavedListSuccess({book_id: action.book_id})
+              return removeBookFromSavedListSuccess({book_id: action.book_id, author_id: action.author_id})
             }else{
               return removeBookFromSavedListFailure({error: "Greska"})
             }

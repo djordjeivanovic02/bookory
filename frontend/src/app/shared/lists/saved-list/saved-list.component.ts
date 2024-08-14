@@ -38,10 +38,10 @@ export class SavedListComponent implements OnInit {
     }
   }
 
-  remove(event: Event, bookId: number){
+  remove(event: Event, bookId: number, authorId: number){
     event.preventDefault();
     if(this.userData){
-      this.store.dispatch(removeBookFromSavedList({user_id: this.userData.id, book_id: bookId}))
+      this.store.dispatch(removeBookFromSavedList({user_id: this.userData.id, book_id: bookId, author_id: authorId}))
     }
   }
 

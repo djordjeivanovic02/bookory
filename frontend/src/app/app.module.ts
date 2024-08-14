@@ -66,10 +66,12 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { reducers } from "./app.state";
 import { UserEffects } from "./shared/store/user/user.effects";
+import { AuthorEffects } from "./shared/store/author/author.effects";
 import { BookEffects } from "./shared/store/book/book.effects";
 import { NewestListComponent } from './shared/lists/newest-list/newest-list.component';
 import { LoadmoreComponent } from './shared/components/loadmore/loadmore.component';
 import { ErrorComponent } from './shared/components/error/error.component';
+import { BestAuthorsListComponent } from './shared/lists/best-authors-list/best-authors-list.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +122,7 @@ import { ErrorComponent } from './shared/components/error/error.component';
     NewestListComponent,
     LoadmoreComponent,
     ErrorComponent,
+    BestAuthorsListComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -131,7 +134,7 @@ import { ErrorComponent } from './shared/components/error/error.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, UserEffects, BookEffects]),
+    EffectsModule.forRoot([AuthEffects, UserEffects, BookEffects, AuthorEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production

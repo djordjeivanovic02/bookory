@@ -27,7 +27,7 @@ export class Book {
     @Column()
     pdf: string;
 
-    @ManyToOne(() => Author, (author) => author.books)
+    @ManyToOne(() => Author, (author) => author.books, {eager: true})
     author: Author;
 
     @OneToMany(() => SavedBook, savedBook => savedBook.book)

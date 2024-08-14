@@ -22,10 +22,10 @@ export class BookWidget1Component implements OnInit {
   bookAverageRate: number = 0;
 
   @Output()
-  saveTrigger = new EventEmitter<{saved: boolean, id: number}>();
+  saveTrigger = new EventEmitter<{saved: boolean, book: BookInfoDto | null}>();
 
   saveChange(value: boolean | undefined){
-    this.saveTrigger.emit({saved: value ? value : false, id: this.book?.id ? this.book.id : -1});
+    this.saveTrigger.emit({saved: value ? value : false, book: this.book ? this.book : null});
   }
 
   ngOnInit(): void {

@@ -1,16 +1,21 @@
 <div class="main-container d-flex align-items-center w-100">
     <div class="image-container position-relative">
-        <span class="position-absolute m-0">01.</span>
+        <span class="position-absolute m-0">0{{index+1}}.</span>
         <img
             class="w-100 h-100"
-            src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/11/store-7.jpg"
+            src="{{bestAuthor?.image? bestAuthor?.image : '../src/aassets/images/best-author.jpg'}}"
         />
     </div>
     <div class="user-info">
-        <a href="" class="title">Guilluame Muso</a>
-        <span>(6 knjiga)</span>
-        <div class="stars text-start">
+        <a 
+            routerLink="/author/{{bestAuthor?.id}}"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+        class="title">{{bestAuthor?.firstName}} {{bestAuthor?.lastName}}</a>
+        <span>({{bestAuthor?.totalSaves}} čuvanja)</span>
+        <!-- <div class="stars text-start">
             <fa-icon [icon]="faStar" *ngFor="let star of stars"></fa-icon>
-        </div>
+        </div> -->
+        <app-stars [rate]="getRoundedRating(bestAuthor?.averageRating!)"></app-stars>
     </div>
 </div>

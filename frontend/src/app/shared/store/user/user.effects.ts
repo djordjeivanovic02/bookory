@@ -80,7 +80,7 @@ export class UserEffects {
         this.bookService.removeSavedBook(action.user_id, action.book_id).pipe(
           map(response => {
             if(response){
-              return removeSavedBookSuccess({book_id: action.book_id})
+              return removeSavedBookSuccess({book_id: action.book_id, author_id: action.author_id})
             }else{
               return removeSavedBookFailed({error: "Greska"})
             }
