@@ -1,10 +1,16 @@
 <div class="w-100">
     <h1>Informacije o nalogu</h1>
+
     <app-custom-input
         title="Email (ne može da se menja)"
-        [isRequired]="false"
+        [isRequired]="true"
         [isDisabled]="true"
-        placeholder="idjordje63@gmail.com"
+        [placeholder]="userData?.email!"
     ></app-custom-input>
     <app-change-password></app-change-password>
 </div>
+
+<app-button-with-icon
+    [showIcon]="false"
+    text="Sačuvaj promene"
+></app-button-with-icon>

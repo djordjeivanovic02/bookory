@@ -69,6 +69,7 @@ import { UserEffects } from "./shared/store/user/user.effects";
 import { BookEffects } from "./shared/store/book/book.effects";
 import { NewestListComponent } from './shared/lists/newest-list/newest-list.component';
 import { LoadmoreComponent } from './shared/components/loadmore/loadmore.component';
+import { ErrorComponent } from './shared/components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { LoadmoreComponent } from './shared/components/loadmore/loadmore.compone
     CustomSelectComponent,
     NewestListComponent,
     LoadmoreComponent,
+    ErrorComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

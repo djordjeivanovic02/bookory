@@ -58,27 +58,7 @@
     font-weight: 300;
     line-height: 24px;
 }
-.error-container, .success-container {
-    padding: 17px;
-    color: white;
-    margin-top: 150px;
-}
-.error-container{
-    background-color: var(--error-color);
-    border-left: 10px solid var(--error-second-color);
-}
 
-.success-container {
-    background-color: var(--light-green);
-    border-left: 10px solid green;
-}
-
-.error-container span {
-    font-weight: 600;
-}
-.error-container p {
-    font-weight: 300;
-}
 .additional-fields {
     overflow: hidden;
     max-height: 0;
@@ -87,6 +67,10 @@
 
 .field-animation-true {
     max-height: 1000px;
+}
+
+.error-cont{
+    margin-top: 150px;
 }
 
 @media only screen and (max-width: 640px) {

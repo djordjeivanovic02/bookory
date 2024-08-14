@@ -1,0 +1,7 @@
+<div class="main-container w-100"
+    [ngClass]="{'error-container': isError, 'success-container': isSuccess}"
+    *ngIf="isError || isSuccess"
+>
+    <span *ngIf="isError">{{title}}</span>
+    <p class="m-0 d-inline-block">{{notification}}</p>
+</div>

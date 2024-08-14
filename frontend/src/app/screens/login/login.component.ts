@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
       route: "/",
     },
   ];
-  isError: Boolean = false;
-  isSuccess: Boolean = false;
+  isError: boolean = false;
+  isSuccess: boolean = false;
   notification: string = "";
   loginButtonDisabled = true;
 

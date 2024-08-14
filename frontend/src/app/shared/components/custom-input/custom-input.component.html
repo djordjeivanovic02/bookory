@@ -7,16 +7,7 @@
     type="{{ type }}"
     class="w-100"
     placeholder="{{ placeholder }}"
-    *ngIf="!isDisabled"
     [formControl]="formControlName"
-  />
-  <input
-    type="{{ type }}"
-    class="w-100"
-    placeholder="{{ placeholder }}"
-    *ngIf="isDisabled"
-    [formControl]="formControlName"
-    [disabled]="isDisabled"
   />
   <p class="addition" *ngIf="addition != null">{{ addition }}</p>
 </div>

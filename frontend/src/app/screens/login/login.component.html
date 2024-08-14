@@ -6,14 +6,15 @@
 <div
     class="main w-100 d-flex flex-column justify-content-center align-items-center"
 >
-    <div class="main-container w-100"
+    <!-- <div class="main-container w-100"
         [ngClass]="{'error-container': isError, 'success-container': isSuccess}"
         *ngIf="isError || isSuccess"
     >
         <span *ngIf="isError">Greška: </span>
         <span *ngIf="isSuccess">Uspešna registracija: </span>
         <p class="m-0 d-inline-block">{{notification}}</p>
-    </div>
+    </div> -->
+    <app-error class="error-cont w-100 d-flex justify-content-center" [isError]="isError" [isSuccess]="isSuccess" [notification]="notification" [title]="isError ? 'Greška: ' : 'Uspešna registracija: '"></app-error>
     <div
         class="main-container login-register-main d-flex justify-content-center"
     >
