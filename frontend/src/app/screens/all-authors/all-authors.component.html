@@ -15,10 +15,13 @@
         </div>
         <div class="w-100">
             <div class="authors-main d-flex flex-wrap w-100">
-                <app-author-small-widget
-                    *ngFor="let author of allAuthors"
-                    class="author-main w-100"
-                ></app-author-small-widget>
+                <ng-container *ngFor="let author of (selectedLetter === 'SVI') ? allAuthors : filteredAuthors">
+                    <app-author-small-widget
+                        class="author-main w-100"
+                        [author]="author"
+                    ></app-author-small-widget>
+                </ng-container>
+                
             </div>
         </div>
     </div>

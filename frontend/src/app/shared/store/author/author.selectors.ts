@@ -22,3 +22,9 @@ export const selectAllAuthorsLoaded = createSelector(
     selectAuthorState,
     (authorState) => authorState.allAuthorsLoaded
 );
+
+//AUTORI NA OSNOVU SLOVA PRVOG IMENA
+export const selectAuthorsByFirstLetter = createSelector(
+    selectAuthorState,
+    (authorState) => authorState.filteredAuthors
+)

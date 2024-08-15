@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BestAuthorsDto } from "../../dtos/best-authors.dto";
-import { loadAllAuthorsSuccess, loadBestAuthorsSuccess } from "./author.actions";
+import { loadAllAuthorsSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadBestAuthorsSuccess } from "./author.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { removeBookFromSavedListSuccess } from "../book/book.actions";
 import { AuthorDataDto } from "../../dtos/author-data.dto";
@@ -11,6 +11,8 @@ export interface AuthorState {
 
     allAuthors: AuthorDataDto[] | null;
     allAuthorsLoaded: boolean;
+
+    filteredAuthors: AuthorDataDto[] | null;
 };
 
 export const initialState: AuthorState = {
@@ -18,7 +20,9 @@ export const initialState: AuthorState = {
     bestAuthorsLoaded: false,
 
     allAuthors: null,
-    allAuthorsLoaded: false
+    allAuthorsLoaded: false,
+
+    filteredAuthors: null,
 };
 
 export const authorReducer = createReducer(
@@ -64,5 +68,9 @@ export const authorReducer = createReducer(
         ...state,
         allAuthors: authors,
         allAuthorsLoaded: true
-    }))
+    })),
+    on(loadAuthorByFirstLetterSuccess, (state, {filteredAuthors}) => ({
+        ...state,
+        filteredAuthors: filteredAuthors
+    })),
 )
