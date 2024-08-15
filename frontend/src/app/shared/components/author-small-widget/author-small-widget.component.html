@@ -14,12 +14,20 @@
     <div
         class="author-block d-flex flex-column align-items-center justify-content-center"
     >
-        <a href="" class="thumbnail">
+        <a 
+        routerLink="/author/{{author?.id}}"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        class="thumbnail">
             <img
                 src="{{author?.picture}}"
             />
         </a>
-        <a href="" class="title">{{author?.firstName}} {{author?.lastName}}</a>
+        <a 
+        routerLink="/author/{{author?.id}}"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        class="title">{{author?.firstName}} {{author?.lastName}}</a>
         <p class="books">{{author?.books?.length}} objavljene knjige</p>
     </div>
 </div>
