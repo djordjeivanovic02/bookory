@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthorService } from "../../services/author/author.service";
-import { loadBestAuthors, loadBestAuthorsFailed, loadBestAuthorsSuccess } from "./author.actions";
-import { map, mergeMap } from "rxjs";
+import { loadAllAuthors, loadAllAuthorsSuccess, loadBestAuthors, loadBestAuthorsFailed, loadBestAuthorsSuccess } from "./author.actions";
+import { catchError, map, mergeMap } from "rxjs";
 import { environment } from "../../../../environments/environment";
+import { response } from "express";
 
 
 @Injectable()
@@ -20,6 +21,23 @@ export class AuthorEffects {
                 image: (element.image) ? `${environment.apiUrl}/${element.image}` : 'assets/images/best-author.jpg'
               }));
               return loadBestAuthorsSuccess({bestAuthors: mappedBooks});
+            }else{
+              return loadBestAuthorsFailed({error: "Greska"});
+            }
+          })
+        )
+      )
+    )
+  );
+
+  loadAllAuthors = createEffect(() => 
+    this.actions$.pipe(
+      ofType(loadAllAuthors),
+      mergeMap(action => 
+        this.authorService.loadAllAuthors().pipe(
+          map(response => {
+            if(response){
+              return loadAllAuthorsSuccess({authors: response});
             }else{
               return loadBestAuthorsFailed({error: "Greska"});
             }

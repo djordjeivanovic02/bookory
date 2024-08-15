@@ -12,3 +12,13 @@ export const selectBestAuthorsLoaded = createSelector(
     selectAuthorState,
     (authorState) => authorState.bestAuthorsLoaded
 );
+
+//SVI AUTORI
+export const selectAllAuthors = createSelector(
+    selectAuthorState,
+    (authorState) => authorState.allAuthors
+);
+export const selectAllAuthorsLoaded = createSelector(
+    selectAuthorState,
+    (authorState) => authorState.allAuthorsLoaded
+);

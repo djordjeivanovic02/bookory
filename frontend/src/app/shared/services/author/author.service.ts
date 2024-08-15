@@ -20,4 +20,8 @@ export class AuthorService {
   loadBestAuthors(): Observable<BestAuthorsDto[]> {
     return this.http.get<BestAuthorsDto[]>(`${this.apiUrl}/author/most-famous`);
   }
+
+  loadAllAuthors(): Observable<AuthorDataDto[]>{
+    return this.http.get<AuthorDataDto[]>(`${this.apiUrl}/author`);
+  }
 }

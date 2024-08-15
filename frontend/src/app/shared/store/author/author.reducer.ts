@@ -1,17 +1,24 @@
 import { createReducer, on } from "@ngrx/store";
 import { BestAuthorsDto } from "../../dtos/best-authors.dto";
-import { loadBestAuthorsSuccess } from "./author.actions";
+import { loadAllAuthorsSuccess, loadBestAuthorsSuccess } from "./author.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { removeBookFromSavedListSuccess } from "../book/book.actions";
+import { AuthorDataDto } from "../../dtos/author-data.dto";
 
 export interface AuthorState {
     bestAuthors: BestAuthorsDto[] | null,
     bestAuthorsLoaded: boolean;
+
+    allAuthors: AuthorDataDto[] | null;
+    allAuthorsLoaded: boolean;
 };
 
 export const initialState: AuthorState = {
     bestAuthors: null,
-    bestAuthorsLoaded: false
+    bestAuthorsLoaded: false,
+
+    allAuthors: null,
+    allAuthorsLoaded: false
 };
 
 export const authorReducer = createReducer(
@@ -53,4 +60,9 @@ export const authorReducer = createReducer(
             bestAuthors: updatedBestAuthors
         };
     }),
+    on(loadAllAuthorsSuccess, (state, {authors}) => ({
+        ...state,
+        allAuthors: authors,
+        allAuthorsLoaded: true
+    }))
 )
