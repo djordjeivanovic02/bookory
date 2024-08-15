@@ -9,6 +9,8 @@ import { AuthorDataDto } from '../../dtos/author-data.dto';
 export class AuthorSmallWidgetComponent {
   @Input()
   author: AuthorDataDto | null = null;
-
+  
+  @Input()
+  notFound: boolean = false;
   
 }

@@ -1,18 +1,16 @@
-<!-- <div class="w-100">
+<div class="w-100" *ngIf="notFound">
     <div
         class="author-block d-flex flex-column align-items-center justify-content-center"
     >
         <a href="" class="thumbnail">
             <img
-                src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/author18.jpg"
+                src="assets/images/not-found.png"
             />
         </a>
-        <a href="" class="title">Warren Graham</a>
-        <p class="books">2 objavljene knjige</p>
     </div>
-</div> -->
+</div>
 
-<div class="w-100">
+<div class="w-100" *ngIf="!notFound">
     <div
         class="author-block d-flex flex-column align-items-center justify-content-center"
     >
