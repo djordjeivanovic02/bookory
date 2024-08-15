@@ -49,7 +49,9 @@ export class AuthorService {
   }
 
   findAll(): Observable<AuthorDataDto[]> {
-    return from(this.authorRepository.find()).pipe(
+    return from(this.authorRepository.find(
+      {relations: ['books']}
+    )).pipe(
       map(authors =>
         authors.map(author => ({
           id: author.id,
@@ -61,6 +63,7 @@ export class AuthorService {
           facebook: author.facebook,
           instagram: author.instagram,
           linkedin: author.linkedin,
+          books: author.books
         })),
       ),
     );

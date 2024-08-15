@@ -50,7 +50,7 @@ export class SavedService {
     getUserSaves(id:number): Observable<number[]>{
         return from(this.savedRepository.find({
             where: {user: {id}},
-            relations: ['book', 'author']
+            relations: ['book']
         })).pipe(
             map(saves => saves.map(save => save.book.id))
         )

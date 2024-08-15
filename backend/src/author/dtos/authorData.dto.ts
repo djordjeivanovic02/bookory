@@ -1,3 +1,5 @@
+import { Book } from "src/book/entities/book.entity";
+
 export class AuthorDataDto {
     id: number;
     firstName: string;
@@ -7,5 +9,7 @@ export class AuthorDataDto {
     facebook?: string;
     instagram?: string;
     linkedin?: string;
+
+    books?: Book[];
   }
   

@@ -16,7 +16,10 @@
     upravljati sa <a href="">podacima o nalogu</a>, pregledati
     <a href="">preuzete knjige</a>.
 </p>
-<a href="/author-dashboard" class="btn">
+<a routerLink="/author-dashboard"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    class="btn">
     <app-button-with-icon
         *ngIf="userData && userData.author"
         [showIcon]="false"

@@ -68,9 +68,23 @@
             </div>
             <!-- <a href=""><img src="assets/images/logo.svg" class="logo"/></a> -->
             <div class="navigation">
-                <a href="">Početna</a>
-                <a href="">Knjige</a>
-                <a href="">Svi autori</a>
+                <a 
+                    routerLink="/"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                >
+                    Početna
+                </a>
+                <a 
+                    routerLink="/shop"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                >Knjige</a>
+                <a 
+                    routerLink="/all-authors"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page"
+                >Svi autori</a>
                 <a href="">Blog</a>
                 <a href="">O nama</a>
             </div>

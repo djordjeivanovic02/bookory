@@ -1,3 +1,5 @@
+import { BookInfoDto } from "./book-info.dto";
+
 export interface AuthorDataDto {
     id: number;
     firstName: string;
@@ -7,5 +9,6 @@ export interface AuthorDataDto {
     facebook?: string;
     instagram?: string;
     linkedin?: string;
+    books?: BookInfoDto[];
   }
   
