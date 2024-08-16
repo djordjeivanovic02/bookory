@@ -9,6 +9,8 @@ import { ReviewDto } from '../../dtos/review.dto';
 export class CommentComponent {
   @Input()
   review: ReviewDto | null = null;
+  @Input()
+  isMine: boolean = false;
 
   formatDate(): string{
     const formattedDate = new Date(this.review?.created_at!).toLocaleDateString('sr-Latn-RS', {

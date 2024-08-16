@@ -102,14 +102,14 @@
         >
             <div class="desc w-100">
                 <ng-container *ngIf="bookInfo?.reviews && bookInfo?.reviews?.length !== 0">
-                    <app-comment class="w-100 m-0" *ngFor="let comment of bookInfo?.reviews" [review]="comment"></app-comment>
+                    <app-comment class="w-100 m-0" *ngFor="let comment of bookInfo?.reviews" [review]="comment" [isMine]="userData?.email === comment.user.email"></app-comment>
                 </ng-container>
 
                 <ng-container *ngIf="!bookInfo?.reviews || bookInfo?.reviews?.length === 0">
                     <p class="no-reviews w-100 text-center">Ova knjga još uvek nema recenzije. Budite prvi koji će oceniti ovu knjigu.</p>
                 </ng-container>
 
-                <div class="rating">
+                <div class="rating" *ngIf="showReviewInput">
                     <div class="w-100 d-flex align-items-center mb-3">
                         <p class="my-review">Vaša ocena</p>
                         <app-rating></app-rating>
