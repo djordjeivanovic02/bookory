@@ -112,7 +112,7 @@
                 <div class="rating" *ngIf="showReviewInput">
                     <div class="w-100 d-flex align-items-center mb-3">
                         <p class="my-review">Vaša ocena</p>
-                        <app-rating></app-rating>
+                        <app-rating (rateEmitter)="getRate($event)"></app-rating>
                     </div>
                     <div class="w-100 m-0">
                         <textarea
@@ -121,9 +121,11 @@
                             required
                             placeholder="Vaša recenzija *"
                             class="w-100"
+                            (input)="getComment($event)"
                         ></textarea>
                     </div>
                     <app-login-register-button
+                        [disabled]="buttonDisabled"
                         text="Pošalji recenziju"
                     ></app-login-register-button>
                 </div>

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
   selector: "app-rating",
@@ -6,6 +6,9 @@ import { Component } from "@angular/core";
   styleUrl: "./rating.component.scss",
 })
 export class RatingComponent {
+  @Output()
+  rateEmitter = new EventEmitter<number>();
+
   maxStars = 5;
   rating = 0;
   isRatingSet = false;
@@ -15,6 +18,7 @@ export class RatingComponent {
     this.hoveredStar = null;
     this.rating = star;
     this.isRatingSet = true;
+    this.rateEmitter.emit(this.rating);
   }
 
   isStarSelected(star: number) {

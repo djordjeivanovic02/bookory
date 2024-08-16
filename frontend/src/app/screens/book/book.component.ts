@@ -38,6 +38,10 @@ export class BookComponent implements OnInit{
   userData$: Observable<UserDataStoreDto | null>;
   userData: UserDataStoreDto | null = null;
 
+  rate: number = 0;
+  comment: string | null = null;
+  buttonDisabled: boolean = true;
+
   toggleShowing(value: boolean) {
     this.showingDescription = value;
   }
@@ -56,6 +60,23 @@ export class BookComponent implements OnInit{
       return this.bookInfo.reviews?.findIndex(element => element.user.id === this.userData?.id) === -1;
     }
     return true;
+  }
+
+  getRate(rate: number) {
+    this.rate = rate;
+    this.disableButton();
+  }
+
+  disableButton(){
+    if(this.rate !== 0 && this.comment !== null && this.comment !== '') this.buttonDisabled = false;
+    else this.buttonDisabled = true;
+  }
+
+  getComment(event: Event){
+    const target = event.target as HTMLTextAreaElement;
+    const value = target.value;
+    this.comment = value;
+    this.disableButton();
   }
 
   ngOnInit(): void {
