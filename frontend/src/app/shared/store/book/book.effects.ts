@@ -1,9 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess } from "./book.actions";
-import { catchError, map, mergeMap, of } from "rxjs";
+import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
+import { catchError, map, mergeMap, of, take } from "rxjs";
 import { environment } from "../../../../environments/environment";
+import { select, Store } from "@ngrx/store";
+import { AppState } from "../../../app.state";
+import { selectAllBooks, selectNewestBooks } from "./book.selectors";
 
 @Injectable()
 export class BookEffects {
@@ -16,7 +19,15 @@ export class BookEffects {
             if(response){
               const mappedBooks = response.map(element => ({
                 ...element,
-                image: `${environment.apiUrl}/${element.image}`
+                image: `${environment.apiUrl}/${element.image}`,
+                reviews: element.reviews?.map(review => ({
+                  ...review,
+                  user: {
+                    id: review.user.id,
+                    email: review.user.email,
+                    created_at: review.user.created_at
+                  }
+                }))
               }));
               return loadNewestBooksSuccess({ books: mappedBooks });
             }else{
@@ -112,10 +123,44 @@ export class BookEffects {
     )
   );
   
+  selectBook$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(selectBook),
+      mergeMap(action => 
+        this.store.pipe(
+          select(selectAllBooks),
+          take(1),
+          mergeMap(allBooks => {
+            let selectedBook = allBooks?.find(book => book.id === action.id);
+            if (!selectedBook) {
+              return this.store.pipe(
+                select(selectNewestBooks),
+                take(1),
+                mergeMap(newestBooks => {
+                  selectedBook = newestBooks?.find(book => book.id === action.id);
+                  if (selectedBook) {
+                    return of(selectBookSuccess({ selectedBook }));
+                  } else {
+                    return this.bookService.selectBook(action.id).pipe(
+                      map(book => selectBookSuccess({ selectedBook: book })),
+                      catchError(error => of(selectBookFailure({ error: error.message })))
+                    ); 
+                  }
+                })
+              );
+            } else {
+              return of(selectBookSuccess({ selectedBook }));
+            }
+          })
+        )
+      )
+    )
+  );
   
 
   constructor(
     private actions$: Actions,
-    private bookService: BookService
+    private bookService: BookService,
+    private store: Store
   ){}
 }

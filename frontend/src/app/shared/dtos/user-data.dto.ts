@@ -20,3 +20,9 @@ export interface UserDataStoreDto {
     savedBooks: number[] | null;
     downloadedBooks: number[] | null;
 }
+
+export interface UserShortDto {
+    id: number;
+    email: string;
+    created_at: Date | null;
+}

@@ -48,3 +48,16 @@ export const selectDownloadedBookLimit = createSelector(
     selectBookState,
     (bookState) => bookState.downloadedBooksLimit
 );
+
+
+//SVE KNJIGE
+export const selectAllBooks = createSelector(
+    selectBookState,
+    (bookState) => bookState.allBooks
+)
+
+//ODREDJENA KNJIGA
+export const selectBookById = createSelector(
+    selectBookState,
+    (bookState) => bookState.selectedBook
+)

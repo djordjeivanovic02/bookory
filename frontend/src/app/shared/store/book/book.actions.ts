@@ -66,7 +66,21 @@ export const addBookToDowloadedListSuccess = createAction(
     '[Downloaded Books] New Book Added To Downloaded List Success',
     props<{downloadedBook: DownloadDto}>()
 );
-export const addBookToDowloadedListFailure= createAction(
+export const addBookToDowloadedListFailure = createAction(
     '[Downloaded Books] New Book Added To Downloaded List Failure',
+    props<{error: string}>()
+);
+
+//SELEKTUJ KNJIGU
+export const selectBook = createAction(
+    '[Select Book] Select Book',
+    props<{id: number}>()
+);
+export const selectBookSuccess = createAction(
+    '[Select Book] Select Book Success',
+    props<{selectedBook: BookInfoDto}>()
+);
+export const selectBookFailure = createAction(
+    '[Select Boook] Select Book Failed',
     props<{error: string}>()
 );

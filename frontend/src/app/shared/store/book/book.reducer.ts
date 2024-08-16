@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { addBookToDowloadedListSuccess, loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookFromSavedListSuccess } from "./book.actions";
+import { addBookToDowloadedListSuccess, loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, selectBookSuccess } from "./book.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 
@@ -17,6 +17,10 @@ export interface BookState{
     downloadedBooksLoaded: boolean;
     downloadedBooksSkip: number;
     downloadedBooksLimit: number;
+
+    allBooks: BookInfoDto[] | null;
+
+    selectedBook: BookInfoDto | null;
 }
 
 export const initialState: BookState = {
@@ -31,7 +35,11 @@ export const initialState: BookState = {
     downloadedBooks: null,
     downloadedBooksLoaded: false,
     downloadedBooksSkip: 0,
-    downloadedBooksLimit: 2
+    downloadedBooksLimit: 2,
+
+    allBooks: null,
+
+    selectedBook: null,
 }
 
 export const bookReducer = createReducer(
@@ -114,5 +122,9 @@ export const bookReducer = createReducer(
             downloadedBooks: newBooks,
             downloadedBooksSkip: state.downloadedBooksSkip + step
         };
-    })
+    }),
+    on(selectBookSuccess, (state, {selectedBook}) => ({
+        ...state,
+        selectedBook: selectedBook
+    })),
 )

@@ -55,7 +55,8 @@ export class ReviewsService {
                     email: review.user.email,
                     date: review.created_at,
                     rate: review.rate,
-                    comment: review.comment
+                    comment: review.comment,
+                    user_email: review.user.email
                 }))
             )
         );

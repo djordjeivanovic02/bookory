@@ -3,4 +3,5 @@ export class ReviewDataDto {
     date: Date;
     rate: number;
     comment: string;
+    user_email: string;
 }

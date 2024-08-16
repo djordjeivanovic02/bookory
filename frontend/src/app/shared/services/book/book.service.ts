@@ -57,6 +57,10 @@ export class BookService {
     book_id: number,
     user_id: number
   ): Observable<DownloadDto>{
-  return this.http.post<DownloadDto>(`${this.apiUrl}/downloads`, {user_id: user_id, book_id: book_id});
+    return this.http.post<DownloadDto>(`${this.apiUrl}/downloads`, {user_id: user_id, book_id: book_id});
+  }
+
+  selectBook(book_id: number): Observable<BookInfoDto>{
+    return this.http.get<BookInfoDto>(`${this.apiUrl}/book/${book_id}`);
   }
 }

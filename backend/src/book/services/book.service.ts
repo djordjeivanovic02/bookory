@@ -63,7 +63,7 @@ export class BookService {
     }
 
     findOne(id: number): Observable<BookInfo> {
-      return from(this.bookRepository.findOne({where: {id: id}, relations: ['author']}));
+      return from(this.bookRepository.findOne({where: {id: id}, relations: ['author', 'reviews']}));
     }
 
     getNewestBooks(): Observable<BookInfo[]>{

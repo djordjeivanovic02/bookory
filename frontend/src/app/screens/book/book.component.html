@@ -2,7 +2,7 @@
     <div class="main-container navigation">
         <app-links-nav
             [links]="navLinks"
-            currentLink="House of Sky and Breath"
+            currentLink="{{bookInfo?.title}}"
         ></app-links-nav>
     </div>
 </div>
@@ -16,23 +16,21 @@
             />
         </div>
         <div class="right">
-            <h1>House of Sky and Breath</h1>
+            <h1>{{bookInfo?.title}}</h1>
             <div class="book-important-info w-100">
                 <div class="important-info d-inline-block position-relative">
                     <p class="m-0">
-                        Autor: <span><a href="">Nemanja Stankovic</a></span>
+                        Autor: <span><a href="">{{bookInfo?.author?.firstName}} {{bookInfo?.author?.lastName}}</a></span>
                     </p>
                 </div>
                 <div class="important-info d-inline-block position-relative">
-                    <app-stars></app-stars>
+                    <app-stars [rate]="averageRate? averageRate : 0"></app-stars>
                 </div>
             </div>
             <div class="book-important-info w-100">
                 <p class="price d-flex">BESPLATNO</p>
                 <p class="short-description">
-                    Est numquam harum aut ut. Pariatur cum blanditiis est
-                    delectus accusamus eveniet. Quis fugiat eligendi magni eos
-                    dignissimos numquam.
+                    {{bookInfo?.description?.slice(0, 300) + '...'}}
                 </p>
             </div>
             <div class="book-important-info w-100">
@@ -54,13 +52,12 @@
                 <div class="categorie d-inline-block position-relative">
                     <p class="m-0 mb-2">
                         Kategorija:
-                        <span><a href="">Fikcija i Fantastika</a></span>
+                        <span><a href="">{{bookInfo?.category}}</a></span>
                     </p>
-                    <p class="m-0">
+                    <p class="m-0" *ngIf="bookInfo?.tags">
                         Tagovi:
                         <span>
-                            <a href="">Books</a>, <a href="">Fiction</a>,
-                            <a href="">Romance - Contemporary</a>
+                            <a href="">{{bookInfo?.tags}}</a>
                         </span>
                     </p>
                 </div>
@@ -85,7 +82,7 @@
                 active: !showingDescription,
                 'position-relative': true,
             }"
-            >Recenzije(5)</a
+            >Recenzije({{bookInfo?.reviews?.length}})</a
         >
     </div>
 </div>
@@ -96,14 +93,7 @@
             *ngIf="showingDescription"
         >
             <p class="desc short-description">
-                Ut earum iure dolor tenetur. Et sit et est deserunt. Cumque
-                voluptatum recusandae molestiae recusandae velit. Eaque quam
-                repellat omnis. Nulla excepturi iure nobis rerum. Voluptatum aut
-                doloribus quos amet ipsa voluptatibus eius aperiam. Occaecati
-                reiciendis dicta adipisci eum aut velit. Consequuntur occaecati
-                in maxime ab numquam voluptatem. Quo cumque harum quam dolorem.
-                Suscipit quos ratione et nemo dolore. Et voluptatem molestiae
-                sit vel. Libero qui rerum cum quo nesciunt et dolorem.
+                {{bookInfo?.description}}
             </p>
         </div>
         <div
@@ -111,11 +101,13 @@
             *ngIf="!showingDescription"
         >
             <div class="desc w-100">
-                <app-comment class="w-100 m-0"></app-comment>
-                <app-comment class="w-100 m-0"></app-comment>
-                <app-comment class="w-100 m-0"></app-comment>
-                <app-comment class="w-100 m-0"></app-comment>
-                <app-comment class="w-100 m-0"></app-comment>
+                <ng-container *ngIf="bookInfo?.reviews && bookInfo?.reviews?.length !== 0">
+                    <app-comment class="w-100 m-0" *ngFor="let comment of bookInfo?.reviews" [review]="comment"></app-comment>
+                </ng-container>
+
+                <ng-container *ngIf="!bookInfo?.reviews || bookInfo?.reviews?.length === 0">
+                    <p class="no-reviews">Ova knjga još uvek nema recenzije. Budite prvi koji će oceniti ovu knjigu.</p>
+                </ng-container>
 
                 <div class="rating">
                     <div class="w-100 d-flex align-items-center mb-3">

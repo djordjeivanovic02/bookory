@@ -1,7 +1,9 @@
+import { UserDataDto, UserShortDto } from "./user-data.dto";
+
 export interface ReviewDto {
     id: number;
-    user_email: string;
-    date: Date;
+    user: UserShortDto;
+    created_at: Date;
     rate: number;
     image?: string;
     comment: string;
