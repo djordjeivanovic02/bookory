@@ -6,12 +6,13 @@ import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { BookInfoDto } from "../../shared/dtos/book-info.dto";
 import { Store } from "@ngrx/store";
-import { addReview, removeBookFromSavedList, selectBook } from "../../shared/store/book/book.actions";
+import { addBookToDownloaded, addReview, removeBookFromSavedList, selectBook } from "../../shared/store/book/book.actions";
 import { selectBookById } from "../../shared/store/book/book.selectors";
 import { UserDataStoreDto } from "../../shared/dtos/user-data.dto";
 import { selectUserData } from "../../shared/store/user/user.selectors";
 import { CreateReviewDto } from "../../shared/dtos/create-review.dto";
 import { saveBook } from "../../shared/store/user/user.actions";
+import { BookService } from "../../shared/services/book/book.service";
 
 @Component({
   selector: "app-book",
@@ -96,6 +97,20 @@ export class BookComponent implements OnInit{
       }));
   }
 
+  isDownloaded(): boolean {
+    if(this.bookInfo && this.userData && this.userData.downloadedBooks)
+      return this.userData.downloadedBooks.findIndex(element => element === this.bookInfo?.id) !== -1;
+    return false;
+  }
+
+  downloadPdf(){
+    if(this.bookInfo && this.userData){
+      this.bookService.downloadPdf(this.bookInfo.pdf, this.bookInfo.title);
+      if(!this.isDownloaded())
+        this.store.dispatch(addBookToDownloaded({user_id: this.userData.id, book_id: this.bookInfo.id}));
+    }
+  }
+
   saveReview(){
     if(this.rate !== 0 && this.comment !== null && this.comment !== '' &&
       this.bookInfo && this.userData
@@ -145,7 +160,8 @@ export class BookComponent implements OnInit{
   
   constructor(
     private route: ActivatedRoute,
-    private store: Store
+    private store: Store,
+    private bookService: BookService
   ){
     this.bookInfo$ = this.store.select(selectBookById);
     this.userData$ = this.store.select(selectUserData);

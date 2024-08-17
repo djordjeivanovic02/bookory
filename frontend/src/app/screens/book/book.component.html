@@ -36,8 +36,10 @@
             <div class="book-important-info w-100">
                 <app-button-with-icon
                     [icon]="faDownload"
-                    text="Preuzmi Besplatno"
+                    [text]="isDownloaded() ? 'Preuzmi Ponovo' : 'Preuzmi Besplatno'"
                     class="d-inline-block"
+                    [downloaded]="isDownloaded()"
+                    (clickEvent)="downloadPdf()"
                 ></app-button-with-icon>
                 <div class="save d-inline-block">
                     <a href="" (click)="isSaved() ? unsaveBook($event) : saveBook($event)" class="d-flex align-items-center">
