@@ -22,6 +22,7 @@ export class BookEffects {
               const mappedBooks = response.map(element => ({
                 ...element,
                 image: `${environment.apiUrl}/${element.image}`,
+                pdf: `${environment.apiUrl}/${element.pdf}`,
                 reviews: element.reviews?.map(review => ({
                   ...review,
                   user: {
@@ -92,7 +93,11 @@ export class BookEffects {
             if(response){
               const mappedBooks = response.map(element => ({
                 ...element,
-                book: {...element.book, image: `${environment.apiUrl}/${element.book.image}`}
+                book: {
+                  ...element.book, 
+                  image: `${environment.apiUrl}/${element.book.image}`,
+                  pdf: `${environment.apiUrl}/${element.book.pdf}`
+                }
               }));
               return loadDownloadedBooksSuccess({downloadedBooks: mappedBooks});
             }else{
@@ -114,6 +119,7 @@ export class BookEffects {
           map(response => {
             if(response){
               response.book.image = `${environment.apiUrl}/${response.book.image}`;
+              response.book.pdf = `${environment.apiUrl}/${response.book.pdf}`;
               return addBookToDowloadedListSuccess({downloadedBook: response})
             }else{
               return addBookToDowloadedListFailure({error: "Greska"})
@@ -144,7 +150,18 @@ export class BookEffects {
                     return of(selectBookSuccess({ selectedBook }));
                   } else {
                     return this.bookService.selectBook(action.id).pipe(
-                      map(book => selectBookSuccess({ selectedBook: book })),
+                      map(book => {
+                        if(book){
+                          book = {
+                            ...book,
+                            image: `${environment.apiUrl}/${book.image}`,
+                            pdf: `${environment.apiUrl}/${book.pdf}`
+                          }
+                          return selectBookSuccess({ selectedBook: book })}
+                        else{
+                          return selectBookFailure({error: "Greska"})
+                        }
+                      }),
                       catchError(error => of(selectBookFailure({ error: error.message })))
                     ); 
                   }

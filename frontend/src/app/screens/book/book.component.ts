@@ -1,17 +1,17 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NavLink } from "../../core/interfaces/navlink.interface";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faHeart as faHeartFull } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { BookInfoDto } from "../../shared/dtos/book-info.dto";
 import { Store } from "@ngrx/store";
-import { addReview, selectBook } from "../../shared/store/book/book.actions";
+import { addReview, removeBookFromSavedList, selectBook } from "../../shared/store/book/book.actions";
 import { selectBookById } from "../../shared/store/book/book.selectors";
-import { UserInfo } from "os";
 import { UserDataStoreDto } from "../../shared/dtos/user-data.dto";
 import { selectUserData } from "../../shared/store/user/user.selectors";
 import { CreateReviewDto } from "../../shared/dtos/create-review.dto";
+import { saveBook } from "../../shared/store/user/user.actions";
 
 @Component({
   selector: "app-book",
@@ -27,6 +27,7 @@ export class BookComponent implements OnInit{
   ];
   faDownload = faDownload;
   faHeart = faHeart;
+  faHeartFull = faHeartFull;
 
   bookId: number | null= null;
   showingDescription: boolean = true;
@@ -71,6 +72,28 @@ export class BookComponent implements OnInit{
   disableButton(){
     if(this.rate !== 0 && this.comment !== null && this.comment !== '') this.buttonDisabled = false;
     else this.buttonDisabled = true;
+  }
+
+  isSaved(): boolean {
+    if(this.bookInfo && this.userData && this.userData.savedBooks)
+      return this.userData.savedBooks?.findIndex(element => element === this.bookInfo?.id) !== -1;
+    return false;
+  }
+
+  saveBook(event: Event){
+    event.preventDefault();
+    if(this.userData && this.bookInfo)
+      this.store.dispatch(saveBook({user_id: this.userData?.id, book_id: this.bookInfo?.id}));
+  }
+
+  unsaveBook(event: Event){
+    event.preventDefault();
+    if(this.userData && this.bookInfo)
+      this.store.dispatch(removeBookFromSavedList({
+        user_id: this.userData.id,
+        book_id: this.bookInfo.id,
+        author_id: this.bookInfo.author.id
+      }));
   }
 
   saveReview(){
