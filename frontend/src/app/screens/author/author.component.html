@@ -2,7 +2,7 @@
     <div class="main-container navigation">
         <app-links-nav
             [links]="navLinks"
-            currentLink="Misty Figueroa"
+            currentLink="{{authorData?.firstName}} {{authorData?.lastName}}"
         ></app-links-nav>
     </div>
 </div>
@@ -10,51 +10,33 @@
     <div class="main-container main d-flex">
         <div class="image-container">
             <img
-                src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/author7.jpg"
+                src="{{authorData?.picture}}"
                 class="w-100 h-100"
             />
         </div>
-        <div class="author-info">
-            <h3>Misty Figueroa</h3>
+        <div class="author-info flex-fill">
+            <h3>{{authorData?.firstName}} {{authorData?.lastName}}</h3>
             <div class="description d-flex">
-                <p>
-                    Janice Hallett is a British author, screenwriter and an
-                    award-winning journalist, best known for her phenomenally
-                    successful debut thriller The Appeal. Before her breakout
-                    entry into the realms of crime fiction, Janice Hallett
-                    worked as a journalist, magazine editor and speech writer
-                    for the Cabinet Office and Home Office, as well as writing
-                    for the stage and screen. Her first feature film Retreat
-                    (co-written and directed by Carl Tibbetts) came out in 2011,
-                    and she won the award for Best New Screenplay at the 2014
-                    British Independent Film Festival.Janice Hallett is a
-                    British author, screenwriter and an award-winning
-                    journalist, best known for her phenomenally successful debut
-                    thriller The Appeal. Before her breakout entry into the
-                    realms of crime fiction, Janice Hallett worked as a
-                    journalist, magazine editor and speech writer for the
-                    Cabinet Office and Home Office, as well as writing for the
-                    stage and screen. Her first feature film Retreat (co-written
-                    and directed by Carl Tibbetts) came out in 2011, and she won
-                    the award for Best New Screenplay at the 2014 British
-                    Independent Film Festival.
-                </p>
+                <p class="">{{authorData?.about}}</p>
                 <div class="socials d-flex">
-                    <div
-                        class="social d-flex align-items-center justify-content-center"
-                    >
-                        <fa-icon [icon]="faFacebook"></fa-icon>
-                    </div>
-                    <div
-                        class="social d-flex align-items-center justify-content-center"
-                    >
-                        <fa-icon [icon]="faInstagram"></fa-icon>
-                    </div>
-                    <div
-                        class="social d-flex align-items-center justify-content-center"
-                    >
-                        <fa-icon [icon]="faLinkedin"></fa-icon>
-                    </div>
+                    <a href="{{authorData?.facebook}}" *ngIf="authorData?.facebook">
+                        <div class="social d-flex align-items-center justify-content-center"
+                        >
+                            <fa-icon [icon]="faFacebook"></fa-icon>
+                        </div>
+                    </a>
+                    <a href="{{authorData?.instagram}}" *ngIf="authorData?.instagram">
+                        <div class="social d-flex align-items-center justify-content-center"
+                        >
+                            <fa-icon [icon]="faInstagram"></fa-icon>
+                        </div>
+                    </a>
+                    <a href="{{authorData?.linkedin}}" *ngIf="authorData?.linkedin">
+                        <div class="social d-flex align-items-center justify-content-center"
+                        >
+                            <fa-icon [icon]="faLinkedin"></fa-icon>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -63,14 +45,18 @@
         <div
             class="book-header d-flex align-items-center justify-content-strach"
         >
-            <h4 class="books-title">Knjige od Misty Figueroa</h4>
+            <h4 class="books-title">Knjige od {{authorData?.firstName}} {{authorData?.lastName}}</h4>
             <div class="line flex-fill"></div>
         </div>
         <div class="w-100">
-            <app-book-widget-2></app-book-widget-2>
-            <app-book-widget-2></app-book-widget-2>
-            <app-book-widget-2></app-book-widget-2>
-            <app-book-widget-2></app-book-widget-2>
+            <ng-container *ngIf="authorData?.booksCount && authorData?.booksCount! > 0">
+                <app-book-widget-2 *ngFor="let book of authorData?.books" [book]="book"></app-book-widget-2>
+                <app-loadmore *ngIf="showLoadMore()" [minValue]="authorData?.books?.length" [maxValue]="authorData?.booksCount" (clickTrigger)="loadMore()"></app-loadmore>
+            </ng-container>
+            <ng-container *ngIf="authorData?.booksCount && authorData?.booksCount === 0">
+                <p class="no-books text-center">Autor još uvek nema nijednu knjgu!</p>
+            </ng-container>
+            
         </div>
     </div>
 </div>

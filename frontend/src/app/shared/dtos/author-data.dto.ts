@@ -10,5 +10,7 @@ export interface AuthorDataDto {
     instagram?: string;
     linkedin?: string;
     books?: BookInfoDto[];
+    booksCount?: number;
+    about?: string;
   }
   

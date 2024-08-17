@@ -1,16 +1,20 @@
 <div class="main position-relative d-inline-block w-100">
     <div class="image w-100">
         <img
-            src="https://demo2.pavothemes.com/bookory/wp-content/uploads/2022/02/25.jpg"
+            src="{{book?.image}}"
             class="w-100 h-100"
         />
     </div>
     <div class="book-info w-100">
-        <a href="#" class="name">Life Flight</a>
-        <app-stars></app-stars>
+        <a 
+            routerLink="/book/{{book?.id}}"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+        class="name">{{book?.title}}</a>
+        <app-stars [rate]="bookAverageRate"></app-stars>
         <div class="important-info d-inline-block position-relative">
             <p class="m-0">
-                <a href="">Nemanja Stankovic</a>
+                <a>{{book?.author?.firstName}} {{book?.author?.lastName}}</a>
             </p>
         </div>
         <p class="price">BESPLATNO</p>

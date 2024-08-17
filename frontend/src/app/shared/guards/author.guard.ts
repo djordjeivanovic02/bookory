@@ -25,7 +25,6 @@ export class AuthorGuard implements CanActivate {
             select(selectToken),
             take(1),
             switchMap(token => {
-                console.log(token);
                 if (token && this.authService.isValidToken(token)) {
                     const tokenData = this.authService.getUserFromToken(token);
                     return this.userService.loadData(tokenData.id).pipe(

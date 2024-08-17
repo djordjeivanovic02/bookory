@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BestAuthorsDto } from "../../dtos/best-authors.dto";
-import { loadAllAuthorsSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadBestAuthorsSuccess } from "./author.actions";
+import { loadAllAuthorsSuccess, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorByIdSuccess, loadBestAuthorsSuccess } from "./author.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { removeBookFromSavedListSuccess } from "../book/book.actions";
 import { AuthorDataDto } from "../../dtos/author-data.dto";
@@ -11,6 +11,8 @@ export interface AuthorState {
 
     allAuthors: AuthorDataDto[] | null;
     allAuthorsLoaded: boolean;
+
+    authorBooksSkip: number;
 
     filteredAuthors: AuthorDataDto[] | null;
 };
@@ -23,6 +25,8 @@ export const initialState: AuthorState = {
     allAuthorsLoaded: false,
 
     filteredAuthors: null,
+
+    authorBooksSkip: 0
 };
 
 export const authorReducer = createReducer(
@@ -64,13 +68,35 @@ export const authorReducer = createReducer(
             bestAuthors: updatedBestAuthors
         };
     }),
-    on(loadAllAuthorsSuccess, (state, {authors}) => ({
+    on(loadAllAuthorsSuccess, (state, { authors }) => ({
         ...state,
-        allAuthors: authors,
+        allAuthors: [
+            ...state.allAuthors || [],
+            ...authors.filter(author => !state.allAuthors?.some(existingAuthor => existingAuthor.id === author.id))
+        ],
         allAuthorsLoaded: true
     })),
     on(loadAuthorByFirstLetterSuccess, (state, {filteredAuthors}) => ({
         ...state,
         filteredAuthors: filteredAuthors
     })),
+    on(loadAuthorByIdSuccess, (state, {loadedAuthor}) => ({
+        ...state,
+        allAuthors: [...state.allAuthors?.filter(element => element !== loadedAuthor) || [], loadedAuthor]
+    })),
+    on(loadAuthorBooksSuccess, (state, {books, author_id}) => ({
+        ...state,
+        allAuthors: state.allAuthors
+            ?
+            state.allAuthors.map(author => 
+                author.id === author_id 
+                ? { 
+                    ...author, 
+                    books: [...(author.books || []), ...books] 
+                    } 
+                : author
+            )
+            : null,
+        authorBooksSkip: state.authorBooksSkip + books.length
+    }))
 )

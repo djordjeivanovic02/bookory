@@ -29,7 +29,7 @@
     flex-direction: row;
     column-gap: 30px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 .description p {
     padding-right: 30px;
@@ -79,7 +79,11 @@
 .primary {
     margin-bottom: 80px;
 }
-
+.no-books{
+    width: 100%;
+    font-weight: 600;
+    font-style: italic;
+}
 @media only screen and (max-width: 640px) {
 }
 

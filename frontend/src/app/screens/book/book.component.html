@@ -20,7 +20,11 @@
             <div class="book-important-info w-100">
                 <div class="important-info d-inline-block position-relative">
                     <p class="m-0">
-                        Autor: <span><a href="">{{bookInfo?.author?.firstName}} {{bookInfo?.author?.lastName}}</a></span>
+                        Autor: <span><a 
+                            routerLink="/author/{{bookInfo?.author?.id}}"
+                            routerLinkActive="active"
+                            ariaCurrentWhenActive="page"
+                            >{{bookInfo?.author?.firstName}} {{bookInfo?.author?.lastName}}</a></span>
                     </p>
                 </div>
                 <div class="important-info d-inline-block position-relative">

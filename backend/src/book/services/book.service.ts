@@ -81,7 +81,8 @@ export class BookService {
       return from(this.bookRepository.find({
         where: {author: {id}},
         skip: pagination.skip,
-        take: pagination.limit
+        take: pagination.limit,
+        relations: ['reviews']
        })).pipe(
        map(books => 
          books.map(book => ({
@@ -93,6 +94,7 @@ export class BookService {
              category: book.category,
              tags: book.tags,
              pdf: book.pdf,
+             reviews: book.reviews
          }))
        )
      )

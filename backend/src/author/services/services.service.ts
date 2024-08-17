@@ -70,7 +70,12 @@ export class AuthorService {
   }
 
   findOne(id: number): Observable<Author> {
-    return from(this.authorRepository.findOneBy({ id }));
+    return from(this.authorRepository.findOne(
+      {
+        where: {id: id},
+        relations: ['books']
+      }
+    ));
   }
 
   findByFirstLetter(letter: string): Observable<AuthorDataDto[]>{

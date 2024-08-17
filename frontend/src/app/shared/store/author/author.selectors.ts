@@ -28,3 +28,9 @@ export const selectAuthorsByFirstLetter = createSelector(
     selectAuthorState,
     (authorState) => authorState.filteredAuthors
 )
+
+//AUTOR NA OSNOVU ID
+export const selectAuthorById = (id: number) => createSelector(
+    selectAuthorState,
+    (state) => state.allAuthors?.find(author => author.id === id) || null
+);

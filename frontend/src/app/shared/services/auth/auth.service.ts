@@ -53,7 +53,6 @@ export class AuthService {
   getUserFromToken(token: string): any {
     try {
       const decodedToken: any = jwtDecode(token);
-      console.log(decodedToken);
       return {
         id: decodedToken.id,
         email: decodedToken.email
