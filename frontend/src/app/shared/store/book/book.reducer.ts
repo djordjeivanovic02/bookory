@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { addBookToDowloadedListSuccess, loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, selectBookSuccess } from "./book.actions";
+import { addBookToDowloadedListSuccess, addReviewSuccess, loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, selectBookSuccess } from "./book.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 
@@ -127,4 +127,13 @@ export const bookReducer = createReducer(
         ...state,
         selectedBook: selectedBook
     })),
+    on(addReviewSuccess, (state, {review}) => ({
+        ...state,
+        selectedBook: state.selectedBook
+    ? {
+        ...state.selectedBook,
+        reviews: [...state.selectedBook.reviews || [], review]
+      }
+    : null
+    }))
 )

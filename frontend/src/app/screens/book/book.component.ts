@@ -6,11 +6,12 @@ import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { BookInfoDto } from "../../shared/dtos/book-info.dto";
 import { Store } from "@ngrx/store";
-import { selectBook } from "../../shared/store/book/book.actions";
+import { addReview, selectBook } from "../../shared/store/book/book.actions";
 import { selectBookById } from "../../shared/store/book/book.selectors";
 import { UserInfo } from "os";
 import { UserDataStoreDto } from "../../shared/dtos/user-data.dto";
 import { selectUserData } from "../../shared/store/user/user.selectors";
+import { CreateReviewDto } from "../../shared/dtos/create-review.dto";
 
 @Component({
   selector: "app-book",
@@ -70,6 +71,20 @@ export class BookComponent implements OnInit{
   disableButton(){
     if(this.rate !== 0 && this.comment !== null && this.comment !== '') this.buttonDisabled = false;
     else this.buttonDisabled = true;
+  }
+
+  saveReview(){
+    if(this.rate !== 0 && this.comment !== null && this.comment !== '' &&
+      this.bookInfo && this.userData
+    ){
+      const createReview: CreateReviewDto = {
+        book_id: this.bookInfo.id,
+        user_id: this.userData.id,
+        rate: this.rate,
+        comment: this.comment
+      }
+      this.store.dispatch(addReview({review: createReview}))
+    }
   }
 
   getComment(event: Event){

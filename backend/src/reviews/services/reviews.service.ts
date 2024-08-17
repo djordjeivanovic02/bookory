@@ -21,6 +21,7 @@ export class ReviewsService {
     ){}
 
     create(createReviewDto: CreateReviewDto): Observable<Review> {
+        console.log(createReviewDto);
         return from(this.userRepository.findOneBy({id: createReviewDto.user_id})).pipe(
             switchMap((user) => {
                 if(!user){

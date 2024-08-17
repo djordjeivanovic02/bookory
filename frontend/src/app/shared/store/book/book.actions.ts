@@ -2,6 +2,8 @@ import { createAction, props } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
 import { SavedDto } from "../../dtos/saved.dto";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
+import { CreateReviewDto } from "../../dtos/create-review.dto";
+import { ReviewDto } from "../../dtos/review.dto";
 
 //NAJNOVIJE KNJIGE
 export const loadNewestBooks = createAction(
@@ -82,5 +84,19 @@ export const selectBookSuccess = createAction(
 );
 export const selectBookFailure = createAction(
     '[Select Boook] Select Book Failed',
+    props<{error: string}>()
+);
+
+//DODAJ REVIEW
+export const addReview = createAction(
+    '[Add Review] Add Review',
+    props<{review: CreateReviewDto}>()
+);
+export const addReviewSuccess = createAction(
+    '[Add Review] Add Review Success',
+    props<{review: ReviewDto}>()
+);
+export const addReviewFailed = createAction(
+    '[Add Review] Add Review Failure',
     props<{error: string}>()
 );
