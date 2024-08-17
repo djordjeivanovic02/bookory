@@ -1,13 +1,13 @@
 <div class="main w-100">
     <p class="title">
-        {{ title }}
-        <span *ngIf="isRequired" class="required">*</span>
+      {{ title }}
+      <span *ngIf="isRequired" class="required">*</span>
     </p>
     <textarea
-        class="w-100"
-        placeholder="{{ placeholder }}"
-        formControlName="formControlName"
-    >
-    </textarea>
+      class="w-100"
+      placeholder="{{ placeholder }}"
+      [formControl]="formControl"
+    ></textarea>
     <p class="addition" *ngIf="addition != null">{{ addition }}</p>
-</div>
+  </div>
+  

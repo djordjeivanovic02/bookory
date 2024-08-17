@@ -28,7 +28,6 @@ export class BestAuthorsListComponent implements OnInit{
 
     this.bestAuthor$.subscribe(bestAuthors => {
       this.bestAuthors = bestAuthors;
-      console.log(this.bestAuthors);
     });
   }
 }

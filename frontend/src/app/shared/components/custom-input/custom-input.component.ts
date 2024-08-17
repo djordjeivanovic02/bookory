@@ -1,44 +1,55 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, OnChanges, SimpleChanges, Output } from "@angular/core";
 import { FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-custom-input",
   templateUrl: "./custom-input.component.html",
-  styleUrl: "./custom-input.component.scss",
+  styleUrls: ["./custom-input.component.scss"],
 })
-export class CustomInputComponent implements OnInit {
+export class CustomInputComponent implements OnInit, OnChanges {
   @Input()
-  title: String = "";
+  title: string = "";
   @Input()
-  isPassword: Boolean = false;
+  isPassword: boolean = false;
   @Input()
   placeholder: string = "";
   @Input()
-  isRequired: Boolean = true;
+  isRequired: boolean = true;
   @Input()
-  type: String = "text";
+  type: string = "text";
   @Input()
   addition: string | null = null;
   @Input()
   isDisabled: boolean = true;
+  @Input()
+  defaultText: string = '';
 
   @Output() 
   valueChange = new EventEmitter<string>();
   
-  formControlName = new FormControl({value: '', disabled: this.isDisabled});
+  formControlName: FormControl; 
 
-  constructor(){
+  constructor() {
+    this.formControlName = new FormControl({ value: '', disabled: this.isDisabled });
   }
+
   ngOnInit(): void {
     this.formControlName.valueChanges.subscribe(value => {
       this.valueChange.emit(value ? value : '');
     });
   }
-  ngOnChanges(): void {
-    if (this.isDisabled) {
-      this.formControlName.disable();
-    } else {
-      this.formControlName.enable();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isDisabled']) {
+      if (this.isDisabled) {
+        this.formControlName.disable();
+      } else {
+        this.formControlName.enable();
+      }
+    }
+
+    if (changes['defaultText']) {
+      this.formControlName.setValue(this.defaultText, { emitEvent: false });
     }
   }
 }

@@ -37,7 +37,7 @@
     <app-change-password></app-change-password>
 </div> -->
 <div class="w-100">
-    <form (ngSubmit)="(onSubmit)">
+    <form>
         <h1>Promeni Svoje Podatke</h1>
         <app-upload-image></app-upload-image>
         <div class="d-flex w-100">
@@ -54,7 +54,6 @@
                 title="Opis"
                 placeholder="Unesite opis knjige"
                 addition="Max 3000 karaktera"
-                formControlName="title"
             ></app-custom-textarea>
         </div>
         <div class="twoinrow d-flex w-100">

@@ -28,6 +28,13 @@ export class UserEffects {
                 downloadedBooks: response.downloadedBooks? response.downloadedBooks.map(element => element.book.id) : []
                 // downloadedBooks: [1, 2, 3]
               }
+              if(user.author){
+                user.author = {
+                  ...user.author,
+                  picture: `${environment.apiUrl}/${response.author?.picture}`
+                }
+              }
+              // user.author?.picture = `${environment.apiUrl}/${response.author?.picture}` || undefined;
               return loadUserDataSuccess({ user: user });
             } else {
               return loadUserDataFailure({ error: "Greška" });

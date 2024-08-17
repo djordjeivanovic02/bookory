@@ -1,42 +1,71 @@
 <div class="w-100">
     <h1>Promeni Svoje Podatke</h1>
-    <app-upload-image text="Dodaj profilnu sliku"></app-upload-image>
+    <app-upload-image 
+        text="Dodaj profilnu sliku"
+        [currentImageUrl]="picture"
+        
+    ></app-upload-image>
+    
     <div class="twoinrow d-flex w-100">
-        <app-custom-input title="Ime" placeholder="Vaše ime"></app-custom-input
-        ><app-custom-input
+        <app-custom-input 
+            title="Ime" 
+            placeholder="Vaše ime"
+            [isDisabled]="false"
+            [defaultText]="userData?.author?.firstName || ''"
+            (valueChange)="changeName($event)"
+        ></app-custom-input>
+        <app-custom-input
             title="Prezime"
             placeholder="Vaše prezime"
+            [isDisabled]="false"
+            [defaultText]="userData?.author?.lastName || ''"
+            (valueChange)="changeSurname($event)"
         ></app-custom-input>
     </div>
+
     <app-custom-input
         title="Email (ne može da se menja)"
+        placeholder="Vaš email"
         [isDisabled]="true"
-        placeholder="idjordje63@gmail.com"
+        [defaultText]="userData?.email || ''"
     ></app-custom-input>
 
-    <app-custom-textarea title="O meni" placeholder="Unesite nešto o sebi">
-    </app-custom-textarea>
+    <app-custom-textarea 
+        title="O meni" 
+        [placeholder]="about"
+        (valueChange)="changeAbout($event)"
+        [defaultText]="userData?.author?.about || ''"
+    ></app-custom-textarea>
 
     <div class="threeinrow d-flex w-100">
         <app-custom-input
             class="w-100"
             title="Facebook"
-            [isRequired]="false"
-            placeholder="www.facebook.com/..."
-        >
-        </app-custom-input>
+            [isDisabled]="false"
+            placeholder="https://www.facebook.com/..."
+            (valueChange)="changeFacebook($event)"
+            [defaultText]="userData?.author?.facebook || ''"
+        ></app-custom-input>
         <app-custom-input
             class="w-100"
             title="Instagram"
-            [isRequired]="false"
-            placeholder="www.instagram.com/..."
+            [isDisabled]="false"
+            placeholder="https://www.instagram.com/..."
+            (valueChange)="changeInstagram($event)"
+            [defaultText]="userData?.author?.instagram || ''"
         ></app-custom-input>
         <app-custom-input
             class="w-100"
             title="LinkedIn"
-            [isRequired]="false"
-            placeholder="www.linkedin.com/..."
+            [isDisabled]="false"
+            placeholder="https://www.linkedin.com/..."
+            (valueChange)="changeLinkedin($event)"
+            [defaultText]="userData?.author?.linkedin || ''"
         ></app-custom-input>
     </div>
-    <app-change-password></app-change-password>
+    <app-button-with-icon
+        [showIcon]="false"
+        text="Sačuvaj promene"
+        (click)="onSaveChanges()"
+    ></app-button-with-icon>
 </div>
