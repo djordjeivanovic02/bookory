@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
 import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addReview, addReviewFailed, addReviewSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
-import { catchError, map, mergeMap, of, take } from "rxjs";
+import { catchError, map, mergeMap, of, switchMap, take } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { select, Store } from "@ngrx/store";
 import { AppState } from "../../../app.state";
 import { selectAllBooks, selectNewestBooks } from "./book.selectors";
 import { ReviewService } from "../../services/review/review.service";
+import { loadBestAuthors } from "../author/author.actions";
 
 @Injectable()
 export class BookEffects {
@@ -163,11 +164,14 @@ export class BookEffects {
       ofType(addReview),
       mergeMap(action => 
         this.reviewService.addReview(action.review).pipe(
-          map(response => {
+          switchMap(response => {
             if(response){
-              return addReviewSuccess({review: response});
+              return [
+                addReviewSuccess({review: response, book_id: action.review.book_id}),
+                loadBestAuthors()
+              ];
             }else{
-              return addReviewFailed({error: "Greska"});
+              return of(addReviewFailed({error: "Greska"}));
             }
           }),
           catchError(error => of(addReviewFailed({error})))
@@ -175,6 +179,7 @@ export class BookEffects {
       )
     )
   );
+  
   
 
   constructor(

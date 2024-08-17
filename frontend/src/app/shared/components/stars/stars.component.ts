@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnChanges } from "@angular/core";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarEmpty } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
@@ -8,7 +8,7 @@ import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
   templateUrl: "./stars.component.html",
   styleUrl: "./stars.component.scss",
 })
-export class StarsComponent {
+export class StarsComponent implements OnChanges {
   @Input()
   rate: number = 2;
   @Input()
@@ -23,5 +23,9 @@ export class StarsComponent {
 
   isFullStar(index: number): boolean {
     return index < this.rate;
+  }
+
+  ngOnChanges(): void {
+    this.rate = parseFloat(this.rate.toFixed(2));
   }
 }

@@ -94,7 +94,7 @@ export const addReview = createAction(
 );
 export const addReviewSuccess = createAction(
     '[Add Review] Add Review Success',
-    props<{review: ReviewDto}>()
+    props<{review: ReviewDto, book_id?: number}>()
 );
 export const addReviewFailed = createAction(
     '[Add Review] Add Review Failure',

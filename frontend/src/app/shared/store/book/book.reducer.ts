@@ -127,13 +127,23 @@ export const bookReducer = createReducer(
         ...state,
         selectedBook: selectedBook
     })),
-    on(addReviewSuccess, (state, {review}) => ({
+    on(addReviewSuccess, (state, {review, book_id}) => ({
         ...state,
         selectedBook: state.selectedBook
-    ? {
-        ...state.selectedBook,
-        reviews: [...state.selectedBook.reviews || [], review]
-      }
-    : null
+            ? {
+                ...state.selectedBook,
+                reviews: [...state.selectedBook.reviews || [], review]
+            }
+            : null,
+        newestBooks: state.newestBooks
+            ? state.newestBooks.map(book => 
+                book.id === book_id
+                    ? { 
+                        ...book, 
+                        reviews: [...book.reviews || [], review] 
+                      }
+                    : book
+            )
+            : null 
     }))
 )
