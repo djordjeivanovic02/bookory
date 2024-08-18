@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { BookInfoDto } from '../../dtos/book-info.dto';
 import { SavedDto } from '../../dtos/saved.dto';
 import { DownloadDto } from '../../dtos/downloaded-book.dto';
+import { FilterDto } from '../../dtos/filter.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -75,4 +76,18 @@ export class BookService {
   selectAuthorBooksCount(author_id: number): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/book/author-books/count/${author_id}`);
   }
+
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/book/categories`);
+  }
+
+  filterBook(filter: FilterDto): Observable<{books: BookInfoDto[]; count: number}> {
+    const authorsParam = filter.authors && filter.authors.length > 0 ? `&authors=${filter.authors.join(',')}` : '';
+    const genreParam = filter.genre && filter.genre.length > 0 ? `&genre=${filter.genre.join(',')}` : '';
+  
+    return this.http.get<{books: BookInfoDto[]; count: number}>(
+      `${this.apiUrl}/book/filter?skip=${filter.skip}&limit=${filter.limit}&sort=${filter.sort}${authorsParam}${genreParam}`
+    );
+  }
+  
 }

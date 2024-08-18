@@ -8,21 +8,9 @@
                     <p class="title m-0">Žanr</p>
                 </div>
                 <div class="body">
-                    <div class="category d-flex align-items-center">
-                        <input type="checkbox" id="category1" />
-                        <label for="category1">Akcija i Fikcija</label>
-                    </div>
-                    <div class="category d-flex align-items-center">
-                        <input type="checkbox" id="category2" />
-                        <label for="category2">Životine</label>
-                    </div>
-                    <div class="category d-flex align-items-center">
-                        <input type="checkbox" id="category3" />
-                        <label for="category3">Klasici</label>
-                    </div>
-                    <div class="category d-flex align-items-center">
-                        <input type="checkbox" id="category4" />
-                        <label for="category4">Romani</label>
+                    <div class="category d-flex align-items-center" *ngFor="let item of allCategories">
+                        <input type="checkbox" id="{{item}}" />
+                        <label for="category1">{{item}}</label>
                     </div>
                 </div>
             </div>
@@ -33,30 +21,13 @@
                 <div class="body">
                     <div
                         class="category d-flex align-items-center justify-content-between"
+                        *ngFor="let author of allAuthors"
                     >
                         <div>
                             <input type="checkbox" id="author1" />
-                            <label for="author1">Artur Gonzalez</label>
+                            <label for="author1">{{author.firstName}}{{author.lastName}}</label>
                         </div>
-                        <span>(1)</span>
-                    </div>
-                    <div
-                        class="category d-flex align-items-center justify-content-between"
-                    >
-                        <div>
-                            <input type="checkbox" id="author2" />
-                            <label for="author2">Dana Chambers</label>
-                        </div>
-                        <span>(3)</span>
-                    </div>
-                    <div
-                        class="category d-flex align-items-center justify-content-between"
-                    >
-                        <div>
-                            <input type="checkbox" id="author3" />
-                            <label for="author3">Ernesto Wade</label>
-                        </div>
-                        <span>(1)</span>
+                        <span>({{author.booksCount}})</span>
                     </div>
                 </div>
             </div>
@@ -106,10 +77,7 @@
                 </div>
             </div>
             <div class="w-100">
-                <app-book-widget-2></app-book-widget-2>
-                <app-book-widget-2></app-book-widget-2>
-                <app-book-widget-2></app-book-widget-2>
-                <app-book-widget-2></app-book-widget-2>
+                <app-shop-list></app-shop-list>
             </div>
         </div>
     </div>

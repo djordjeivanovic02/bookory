@@ -81,7 +81,7 @@ export class BookController {
     @Get('filter')
     findBooksByGenre(
       @Query() input: FilterDto,
-    ){
+    ): Observable<{ books: BookInfo[]; count: number }>{
       return this.bookService.filterBook(input);
     }
 
@@ -92,9 +92,15 @@ export class BookController {
       return this.bookService.searchBook(text);
     }
 
+    @Get('categories')
+    getCategories(): Observable<string[]> {
+      return this.bookService.getCategories();
+    }
+
     @Get(':id')
     findOne(@Param('id') id: number): Observable<BookInfo>{
       return this.bookService.findOne(id);
     }
+
 
 }

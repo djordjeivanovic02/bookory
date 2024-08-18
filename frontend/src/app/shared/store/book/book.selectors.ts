@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { createFeatureSelector, createSelector, select } from "@ngrx/store";
 import { BookState } from "./book.reducer";
 
 export const selectBookState = createFeatureSelector<BookState>('book');
@@ -54,10 +54,28 @@ export const selectDownloadedBookLimit = createSelector(
 export const selectAllBooks = createSelector(
     selectBookState,
     (bookState) => bookState.allBooks
-)
+);
+export const selectAllBooksLoaded = createSelector(
+    selectBookState,
+    (bookState) => bookState.allBooksLoaded
+);
+export const selectAllBooksCount = createSelector(
+    selectBookState,
+    (bookState) => bookState.allBooksCount
+);
 
 //ODREDJENA KNJIGA
 export const selectBookById = createSelector(
     selectBookState,
     (bookState) => bookState.selectedBook
-)
+);
+
+//KATEGORIJE
+export const selectAllCategories = createSelector(
+    selectBookState,
+    (bookState) => bookState.allCategories
+);
+export const selectAllCategoriesLoaded = createSelector(
+    selectBookState,
+    (bookState) => bookState.allCategoriesLoaded
+);

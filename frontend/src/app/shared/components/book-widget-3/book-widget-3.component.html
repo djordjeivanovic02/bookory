@@ -1,15 +1,21 @@
 <div class="main d-flex flex-fill align-items-center justify-content-between">
-    <img
-        src="{{book?.image}}"
-    />
-    <div class="info flex-fill">
-        <a href="#" class="title my-4">{{book?.title}}</a>
-        <app-stars class="stars"></app-stars>
-        <a href="" class="author">{{book?.author?.firstName}} {{book?.author?.lastName}}</a>
-        <p class="description">
-            {{book?.description?.slice(0, 100)}}
-        </p>
-        <p class="price">BESPLATNO</p>
+    <div class="d-flex align-items-center">
+        <img
+            src="{{book?.image}}"
+        />
+        <div class="info flex-fill">
+            <a 
+                routerLink="/book/{{book?.id}}"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+            class="title my-4">{{book?.title}}</a>
+            <app-stars class="stars" [rate]="bookAverageRate"></app-stars>
+            <a href="" class="author">{{book?.author?.firstName}} {{book?.author?.lastName}}</a>
+            <p class="description">
+                {{book?.description?.slice(0, 200)}}
+            </p>
+            <p class="price">BESPLATNO</p>
+        </div>
     </div>
     <div
         class="socials d-flex flex-column justifu-content-center align-items-end"

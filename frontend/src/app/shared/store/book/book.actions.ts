@@ -3,6 +3,7 @@ import { BookInfoDto } from "../../dtos/book-info.dto";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 import { CreateReviewDto } from "../../dtos/create-review.dto";
 import { ReviewDto } from "../../dtos/review.dto";
+import { FilterDto } from "../../dtos/filter.dto";
 
 //NAJNOVIJE KNJIGE
 export const loadNewestBooks = createAction(
@@ -100,3 +101,30 @@ export const addReviewFailed = createAction(
     props<{error: string}>()
 );
 
+
+//SVE KATEGORIJE
+export const loadCategories = createAction(
+    '[All Categories] Load All Categories',
+);
+export const loadCategoriesSuccess = createAction(
+    '[All Categories] Load All Categories Success',
+    props<{categories: string[]}>()
+);
+export const loadCategoriesFailed = createAction(
+    '[All Categories] Load All Categories Failed',
+    props<{error: string}>()
+);
+
+//SVE KNJIGE
+export const loadAllBooks = createAction(
+    '[Filter Books] Load Filter Books',
+    props<{filters: FilterDto}>()
+);
+export const loadAllBooksSuccess = createAction(
+    '[Filter Books] Load Filter Books Success',
+    props<{filteredBooks: BookInfoDto[], count: number}>()
+);
+export const loadAllBooksFailed = createAction(
+    '[Filter Books] Load Filter Books Failed',
+    props<{error: string}>()
+);

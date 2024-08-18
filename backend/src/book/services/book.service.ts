@@ -105,7 +105,6 @@ export class BookService {
     }
 
     findAuthorsByGenre(genre: string[] | string): Observable<AuthorBooksDto[]> {
-      console.log("Genre",genre);
       const genreCondition = Array.isArray(genre) ? { category: In(genre) } : { category: genre };
 
       return from(this.bookRepository.find({
@@ -134,26 +133,33 @@ export class BookService {
       );
     }
 
-    filterBook(input: FilterDto): Observable<BookInfo[]> {
-      const { page, limit, sort } = input;
-      const skip = (page - 1) * limit;
-  
+    filterBook(input: FilterDto): Observable<{ books: BookInfo[]; count: number }> {
+      const { skip, limit, sort } = input;
+    
       const genreCondition = Array.isArray(input.genre) ? { category: In(input.genre) } : { category: input.genre };
       const authorsCondition = Array.isArray(input.authors) ? { author: { id: In(input.authors) } } : { author: { id: input.authors } };
-  
+    
       let orderBy: { [key: string]: 'ASC' | 'DESC' } = {};
-  
-      if(sort == 1) orderBy = { created_at: 'DESC' };
-      else orderBy = { title: 'ASC' }
-  
-      return from(this.bookRepository.find({
-        where: { ...genreCondition, ...authorsCondition },
-        relations: ['author'],
-        skip: skip,
-        take: limit,
-        order: orderBy,
-      }));
+    
+      if (sort == 1) orderBy = { created_at: 'DESC' };
+      else orderBy = { title: 'ASC' };
+    
+      return from(
+        this.bookRepository.findAndCount({
+          where: { ...genreCondition, ...authorsCondition },
+          relations: ['author'],
+          skip: skip,
+          take: limit,
+          order: orderBy,
+        })
+      ).pipe(
+        map(([books, count]) => ({
+          books,
+          count
+        }))
+      );
     }
+    
 
     findCategoriesByAuthors(authors: number[]): Observable<string[]> {
       const authorsCondition = Array.isArray(authors) ? { author: {id: In(authors)} } : { author: { id: authors } };
@@ -175,5 +181,17 @@ export class BookService {
       return from(this.bookRepository.find({
         where: { title: ILike(`${text}%`)}
       }));
+    }
+
+    getCategories(): Observable<string[]>{
+      return from(this.bookRepository.find()).pipe(
+        map(books => {
+          const categories = new Set<string>();
+          books.forEach(book => {
+            categories.add(book.category);
+          })
+          return Array.from(categories);
+        })
+      )
     }
 }

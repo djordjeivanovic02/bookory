@@ -1,14 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addReview, addReviewFailed, addReviewSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
-import { catchError, map, mergeMap, of, switchMap, take } from "rxjs";
+import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addReview, addReviewFailed, addReviewSuccess, loadAllBooks, loadAllBooksFailed, loadAllBooksSuccess, loadCategories, loadCategoriesFailed, loadCategoriesSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
+import { catchError, map, merge, mergeMap, of, switchMap, take } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { select, Store } from "@ngrx/store";
 import { AppState } from "../../../app.state";
 import { selectAllBooks, selectNewestBooks } from "./book.selectors";
 import { ReviewService } from "../../services/review/review.service";
 import { loadBestAuthors } from "../author/author.actions";
+import { BookInfoDto } from "../../dtos/book-info.dto";
 
 @Injectable()
 export class BookEffects {
@@ -197,7 +198,46 @@ export class BookEffects {
     )
   );
   
-  
+  loadCategories = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadCategories),
+      mergeMap(action => 
+        this.bookService.getCategories().pipe(
+          map(response => {
+            if(response){
+              return loadCategoriesSuccess({categories: response});
+            }else{
+              return loadCategoriesFailed({error: "Greska"});
+            }
+          }),
+          catchError(error => of(loadCategoriesFailed({error})))
+        )
+      ),
+    )
+  );
+
+  filterBooks = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadAllBooks),
+      mergeMap(action => 
+        this.bookService.filterBook(action.filters).pipe(
+          map(response => {
+            if(response){
+              const mapped = response.books.map(element => ({
+                ...element,
+                image: `${environment.apiUrl}/${element.image}`,
+                pdf: `${environment.apiUrl}/${element.pdf}`,
+              }));
+              return loadAllBooksSuccess({filteredBooks: mapped, count: response.count});
+            }else{
+              return loadAllBooksFailed({error: "Greska"});
+            }
+          }),
+          catchError(error => of(loadAllBooksFailed({error})))
+        )
+      )
+    )
+  );
 
   constructor(
     private actions$: Actions,

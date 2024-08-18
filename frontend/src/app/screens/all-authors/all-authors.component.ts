@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { AuthorDataDto } from "../../shared/dtos/author-data.dto";
 import { selectAllAuthors, selectAllAuthorsLoaded, selectAuthorsByFirstLetter } from "../../shared/store/author/author.selectors";
 import { loadAllAuthors, loadAuthorByFirstLetter } from "../../shared/store/author/author.actions";
@@ -10,15 +10,19 @@ import { loadAllAuthors, loadAuthorByFirstLetter } from "../../shared/store/auth
   templateUrl: "./all-authors.component.html",
   styleUrl: "./all-authors.component.scss",
 })
-export class AllAuthorsComponent implements OnInit{
+export class AllAuthorsComponent implements OnInit, OnDestroy{
   selectedLetter: string = "SVI";
 
   allAuthor$: Observable<AuthorDataDto[] | null>;
   allAuthors: AuthorDataDto[] | null = null;
+  allAuthorsSubscription: Subscription = new Subscription();
+
   allAuthorsLoaded$: Observable<boolean>;
+  allAuthorsLoadedSubscription: Subscription = new Subscription();
 
   filteredAuthor$: Observable<AuthorDataDto[] | null>;
   filteredAuthors: AuthorDataDto[] | null = null;
+  filteredAuthorsSubscription: Subscription = new Subscription();
 
   getAlphabet(): string[] {
     const alphabet = ["SVI"];
@@ -37,17 +41,23 @@ export class AllAuthorsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.allAuthorsLoaded$.subscribe(loaded => {
+    this.allAuthorsLoadedSubscription = this.allAuthorsLoaded$.subscribe(loaded => {
       if(!loaded) this.store.dispatch(loadAllAuthors());
     });
     
-    this.allAuthor$.subscribe(allAuthors => {
+    this.allAuthorsSubscription = this.allAuthor$.subscribe(allAuthors => {
       this.allAuthors = allAuthors;
     });
 
-    this.filteredAuthor$.subscribe(filtered => {
+    this.filteredAuthorsSubscription = this.filteredAuthor$.subscribe(filtered => {
       this.filteredAuthors = filtered;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.allAuthorsSubscription.unsubscribe();
+    this.allAuthorsLoadedSubscription.unsubscribe();
+    this.filteredAuthorsSubscription.unsubscribe();
   }
 
   constructor(private store: Store){

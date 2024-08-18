@@ -7,6 +7,9 @@
 .filters-container {
     width: 300px;
 }
+.books-container {
+    width: calc(100% - 300px);
+}
 .filter {
     padding: 25px 40px 40px 40px;
     border: 1px solid lightgray;

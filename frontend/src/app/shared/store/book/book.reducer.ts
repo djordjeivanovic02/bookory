@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { addBookToDowloadedListSuccess, addReviewSuccess, loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, selectBookSuccess } from "./book.actions";
+import { addBookToDowloadedListSuccess, addReviewSuccess, loadAllBooksSuccess, loadCategoriesSuccess, loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, selectBookSuccess } from "./book.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 
@@ -19,8 +19,13 @@ export interface BookState{
     downloadedBooksLimit: number;
 
     allBooks: BookInfoDto[] | null;
+    allBooksLoaded: boolean | null;
+    allBooksCount: number;
 
     selectedBook: BookInfoDto | null;
+
+    allCategories: string[] | null;
+    allCategoriesLoaded: boolean;
 }
 
 export const initialState: BookState = {
@@ -38,8 +43,13 @@ export const initialState: BookState = {
     downloadedBooksLimit: 2,
 
     allBooks: null,
+    allBooksLoaded: false,
+    allBooksCount: 0,
 
     selectedBook: null,
+
+    allCategories: null,
+    allCategoriesLoaded: false,
 }
 
 export const bookReducer = createReducer(
@@ -145,5 +155,16 @@ export const bookReducer = createReducer(
                     : book
             )
             : null 
+    })),
+    on(loadCategoriesSuccess, (state, {categories}) => ({
+        ...state,
+        allCategories: categories,
+        allCategoriesLoaded: true
+    })),
+    on(loadAllBooksSuccess, (state, {filteredBooks, count}) => ({
+        ...state,
+        allBooks: [...state.allBooks || [], ...filteredBooks],
+        allBooksLoaded: true,
+        allBooksCount: count
     }))
 )

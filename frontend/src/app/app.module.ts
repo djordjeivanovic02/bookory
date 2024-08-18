@@ -72,6 +72,7 @@ import { NewestListComponent } from './shared/lists/newest-list/newest-list.comp
 import { LoadmoreComponent } from './shared/components/loadmore/loadmore.component';
 import { ErrorComponent } from './shared/components/error/error.component';
 import { BestAuthorsListComponent } from './shared/lists/best-authors-list/best-authors-list.component';
+import { ShopListComponent } from './shared/lists/shop-list/shop-list.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { BestAuthorsListComponent } from './shared/lists/best-authors-list/best-
     LoadmoreComponent,
     ErrorComponent,
     BestAuthorsListComponent,
+    ShopListComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

@@ -1,0 +1,2 @@
+<app-book-widget-2 *ngFor="let book of filteredBooks" [book]="book"></app-book-widget-2>
+<app-loadmore [minValue]="filteredBooks?.length" [maxValue]="filteredBooksCount!" *ngIf="showLoadMore()" (clickTrigger)="loadMore()"></app-loadmore>
