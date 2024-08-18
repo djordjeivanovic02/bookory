@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectUserData } from '../../shared/store/user/user.selectors';
 import { UserDataStoreDto } from '../../shared/dtos/user-data.dto';
+import { UpdateAuthorDataDto } from '../../shared/dtos/update-author-data.dto';
+import { changeAuthorData } from '../../shared/store/author/author.actions';
 
 @Component({
   selector: 'app-author-profile-data',
   templateUrl: './author-profile-data.component.html',
   styleUrls: ['./author-profile-data.component.scss']
 })
-export class AuthorProfileDataComponent implements OnInit {
+export class AuthorProfileDataComponent implements OnInit, OnDestroy{
 
   userData$: Observable<UserDataStoreDto | null>;
   userData: UserDataStoreDto | null = null;
+  private userDataSubscription: Subscription = new Subscription();
 
   firstName: string = '';
   lastName: string = '';
@@ -24,48 +27,71 @@ export class AuthorProfileDataComponent implements OnInit {
 
   pictureFile: File | null = null;
 
+  newAuthorData?: UpdateAuthorDataDto;
+
+  showNotification: boolean = false;
+
+  changeName(value: string) { this.newAuthorData!.firstName = value; this.enableButton()}
+  changeSurname(value: string) { this.newAuthorData!.lastName = value;  this.enableButton()}
+  changeAbout(value: string) { this.newAuthorData!.about = value;  this.enableButton()}
+  changeFacebook(value: string) { this.newAuthorData!.facebook = value;  this.enableButton()}
+  changeInstagram(value: string) { this.newAuthorData!.instagram = value;  this.enableButton()}
+  changeLinkedin(value: string) { this.newAuthorData!.linkedin = value;  this.enableButton()}
+  changePicture(value: File) { this.newAuthorData!.picture = value; }
+  
+  enableButton(): boolean {
+    if(this.newAuthorData &&
+      this.newAuthorData.firstName !== '' &&
+      this.newAuthorData.lastName !== '' &&
+      this.newAuthorData.about !== '' &&
+      this.newAuthorData.firstName !== ''
+    ) return true;
+    return false;
+  }
+  
+  onSaveChanges(): void {
+    if (this.newAuthorData && this.userData) {
+      const formData = new FormData();
+      formData.append('firstName', this.newAuthorData.firstName);
+      formData.append('lastName', this.newAuthorData.lastName);
+      formData.append('about', this.newAuthorData.about || '');
+      formData.append('facebook', this.newAuthorData.facebook || '');
+      formData.append('instagram', this.newAuthorData.instagram || '');
+      formData.append('linkedin', this.newAuthorData.linkedin || '');
+      
+      if (this.newAuthorData.picture) {
+        formData.append('picture', this.newAuthorData.picture);
+      }
+  
+      this.store.dispatch(changeAuthorData({
+        user_id: this.userData.id!,
+        author_id: this.userData.author?.id!,
+        authorData: formData
+      }));
+    }
+  }
+  
+  
   ngOnInit(): void {
-    this.userData$.subscribe(userData => {
+    this.userDataSubscription = this.userData$.subscribe(userData => {
       if (userData) {
         this.userData = userData;
-        this.firstName = userData.author?.firstName || '';
-        this.lastName = userData.author?.lastName || '';
-        this.about = userData.author?.about || '';
-        this.facebook = userData.author?.facebook || '';
-        this.instagram = userData.author?.instagram || '';
-        this.linkedin = userData.author?.linkedin || '';
-        this.picture = userData.author?.picture || '';
+        this.newAuthorData = {
+          firstName: userData.author?.firstName || '',
+          lastName: userData.author?.lastName || '',
+          about: userData.author?.about || '',
+          facebook: userData.author?.facebook || '',
+          instagram: userData.author?.instagram || '',
+          linkedin: userData.author?.linkedin || '',
+          picture: null,
+        }
+        this.picture = userData.author?.picture!;
       }
     });
   }
-  changeName(value: string) { this.firstName = value; }
-  changeSurname(value: string) { this.lastName = value; }
-  changeAbout(value: string) { this.about = value; }
-  changeFacebook(value: string) { this.facebook = value; }
-  changeInstagram(value: string) { this.instagram = value; }
-  changeLinkedin(value: string) { this.linkedin = value; }
 
-  onSaveChanges(): void {
-    if (this.userData) {
-      const updatedUserData: UserDataStoreDto = {
-        ...this.userData,
-        author: this.userData.author ? {
-          ...this.userData.author,
-          firstName: this.firstName,
-          lastName: this.lastName,
-          about: this.about,
-          facebook: this.facebook,
-          instagram: this.instagram,
-          linkedin: this.linkedin,
-          picture: this.picture
-        }: null
-      };
-
-      console.log(updatedUserData);
-
-      // Pozovi akciju za čuvanje ažuriranih podataka
-      // this.store.dispatch(saveUserData({ userData: updatedUserData }));
-    }
+  ngOnDestroy(): void {
+    this.userDataSubscription.unsubscribe();
   }
 
   constructor(private store: Store){

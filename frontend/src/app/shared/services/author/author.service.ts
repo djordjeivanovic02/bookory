@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthorDataDto } from '../../dtos/author-data.dto';
 import { BestAuthorsDto } from '../../dtos/best-authors.dto'
+import { UpdateAuthorDataDto } from '../../dtos/update-author-data.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class AuthorService {
 
   loadAllAuthors(): Observable<AuthorDataDto[]>{
     return this.http.get<AuthorDataDto[]>(`${this.apiUrl}/author`);
+  }
+
+  updateAuthorData(author_id: number, author_data: FormData) {
+    return this.http.put(`${this.apiUrl}/author/${author_id}`, author_data);
   }
 }

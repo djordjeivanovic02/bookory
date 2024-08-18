@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthorService } from "../../services/author/author.service";
-import { loadAllAuthors, loadAllAuthorsSuccess, loadAuthorBooks, loadAuthorBooksFailed, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorById, loadAuthorByIdFailed, loadAuthorByIdSuccess, loadBestAuthors, loadBestAuthorsFailed, loadBestAuthorsSuccess } from "./author.actions";
+import { changeAuthorData, changeAuthorDataFailed, changeAuthorDataSuccess, loadAllAuthors, loadAllAuthorsSuccess, loadAuthorBooks, loadAuthorBooksFailed, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorById, loadAuthorByIdFailed, loadAuthorByIdSuccess, loadBestAuthors, loadBestAuthorsFailed, loadBestAuthorsSuccess } from "./author.actions";
 import { catchError, map, mergeMap, of, withLatestFrom } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { response } from "express";
 import { Store } from "@ngrx/store";
 import { selectAllAuthors, selectAuthorById } from "./author.selectors";
 import { BookService } from "../../services/book/book.service";
+import { AuthorDataDto } from "../../dtos/author-data.dto";
+import { loadUserData } from "../user/user.actions";
 
 
 @Injectable()
@@ -127,6 +129,23 @@ export class AuthorEffects {
     )
   );
 
+  changeAuthorData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(changeAuthorData),
+      mergeMap(action =>
+        this.authorService.updateAuthorData(action.author_id, action.authorData).pipe(
+          map(response => {
+            if (response) {
+              return loadUserData({id: action.user_id});
+            } else {
+              return changeAuthorDataFailed({ error: "Greska" });
+            }
+          }),
+          catchError(error => of(changeAuthorDataFailed({ error })))
+        )
+      )
+    )
+  );
   
 
   constructor(

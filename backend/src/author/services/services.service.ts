@@ -5,7 +5,7 @@ import { Repository, UpdateResult, Like } from 'typeorm';
 import { CreateAuthorDto } from '../dtos/createAuthor.dto';
 import { from, map, mergeMap, Observable, switchMap, toArray } from 'rxjs';
 import { User } from 'src/user/entities/user.entity';
-import { UpdateAuthorDto } from '../dtos/updateAuthor.dto';
+import { UpdateAuthorDto, UpdateAuthorWithoutPictureDto } from '../dtos/updateAuthor.dto';
 import { AuthorDataDto } from '../dtos/authorData.dto';
 import { Book } from 'src/book/entities/book.entity';
 import { Review } from 'src/reviews/entities/reviews.entity';
@@ -137,7 +137,7 @@ export class AuthorService {
     );
   }
 
-  update(id: number, authorData: UpdateAuthorDto): Observable<UpdateResult>{
+  update(id: number, authorData: UpdateAuthorDto | UpdateAuthorWithoutPictureDto): Observable<UpdateResult>{
     return from(this.authorRepository.update(id, authorData));
   }
 

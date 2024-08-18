@@ -1,9 +1,10 @@
 <div class="w-100">
     <h1>Promeni Svoje Podatke</h1>
+    <app-not-found title="Uspešno ažurirani podaci." [showFind]="false" *ngIf="showNotification"></app-not-found>
     <app-upload-image 
         text="Dodaj profilnu sliku"
         [currentImageUrl]="picture"
-        
+        (imageSelected)="changePicture($event)"
     ></app-upload-image>
     
     <div class="twoinrow d-flex w-100">
@@ -67,5 +68,6 @@
         [showIcon]="false"
         text="Sačuvaj promene"
         (click)="onSaveChanges()"
+        [isDisabled]="!enableButton()"
     ></app-button-with-icon>
 </div>

@@ -31,7 +31,9 @@ export class UserEffects {
               if(user.author){
                 user.author = {
                   ...user.author,
-                  picture: `${environment.apiUrl}/${response.author?.picture}`
+                  picture: user.author.picture ? 
+                    `${environment.apiUrl}/${response.author?.picture}`
+                    :null
                 }
               }
               // user.author?.picture = `${environment.apiUrl}/${response.author?.picture}` || undefined;

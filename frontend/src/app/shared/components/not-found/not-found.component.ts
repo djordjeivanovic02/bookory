@@ -8,4 +8,6 @@ import { Component, Input } from "@angular/core";
 export class NotFoundComponent {
   @Input()
   title: string = "";
+  @Input()
+  showFind: boolean = true;
 }

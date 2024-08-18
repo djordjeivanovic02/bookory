@@ -43,8 +43,15 @@ export class ControllersController {
     @UploadedFile() file: Express.Multer.File,
     @Body() authorData: UpdateAuthorDto
   ): Observable<UpdateResult>{
+    const { picture, ...authorDataWithoutPicture } = authorData;
     const picturePath = file ? file.path : null;
-    return this.authorService.update(id, { ...authorData, picture: picturePath });
+
+    const updatedAuthorData: UpdateAuthorDto = {
+      ...authorDataWithoutPicture,
+      picture: picturePath
+    };
+
+    return this.authorService.update(id, updatedAuthorData);  
   }
 
   @Get('most-famous')
