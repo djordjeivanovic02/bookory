@@ -73,6 +73,7 @@ import { LoadmoreComponent } from './shared/components/loadmore/loadmore.compone
 import { ErrorComponent } from './shared/components/error/error.component';
 import { BestAuthorsListComponent } from './shared/lists/best-authors-list/best-authors-list.component';
 import { ShopListComponent } from './shared/lists/shop-list/shop-list.component';
+import { AboutUsComponent } from './screens/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +126,7 @@ import { ShopListComponent } from './shared/lists/shop-list/shop-list.component'
     ErrorComponent,
     BestAuthorsListComponent,
     ShopListComponent,
+    AboutUsComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

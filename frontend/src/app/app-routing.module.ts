@@ -12,11 +12,13 @@ import { AuthorDashboardComponent } from "./screens/author-dashboard/author-dash
 import { AuthGuard } from "./shared/guards/auth.guard";
 import { NotAuthGuard } from "./shared/guards/not-auth.guard";
 import { AuthorGuard } from "./shared/guards/author.guard";
+import { AboutUsComponent } from "./screens/about-us/about-us.component";
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
   { path: "login", component: LoginComponent, canActivate: [NotAuthGuard]},
   { path: "book/:id", component: BookComponent },
+  { path: "about", component: AboutUsComponent },
   { path: "author/:id", component: AuthorComponent },
   { path: "shop", component: ShopComponent },
   // { path: "saved", component: SavedComponent },
