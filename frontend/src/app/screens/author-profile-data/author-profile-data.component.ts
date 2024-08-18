@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectUserData } from '../../shared/store/user/user.selectors';
@@ -12,10 +12,9 @@ import { changeAuthorData } from '../../shared/store/author/author.actions';
   styleUrls: ['./author-profile-data.component.scss']
 })
 export class AuthorProfileDataComponent implements OnInit, OnDestroy{
-
-  userData$: Observable<UserDataStoreDto | null>;
+  
+  @Input()
   userData: UserDataStoreDto | null = null;
-  private userDataSubscription: Subscription = new Subscription();
 
   firstName: string = '';
   lastName: string = '';
@@ -73,28 +72,24 @@ export class AuthorProfileDataComponent implements OnInit, OnDestroy{
   
   
   ngOnInit(): void {
-    this.userDataSubscription = this.userData$.subscribe(userData => {
-      if (userData) {
-        this.userData = userData;
-        this.newAuthorData = {
-          firstName: userData.author?.firstName || '',
-          lastName: userData.author?.lastName || '',
-          about: userData.author?.about || '',
-          facebook: userData.author?.facebook || '',
-          instagram: userData.author?.instagram || '',
-          linkedin: userData.author?.linkedin || '',
-          picture: null,
-        }
-        this.picture = userData.author?.picture!;
+    if (this.userData) {
+      this.userData = this.userData;
+      this.newAuthorData = {
+        firstName: this.userData.author?.firstName || '',
+        lastName: this.userData.author?.lastName || '',
+        about: this.userData.author?.about || '',
+        facebook: this.userData.author?.facebook || '',
+        instagram: this.userData.author?.instagram || '',
+        linkedin: this.userData.author?.linkedin || '',
+        picture: null,
       }
-    });
+      this.picture = this.userData.author?.picture!;
+    }
   }
 
   ngOnDestroy(): void {
-    this.userDataSubscription.unsubscribe();
   }
 
   constructor(private store: Store){
-    this.userData$ = this.store.select(selectUserData);
   }
 }

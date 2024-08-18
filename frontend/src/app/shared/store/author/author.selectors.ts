@@ -34,3 +34,23 @@ export const selectAuthorById = (id: number) => createSelector(
     selectAuthorState,
     (state) => state.allAuthors?.find(author => author.id === id) || null
 );
+
+//MOJE KNJIGE
+export const selectMyBooks = createSelector(
+    selectAuthorState,
+    (authorState) => authorState.myBooks
+);
+export const selectMyBooksLoaded = createSelector(
+    selectAuthorState,
+    (authorState) => authorState.myBooksLoaded
+);
+
+//BROJ MOJIH KNJIGA
+export const selectMyBooksCount = createSelector(
+    selectAuthorState,
+    (authorState) => authorState.myBooksCount
+);
+export const selectMyBooksCountLoaded = createSelector(
+    selectAuthorState,
+    (authorState) => authorState.myBooksCountLoaded
+);

@@ -71,4 +71,8 @@ export class BookService {
   ): Observable<BookInfoDto[]> {
     return this.http.get<BookInfoDto[]>(`${this.apiUrl}/book/author-books/${author_id}?skip=${skip}&limit=${limit}`);
   }
+
+  selectAuthorBooksCount(author_id: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/book/author-books/count/${author_id}`);
+  }
 }

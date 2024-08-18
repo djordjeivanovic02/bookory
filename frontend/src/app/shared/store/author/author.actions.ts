@@ -84,3 +84,31 @@ export const changeAuthorDataFailed = createAction(
     '[Author Data] Change Autor Data Failed',
     props<{error: string}>()
 );
+
+//MOJE KNJIGE
+export const loadMyBooks = createAction(
+    '[My Books] Load My Books',
+    props<{author_id: number, skip: number, limit: number}>()
+);
+export const loadMyBooksSuccess = createAction(
+    '[My Books] Load My Books Success',
+    props<{myBooks: BookInfoDto[]}>()
+);
+export const loadMyBooksFailed = createAction(
+    '[My Books] Load My Books Failed',
+    props<{error: string}>()
+);
+
+//UKUPAN BROJ MOJIH KNJIGA
+export const loadMyBooksCount = createAction(
+    '[My Books Count] Load My Books Count',
+    props<{author_id: number}>()
+);
+export const loadMyBooksCountSuccess = createAction(
+    '[My Books Count] Load My Books Count Success',
+    props<{myBooksCount: number}>()
+);
+export const loadMyBooksCountFailed = createAction(
+    '[My Books Count] Load My Books Count Failed',
+    props<{error: string}>()
+);

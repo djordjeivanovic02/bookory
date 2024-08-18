@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { SavedDto } from "../../dtos/saved.dto";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 import { CreateReviewDto } from "../../dtos/create-review.dto";
 import { ReviewDto } from "../../dtos/review.dto";
@@ -100,3 +99,4 @@ export const addReviewFailed = createAction(
     '[Add Review] Add Review Failure',
     props<{error: string}>()
 );
+

@@ -100,6 +100,9 @@ export class BookService {
      )
     }
 
+    getAuthorBooksCount(id:number): Observable<number> {
+      return from(this.bookRepository.count({where: {author: {id}}}));
+    }
 
     findAuthorsByGenre(genre: string[] | string): Observable<AuthorBooksDto[]> {
       console.log("Genre",genre);

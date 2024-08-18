@@ -63,6 +63,11 @@ export class BookController {
       return this.bookService.getAuthorBooks(id, pagination);
     }
 
+    @Get('author-books/count/:id')
+    getAuthorBooksCount(@Param('id') id: number): Observable<number> {
+      return this.bookService.getAuthorBooksCount(id);
+    }
+
     @Get('authors-by-genre')
     findAuthorsByGenre(@Query() genreDto: {genre: string[] | string}): Observable<AuthorBooksDto[]> {
       return this.bookService.findAuthorsByGenre(genreDto.genre);

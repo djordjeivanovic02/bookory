@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthorService } from "../../services/author/author.service";
-import { changeAuthorData, changeAuthorDataFailed, changeAuthorDataSuccess, loadAllAuthors, loadAllAuthorsSuccess, loadAuthorBooks, loadAuthorBooksFailed, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorById, loadAuthorByIdFailed, loadAuthorByIdSuccess, loadBestAuthors, loadBestAuthorsFailed, loadBestAuthorsSuccess } from "./author.actions";
+import { changeAuthorData, changeAuthorDataFailed, changeAuthorDataSuccess, loadAllAuthors, loadAllAuthorsSuccess, loadAuthorBooks, loadAuthorBooksFailed, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorById, loadAuthorByIdFailed, loadAuthorByIdSuccess, loadBestAuthors, loadBestAuthorsFailed, loadBestAuthorsSuccess, loadMyBooks, loadMyBooksCount, loadMyBooksCountFailed, loadMyBooksCountSuccess, loadMyBooksFailed, loadMyBooksSuccess } from "./author.actions";
 import { catchError, map, mergeMap, of, withLatestFrom } from "rxjs";
 import { environment } from "../../../../environments/environment";
-import { response } from "express";
+import e, { response } from "express";
 import { Store } from "@ngrx/store";
 import { selectAllAuthors, selectAuthorById } from "./author.selectors";
 import { BookService } from "../../services/book/book.service";
@@ -142,6 +142,46 @@ export class AuthorEffects {
             }
           }),
           catchError(error => of(changeAuthorDataFailed({ error })))
+        )
+      )
+    )
+  );
+
+  loadMyBooks$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadMyBooks),
+      mergeMap(action => 
+        this.bookService.selectAuthorBooks(action.author_id, action.skip, action.limit).pipe(
+          map(response => {
+            if(response){
+              const mapped = response.map(element => ({
+                ...element,
+                image: `${environment.apiUrl}/${element.image}`
+              }));
+              return loadMyBooksSuccess({myBooks: mapped});
+            }else{
+              return loadMyBooksFailed({error: "Greska"});
+            }
+          }),
+          catchError(error => of(loadMyBooksFailed({error})))
+        )
+      )
+    )
+  );
+
+  loadMyBooksCount$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadMyBooksCount),
+      mergeMap(action => 
+        this.bookService.selectAuthorBooksCount(action.author_id).pipe(
+          map(response => {
+            if(response){
+              return loadMyBooksCountSuccess({myBooksCount: response});
+            }else{
+              return loadMyBooksCountFailed({error: "Greska"});
+            }
+          }),
+          catchError(error => of(loadMyBooksCountFailed({error})))
         )
       )
     )

@@ -1,9 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
 import { BestAuthorsDto } from "../../dtos/best-authors.dto";
-import { loadAllAuthorsSuccess, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorByIdSuccess, loadBestAuthorsSuccess } from "./author.actions";
+import { loadAllAuthorsSuccess, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorByIdSuccess, loadBestAuthorsSuccess, loadMyBooksCountSuccess, loadMyBooksSuccess } from "./author.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
-import { removeBookFromSavedListSuccess } from "../book/book.actions";
 import { AuthorDataDto } from "../../dtos/author-data.dto";
+import { BookInfoDto } from "../../dtos/book-info.dto";
 
 export interface AuthorState {
     bestAuthors: BestAuthorsDto[] | null,
@@ -15,6 +15,12 @@ export interface AuthorState {
     authorBooksSkip: number;
 
     filteredAuthors: AuthorDataDto[] | null;
+
+    myBooks: BookInfoDto[] | null;
+    myBooksLoaded: boolean;
+    myBooksSkip: number;
+    myBooksCount: number;
+    myBooksCountLoaded: boolean;
 };
 
 export const initialState: AuthorState = {
@@ -26,7 +32,13 @@ export const initialState: AuthorState = {
 
     filteredAuthors: null,
 
-    authorBooksSkip: 0
+    authorBooksSkip: 0,
+
+    myBooks: null,
+    myBooksLoaded: false,
+    myBooksSkip: 0,
+    myBooksCount: 0,
+    myBooksCountLoaded: false,
 };
 
 export const authorReducer = createReducer(
@@ -98,5 +110,16 @@ export const authorReducer = createReducer(
             )
             : null,
         authorBooksSkip: state.authorBooksSkip + books.length
+    })),
+    on(loadMyBooksSuccess, (state, {myBooks}) => ({
+        ...state,
+        myBooks: [...state.myBooks || [], ...myBooks],
+        myBooksLoaded: true,
+        myBooksSkip: state.myBooksSkip + myBooks.length
+    })),
+    on(loadMyBooksCountSuccess, (state, {myBooksCount}) => ({
+        ...state,
+        myBooksCount: myBooksCount,
+        myBooksCountLoaded: true
     }))
 )

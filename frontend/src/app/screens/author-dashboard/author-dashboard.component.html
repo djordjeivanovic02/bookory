@@ -43,9 +43,11 @@
             <div class="main-container2 flex-fill">
                 <app-author-profile-data
                     *ngIf="selectedContainer === 3"
+                    [userData]="userData"
                 ></app-author-profile-data>
                 <app-author-my-books
                     *ngIf="selectedContainer === 1"
+                    [userData]="userData"
                 ></app-author-my-books>
                 <app-add-new-book
                     *ngIf="selectedContainer === 2"
