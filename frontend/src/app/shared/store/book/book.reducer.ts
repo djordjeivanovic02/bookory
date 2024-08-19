@@ -1,8 +1,10 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { addBookToDowloadedListSuccess, addReviewSuccess, loadAllBooksSuccess, loadCategoriesSuccess, loadDownloadedBooksSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, selectBookSuccess } from "./book.actions";
+import { addBookToDowloadedListSuccess, addReviewSuccess, loadAllBooksSuccess, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesSuccess, loadDownloadedBooksSuccess, loadFiltersSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, selectBookSuccess } from "./book.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
+import { FilterDto } from "../../dtos/filter.dto";
+import { loadAllAuthorsSuccess } from "../author/author.actions";
 
 export interface BookState{
     newestBooks: BookInfoDto[] | null;
@@ -23,6 +25,9 @@ export interface BookState{
     allBooksCount: number;
 
     selectedBook: BookInfoDto | null;
+
+    filters: FilterDto,
+    filtersLoaded: boolean,
 
     allCategories: string[] | null;
     allCategoriesLoaded: boolean;
@@ -48,8 +53,17 @@ export const initialState: BookState = {
 
     selectedBook: null,
 
+    filters: {
+        categories: [],
+        authors: [],
+        skip: 0,
+        limit: 2,
+        sort: 0
+    },
+    filtersLoaded: false,
+
     allCategories: null,
-    allCategoriesLoaded: false,
+    allCategoriesLoaded: false
 }
 
 export const bookReducer = createReducer(
@@ -65,7 +79,6 @@ export const bookReducer = createReducer(
         savedBookLoaded: savedBook.length !== 0,
         savedBookSkip: state.savedBookSkip+savedBook.length
     })),
-    //IZ USER SAVE BOOK
     on(saveBookSuccess, (state, { savedBook }) => {
         const totalSavedBooks = state.savedBooks?.length || 0;
         let newBooks = [];
@@ -89,7 +102,6 @@ export const bookReducer = createReducer(
             savedBookSkip: state.savedBookSkip + step
         };
     }),
-    // IZ USER REMOVE BOOK
     on(removeSavedBookSuccess, (state, { book_id }) => {
         const updatedSavedBooks = state.savedBooks
             ? state.savedBooks.filter(book => book.id !== book_id)
@@ -111,7 +123,6 @@ export const bookReducer = createReducer(
         downloadedBooksLoaded: downloadedBooks && downloadedBooks.length !== 0,
         downloadedBooksSkip: downloadedBooks ? downloadedBooks.length : 0
     })),
-
     on(addBookToDowloadedListSuccess, (state, {downloadedBook}) => {
         const totalDownloadedBooks = state.downloadedBooks?.length || 0;
         let newBooks: DownloadDto[] | null= [];
@@ -156,15 +167,32 @@ export const bookReducer = createReducer(
             )
             : null 
     })),
+    on(loadAllBooksSuccess, (state, {filteredBooks, count, reset, filters}) => ({
+        ...state,
+        allBooks: (!reset) ? [...state.allBooks || [], ...filteredBooks] : filteredBooks,
+        allBooksLoaded: true,
+        allBooksCount: count,
+        filters: {
+            ...state.filters,
+            categories: filters.categories,
+            authors: filters.authors,
+            skip: (!reset) ? state.filters.skip + filteredBooks.length : 2
+        }
+    })),
     on(loadCategoriesSuccess, (state, {categories}) => ({
         ...state,
         allCategories: categories,
         allCategoriesLoaded: true
     })),
-    on(loadAllBooksSuccess, (state, {filteredBooks, count}) => ({
+    on(loadFiltersSuccess, (state) => ({
         ...state,
-        allBooks: [...state.allBooks || [], ...filteredBooks],
-        allBooksLoaded: true,
-        allBooksCount: count
-    }))
+        filtersLoaded: true
+    })),
+    on(loadAuthorsByCategoriesSuccess, (state, {authors}) => ({
+        ...state,
+        filters: {
+            ...state.filters,
+            authors: authors
+        }
+    })),
 )

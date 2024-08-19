@@ -119,11 +119,11 @@ export const loadCategoriesFailed = createAction(
 //SVE KNJIGE
 export const loadAllBooks = createAction(
     '[Filter Books] Load Filter Books',
-    props<{filters: FilterDto}>()
+    props<{filters: FilterDto, reset: boolean}>()
 );
 export const loadAllBooksSuccess = createAction(
     '[Filter Books] Load Filter Books Success',
-    props<{filteredBooks: BookInfoDto[], count: number}>()
+    props<{filteredBooks: BookInfoDto[], count: number, reset: boolean, filters: FilterDto}>()
 );
 export const loadAllBooksFailed = createAction(
     '[Filter Books] Load Filter Books Failed',
@@ -141,5 +141,31 @@ export const loadAuthorsByCategoriesSuccess = createAction(
 );
 export const loadAuthorsByCategoriesFailed = createAction(
     '[Authors By Categories] Load Authors By Categories Failed',
+    props<{error: string}>()
+);
+
+//KATEGORIJE NA OSNOVU AUTORA
+export const loadCategoriesByAuthors = createAction(
+    '[Categories By Authors] Load Categories By Authors',
+    props<{authors: number[]}>()
+);
+export const loadCategoriesByAuthorsSuccess = createAction(
+    '[Categories By Authors] Load Categories By Authors Succcess',
+    props<{categories: string[]}>()
+);
+export const loadCategoriesByAuthorsFailed = createAction(
+    '[Categories By Authors] Load Categories By Authors Failed',
+    props<{error: string}>()
+);
+
+//FILTERI
+export const loadFilters = createAction(
+    '[Filters] Load Filters'
+);
+export const loadFiltersSuccess = createAction(
+    '[Filters] Load FiltersSuccess',
+);
+export const loadFiltersFailed = createAction(
+    '[Filters] Load FiltersFailed',
     props<{error: string}>()
 );

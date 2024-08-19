@@ -1,0 +1,35 @@
+<div class="filter w-100">
+    <div class="header">
+        <p class="title m-0">Žanr</p>
+    </div>
+    <div class="body">
+        <div class="category d-flex align-items-center" *ngFor="let item of allCategories">
+            <input 
+                type="checkbox" 
+                id="{{item}}"
+                (change)="onCategoriesChange(item, $event)"
+                value="{{item}}"
+            />
+            <label for="{{item}}">{{item}}</label>
+        </div>
+    </div>
+</div>
+
+<div class="filter w-100">
+    <div class="header">
+        <p class="title m-0">Autori</p>
+    </div>
+    <div class="body">
+        <div
+            class="category d-flex align-items-center "
+            *ngFor="let author of filters?.authors"
+        >
+            <input 
+                type="checkbox" 
+                id="djle"
+            />
+            <label for="">
+                {{author.firstName}} {{author.lastName}}
+            </label>
+        </div>
+</div>

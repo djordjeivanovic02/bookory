@@ -70,7 +70,16 @@ export const selectBookById = createSelector(
     (bookState) => bookState.selectedBook
 );
 
-//KATEGORIJE
+
+//FILTERI
+export const selectFilters = createSelector(
+    selectBookState,
+    (bookState) => bookState.filters
+);
+export const selectFiltersLoaded = createSelector(
+    selectBookState,
+    (bookState) => bookState.filtersLoaded
+);
 export const selectAllCategories = createSelector(
     selectBookState,
     (bookState) => bookState.allCategories

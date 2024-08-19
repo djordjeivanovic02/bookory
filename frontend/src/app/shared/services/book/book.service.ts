@@ -6,6 +6,7 @@ import { BookInfoDto } from '../../dtos/book-info.dto';
 import { SavedDto } from '../../dtos/saved.dto';
 import { DownloadDto } from '../../dtos/downloaded-book.dto';
 import { FilterDto } from '../../dtos/filter.dto';
+import { AuthorDataDto } from '../../dtos/author-data.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -82,12 +83,27 @@ export class BookService {
   }
 
   filterBook(filter: FilterDto): Observable<{books: BookInfoDto[]; count: number}> {
-    const authorsParam = filter.authors && filter.authors.length > 0 ? `&authors=${filter.authors.join(',')}` : '';
-    const genreParam = filter.genre && filter.genre.length > 0 ? `&genre=${filter.genre.join(',')}` : '';
+    const authorsParam = filter.authors && filter.authors.length > 0 ? `&authors=${filter.authors.join('&authors=')}` : '';
+    const genreParam = filter.categories && filter.categories.length > 0 ? `&genre=${filter.categories.join('&genre=')}` : '';
   
     return this.http.get<{books: BookInfoDto[]; count: number}>(
       `${this.apiUrl}/book/filter?skip=${filter.skip}&limit=${filter.limit}&sort=${filter.sort}${authorsParam}${genreParam}`
     );
   }
+
+  getAuthorsByCategories(categories: string[]): Observable<{ author: AuthorDataDto; booksCount: number }[]> {
+    const encodedCategories = categories.map(category => encodeURIComponent(category)).join('&genre=');
   
+    const url = `${this.apiUrl}/book/authors-by-genre?genre=${encodedCategories}`;
+  
+    return this.http.get<{ author: AuthorDataDto; booksCount: number }[]>(url);
+  }
+  
+  getCategoriesByAuthors(authors: number[]): Observable<string[]> {
+    const encodedCategories = authors.map(authors => encodeURIComponent(authors)).join('&authors=');
+  
+    const url = `${this.apiUrl}/book/categories-by-authors?authors=${encodedCategories}`;
+  
+    return this.http.get<string[]>(url);
+  }
 }

@@ -3,7 +3,11 @@
 <div class="w-100 d-flex align-items-center justify-content-center">
     <div class="main-container d-flex align-items-start">
         <div class="filters-container">
-            <app-filters></app-filters>
+            <app-filters 
+                [allCategories]="allCategories" 
+                [allAuthors]="allAuthors"
+                (filtersEmmiter)="setFilters($event)"
+            ></app-filters>
         </div>
         <div class="books-container flex-fill">
             <div class="sorting d-flex">
@@ -37,7 +41,7 @@
                         <span>Obriši filtere</span>
                     </a>
                 </div>
-                <app-shop-list></app-shop-list>
+                <app-shop-list [filters]="filters"></app-shop-list>
             </div>
         </div>
     </div>

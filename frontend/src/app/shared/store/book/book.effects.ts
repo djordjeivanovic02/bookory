@@ -1,15 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addReview, addReviewFailed, addReviewSuccess, loadAllBooks, loadAllBooksFailed, loadAllBooksSuccess, loadCategories, loadCategoriesFailed, loadCategoriesSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
-import { catchError, map, merge, mergeMap, of, switchMap, take } from "rxjs";
+import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addReview, addReviewFailed, addReviewSuccess, loadAllBooks, loadAllBooksFailed, loadAllBooksSuccess, loadAuthorsByCategories, loadAuthorsByCategoriesFailed, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesFailed, loadCategoriesSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadFilters, loadFiltersFailed, loadFiltersSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
+import { catchError, map, mergeMap, of, switchMap, take, tap } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { select, Store } from "@ngrx/store";
-import { AppState } from "../../../app.state";
 import { selectAllBooks, selectNewestBooks } from "./book.selectors";
 import { ReviewService } from "../../services/review/review.service";
-import { loadBestAuthors } from "../author/author.actions";
-import { BookInfoDto } from "../../dtos/book-info.dto";
+import { loadAllAuthors, loadBestAuthors } from "../author/author.actions";
+import { AuthorDataDto } from "../../dtos/author-data.dto";
 
 @Injectable()
 export class BookEffects {
@@ -228,7 +227,7 @@ export class BookEffects {
                 image: `${environment.apiUrl}/${element.image}`,
                 pdf: `${environment.apiUrl}/${element.pdf}`,
               }));
-              return loadAllBooksSuccess({filteredBooks: mapped, count: response.count});
+              return loadAllBooksSuccess({filteredBooks: mapped, count: response.count, reset: action.reset, filters: action.filters});
             }else{
               return loadAllBooksFailed({error: "Greska"});
             }
@@ -238,6 +237,36 @@ export class BookEffects {
       )
     )
   );
+
+  authorsByCategories = createEffect(() => 
+    this.actions$.pipe(
+      ofType(loadAuthorsByCategories),
+      mergeMap(action =>
+        this.bookService.getAuthorsByCategories(action.categories).pipe(
+          map(result => {
+            if(result){
+              const authors = result.map(element => element.author);
+              return loadAuthorsByCategoriesSuccess( {authors});
+            }else{
+              return loadAuthorsByCategoriesFailed({error: "Greska"});
+            }
+          }),
+          catchError(error => of(loadAuthorsByCategoriesFailed({error})))
+        )
+      )
+    )
+  );
+
+  loadFilters = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadFilters),
+      mergeMap(() => {
+        return of(loadFiltersSuccess());
+      }),
+      catchError(error => of(loadFiltersFailed({ error })))
+    )
+  );
+  
 
   constructor(
     private actions$: Actions,

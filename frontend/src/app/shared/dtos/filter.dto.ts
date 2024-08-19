@@ -1,6 +1,8 @@
+import { AuthorDataDto } from "./author-data.dto";
+
 export interface FilterDto{
-    genre: string[];
-    authors: number[];
+    categories: string[];
+    authors: AuthorDataDto[];
     skip: number;
     limit: number;
     sort: number;

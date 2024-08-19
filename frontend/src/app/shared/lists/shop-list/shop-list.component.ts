@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { BookInfoDto } from '../../dtos/book-info.dto';
@@ -24,21 +24,12 @@ export class ShopListComponent implements OnInit, OnDestroy{
   filteredBooksCount: number | null = null;
   filteredBooksCountSubscription: Subscription = new Subscription();
   
-  filters: FilterDto = {
-    genre: [],
-    authors: [],
-    skip: 0,
-    limit: 2,
-    sort: 0,
-  }
+  @Input()
+  filters: FilterDto | null = null;
 
   loadMore() {
-    if(this.filteredBooks && this.filteredBooksCount){
-      const newFilters: FilterDto = {
-        ...this.filters,
-        skip: this.filteredBooks.length
-      };
-      this.store.dispatch(loadAllBooks({filters: newFilters}));
+    if(this.filteredBooks && this.filteredBooksCount && this.filters){
+      this.store.dispatch(loadAllBooks({filters: this.filters, reset: false}));
     }
   }
 
@@ -50,11 +41,10 @@ export class ShopListComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.filteredBooksLoaded$.subscribe(loaded => {
-      if(!loaded) this.store.dispatch(loadAllBooks({filters: this.filters}));
+      if(!loaded && this.filters) this.store.dispatch(loadAllBooks({filters: this.filters, reset: false}));
     })
 
     this.filteredBook$.subscribe(books => this.filteredBooks = books);
-
     this.filteredBooksCount$.subscribe(counts => this.filteredBooksCount = counts);
   }
 
