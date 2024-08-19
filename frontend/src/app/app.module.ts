@@ -74,6 +74,7 @@ import { ErrorComponent } from './shared/components/error/error.component';
 import { BestAuthorsListComponent } from './shared/lists/best-authors-list/best-authors-list.component';
 import { ShopListComponent } from './shared/lists/shop-list/shop-list.component';
 import { AboutUsComponent } from './screens/about-us/about-us.component';
+import { FiltersComponent } from './filters/filters.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +128,7 @@ import { AboutUsComponent } from './screens/about-us/about-us.component';
     BestAuthorsListComponent,
     ShopListComponent,
     AboutUsComponent,
+    FiltersComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

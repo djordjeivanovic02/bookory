@@ -1,34 +1,18 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { NavLink } from "../../core/interfaces/navlink.interface";
-import {
-  faClose,
-  faList,
-  faTable,
-} from "@fortawesome/free-solid-svg-icons";
-import { Observable, Subscription } from "rxjs";
-import { Store } from "@ngrx/store";
-import { selectAllCategories, selectAllCategoriesLoaded } from "../../shared/store/book/book.selectors";
-import { loadCategories } from "../../shared/store/book/book.actions";
-import { AuthorDataDto } from "../../shared/dtos/author-data.dto";
-import { selectAllAuthors, selectAllAuthorsLoaded } from "../../shared/store/author/author.selectors";
-import { loadAllAuthors } from "../../shared/store/author/author.actions";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { AuthorDataDto } from '../shared/dtos/author-data.dto';
+import { loadCategories } from '../shared/store/book/book.actions';
+import { loadAllAuthors } from '../shared/store/author/author.actions';
+import { Store } from '@ngrx/store';
+import { selectAllCategories, selectAllCategoriesLoaded } from '../shared/store/book/book.selectors';
+import { selectAllAuthors, selectAllAuthorsLoaded } from '../shared/store/author/author.selectors';
 
 @Component({
-  selector: "app-shop",
-  templateUrl: "./shop.component.html",
-  styleUrl: "./shop.component.scss",
+  selector: 'app-filters',
+  templateUrl: './filters.component.html',
+  styleUrl: './filters.component.scss'
 })
-export class ShopComponent implements OnInit, OnDestroy {
-  links: NavLink[] = [
-    {
-      name: "početna",
-      route: "/",
-    },
-  ];
-
-  faList = faList;
-  faTable = faTable;
-  faClose = faClose;
+export class FiltersComponent  implements OnInit, OnDestroy {
 
   allCategorie$: Observable<string[] | null>;
   allCategories: string[] | null = null;

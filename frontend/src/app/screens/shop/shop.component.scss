@@ -16,36 +16,20 @@
     border-radius: 15px;
     margin-bottom: 25px;
 }
-.filter .header {
-    border-bottom: 1px solid lightgray;
-    margin-right: -40px;
-    margin-left: -40px;
-    padding-left: 40px;
-    padding-right: 40px;
+.reset{
     margin-bottom: 30px;
 }
-.filter .header .title {
-    font-size: 18px;
-    font-weight: 600;
-    padding-bottom: 15px;
+.reset a{
+    text-decoration: none;
+    color:  black;
+    margin-left: 20px;
+    transition-duration: .3s;
 }
-.category {
-    margin-bottom: 10px;
-}
-.category label {
-    font-size: 14px;
-    font-weight: 200;
+.reset a span{
     margin-left: 10px;
-    transition-duration: 0.3s;
-    cursor: pointer;
 }
-.category label:hover {
+.reset a:hover{
     color: var(--main-color);
-}
-.category span {
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--light-gray-text-color);
 }
 .sorting {
     flex-direction: row;

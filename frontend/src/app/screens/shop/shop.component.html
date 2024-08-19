@@ -3,53 +3,7 @@
 <div class="w-100 d-flex align-items-center justify-content-center">
     <div class="main-container d-flex align-items-start">
         <div class="filters-container">
-            <div class="filter w-100">
-                <div class="header">
-                    <p class="title m-0">Žanr</p>
-                </div>
-                <div class="body">
-                    <div class="category d-flex align-items-center" *ngFor="let item of allCategories">
-                        <input type="checkbox" id="{{item}}" />
-                        <label for="category1">{{item}}</label>
-                    </div>
-                </div>
-            </div>
-            <div class="filter w-100">
-                <div class="header">
-                    <p class="title m-0">Autori</p>
-                </div>
-                <div class="body">
-                    <div
-                        class="category d-flex align-items-center justify-content-between"
-                        *ngFor="let author of allAuthors"
-                    >
-                        <div>
-                            <input type="checkbox" id="author1" />
-                            <label for="author1">{{author.firstName}}{{author.lastName}}</label>
-                        </div>
-                        <span>({{author.booksCount}})</span>
-                    </div>
-                </div>
-            </div>
-            <div class="filter w-100">
-                <div class="header">
-                    <p class="title m-0">Prosečna ocena</p>
-                </div>
-                <div class="body">
-                    <div
-                        *ngFor="let index of [].constructor(5); let i = index"
-                        class="category d-flex align-items-center justify-content-between"
-                    >
-                        <div>
-                            <app-stars
-                                [rate]="i + 1"
-                                [showRate]="false"
-                            ></app-stars>
-                        </div>
-                        <span>(4)</span>
-                    </div>
-                </div>
-            </div>
+            <app-filters></app-filters>
         </div>
         <div class="books-container flex-fill">
             <div class="sorting d-flex">
@@ -76,7 +30,13 @@
                     </select>
                 </div>
             </div>
-            <div class="w-100">
+            <div class="w-100 d-flex flex-column">
+                <div class="reset">
+                    <a href="">
+                        <fa-icon [icon]="faClose"></fa-icon>
+                        <span>Obriši filtere</span>
+                    </a>
+                </div>
                 <app-shop-list></app-shop-list>
             </div>
         </div>
