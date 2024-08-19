@@ -104,16 +104,16 @@ export class BookService {
       return from(this.bookRepository.count({where: {author: {id}}}));
     }
 
-    findAuthorsByGenre(genre: string[] | string): Observable<AuthorBooksDto[]> {
-      const genreCondition = Array.isArray(genre) ? { category: In(genre) } : { category: genre };
-
-      return from(this.bookRepository.find({
-        where: genreCondition ,
-        relations: ['author'],
-      })).pipe(
+    findAuthorsByGenre(genres: string[]): Observable<AuthorBooksDto[]> {
+      return from(
+        this.bookRepository.find({
+          where: { category: In(genres) },
+          relations: ['author'],
+        })
+      ).pipe(
         map(books => {
           const authorBookCount = new Map<number, { author: Author, count: number }>();
-  
+    
           books.forEach(book => {
             if (book.author) {
               const authorData = authorBookCount.get(book.author.id);
@@ -124,7 +124,7 @@ export class BookService {
               }
             }
           });
-  
+    
           return Array.from(authorBookCount.values()).map(({ author, count }) => ({
             author,
             booksCount: count,
@@ -132,6 +132,7 @@ export class BookService {
         })
       );
     }
+    
 
     filterBook(input: FilterDto): Observable<{ books: BookInfo[]; count: number }> {
       const { skip, limit, sort } = input;

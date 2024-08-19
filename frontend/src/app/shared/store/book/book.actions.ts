@@ -4,6 +4,7 @@ import { DownloadDto } from "../../dtos/downloaded-book.dto";
 import { CreateReviewDto } from "../../dtos/create-review.dto";
 import { ReviewDto } from "../../dtos/review.dto";
 import { FilterDto } from "../../dtos/filter.dto";
+import { AuthorDataDto } from "../../dtos/author-data.dto";
 
 //NAJNOVIJE KNJIGE
 export const loadNewestBooks = createAction(
@@ -126,5 +127,19 @@ export const loadAllBooksSuccess = createAction(
 );
 export const loadAllBooksFailed = createAction(
     '[Filter Books] Load Filter Books Failed',
+    props<{error: string}>()
+);
+
+//AUTORI NA OSNOVU KATEGORIJA
+export const loadAuthorsByCategories = createAction(
+    '[Authors By Categories] Load Authors By Categories',
+    props<{categories: string[]}>()
+);
+export const loadAuthorsByCategoriesSuccess = createAction(
+    '[Authors By Categories] Load Authors By Categories Succcess',
+    props<{authors: AuthorDataDto[]}>()
+);
+export const loadAuthorsByCategoriesFailed = createAction(
+    '[Authors By Categories] Load Authors By Categories Failed',
     props<{error: string}>()
 );

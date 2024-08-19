@@ -54,7 +54,7 @@ import { AuthorProfileDataComponent } from "./screens/author-profile-data/author
 import { AuthorMyBooksComponent } from "./screens/author-my-books/author-my-books.component";
 import { BookWidget3Component } from "./shared/components/book-widget-3/book-widget-3.component";
 import { AddNewBookComponent } from "./screens/add-new-book/add-new-book.component";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { UploadImageComponent } from './shared/components/upload-image/upload-image.component';
 import { CustomTextareaComponent } from './shared/components/custom-textarea/custom-textarea.component';
 import { CustomSelectComponent } from './shared/components/custom-select/custom-select.component';
@@ -136,6 +136,7 @@ import { FiltersComponent } from './filters/filters.component';
     AppRoutingModule,
     NgbModule,
     FontAwesomeModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

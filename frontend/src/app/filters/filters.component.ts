@@ -28,6 +28,26 @@ export class FiltersComponent  implements OnInit, OnDestroy {
   allAuthorsLoaded$: Observable<boolean>;
   allAuthorsLoadedSubscription: Subscription = new Subscription();
 
+  selectedCategories: string[] = [];
+  selectedAuthors: number[] = [];
+
+
+
+  onCategoryChange(event: Event, category: string): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if(!isChecked) this.selectedCategories.filter(element => element !== category);
+    else this.selectedCategories.push(category);
+    if(this.selectedCategories !== null){
+      
+    }
+  }
+
+  onAuthorChange(event: Event, author_id: number): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if(!isChecked) this.selectedAuthors.filter(element => element !== author_id);
+    else this.selectedAuthors.push(author_id);
+  }
+
   ngOnDestroy(): void {
     this.allCategoriesSubscription.unsubscribe();
     this.allCategoriesSubscription.unsubscribe();
