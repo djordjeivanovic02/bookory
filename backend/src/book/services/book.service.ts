@@ -9,7 +9,7 @@ import { BookInfo } from '../dtos/book-info.dto';
 import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
 import { AuthorBooksDto } from '../dtos/author-books.dto';
 import { FilterDto } from '../dtos/filter.dto';
-import { title } from 'process';
+import { DeleteResult } from 'typeorm';
 
 @Injectable()
 export class BookService {
@@ -194,5 +194,9 @@ export class BookService {
           return Array.from(categories);
         })
       )
+    }
+
+    deleteBook(id: number): Observable<DeleteResult>{
+      return from(this.bookRepository.delete({id}));
     }
 }

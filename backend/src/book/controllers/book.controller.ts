@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UploadedFiles, UseInterceptors} from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -8,9 +8,9 @@ import { Book } from '../entities/book.entity';
 import { BookService } from '../services/book.service';
 import { BookInfo } from '../dtos/book-info.dto';
 import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
-import { Author } from 'src/author/entities/author.entity';
 import { AuthorBooksDto } from '../dtos/author-books.dto';
 import { FilterDto } from '../dtos/filter.dto';
+import { DeleteResult } from 'typeorm';
 
 @Controller('book')
 export class BookController {
@@ -104,5 +104,8 @@ export class BookController {
       return this.bookService.findOne(id);
     }
 
-
+    @Delete(':id')
+    deleteBook(@Param('id') id: number): Observable<DeleteResult> {
+      return this.bookService.deleteBook(id);
+    }
 }

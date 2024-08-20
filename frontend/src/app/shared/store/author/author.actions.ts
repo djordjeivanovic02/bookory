@@ -2,7 +2,6 @@ import { createAction, props } from "@ngrx/store";
 import { BestAuthorsDto } from '../../dtos/best-authors.dto'
 import { AuthorDataDto } from "../../dtos/author-data.dto";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { UpdateAuthorDataDto } from "../../dtos/update-author-data.dto";
 
 //NAJBOLJI AUTORI
 export const loadBestAuthors = createAction(
@@ -78,7 +77,7 @@ export const changeAuthorData = createAction(
     props<{author_id: number, user_id: number, authorData: FormData}>()
 );
 export const changeAuthorDataSuccess = createAction(
-    '[Author Data] Change Author Data Success'
+    '[Author Data] Change Author Data Success',
 );
 export const changeAuthorDataFailed = createAction(
     '[Author Data] Change Autor Data Failed',

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addReview, addReviewFailed, addReviewSuccess, loadAllBooks, loadAllBooksFailed, loadAllBooksSuccess, loadAuthorsByCategories, loadAuthorsByCategoriesFailed, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesFailed, loadCategoriesSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadFilters, loadFiltersFailed, loadFiltersSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
+import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addReview, addReviewFailed, addReviewSuccess, loadAllBooks, loadAllBooksFailed, loadAllBooksSuccess, loadAuthorsByCategories, loadAuthorsByCategoriesFailed, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesFailed, loadCategoriesSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadFilters, loadFiltersFailed, loadFiltersSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBook, removeBookFailed, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, removeBookSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
 import { catchError, map, mergeMap, of, switchMap, take, tap } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { select, Store } from "@ngrx/store";
@@ -264,6 +264,24 @@ export class BookEffects {
         return of(loadFiltersSuccess());
       }),
       catchError(error => of(loadFiltersFailed({ error })))
+    )
+  );
+
+  removeBook = createEffect(() => 
+    this.actions$.pipe(
+      ofType(removeBook),
+      mergeMap(action =>
+        this.bookService.deleteBook(action.book_id).pipe(
+          map(result => {
+            if(result){
+              return removeBookSuccess({book_id: action.book_id, author_id: action.author_id});
+            }else{
+              return removeBookFailed({error: "Greska"});
+            }
+          }),
+          catchError(error => of(removeBookFailed({error})))
+        )
+      )
     )
   );
   

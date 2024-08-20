@@ -1,10 +1,10 @@
 import { createReducer, on } from "@ngrx/store";
 import { BestAuthorsDto } from "../../dtos/best-authors.dto";
-import { loadAllAuthorsSuccess, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorByIdSuccess, loadBestAuthorsSuccess, loadMyBooksCountSuccess, loadMyBooksSuccess } from "./author.actions";
+import { changeAuthorDataSuccess, loadAllAuthorsSuccess, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorByIdSuccess, loadBestAuthorsSuccess, loadMyBooksCountSuccess, loadMyBooksSuccess } from "./author.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { AuthorDataDto } from "../../dtos/author-data.dto";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { loadAuthorsByCategoriesSuccess } from "../book/book.actions";
+import { loadAuthorsByCategoriesSuccess, removeBookSuccess } from "../book/book.actions";
 
 export interface AuthorState {
     bestAuthors: BestAuthorsDto[] | null,
@@ -97,6 +97,11 @@ export const authorReducer = createReducer(
         ...state,
         allAuthors: [...state.allAuthors?.filter(element => element !== loadedAuthor) || [], loadedAuthor]
     })),
+    on(changeAuthorDataSuccess, (state) => ({
+        ...state,
+        bestAuthorsLoaded: false,
+        allAuthorsLoaded: false,
+    })),
     on(loadAuthorBooksSuccess, (state, {books, author_id}) => ({
         ...state,
         allAuthors: state.allAuthors
@@ -123,4 +128,52 @@ export const authorReducer = createReducer(
         myBooksCount: myBooksCount,
         myBooksCountLoaded: true
     })),
+    on(removeBookSuccess, (state, {book_id, author_id}) => {
+        let newMyBooks = state.myBooks;
+        let newMyBooksCount = state.myBooksCount;
+        let newAllAuthors = state.allAuthors;
+
+        if(state.myBooks && state.myBooks.length > 0){
+            if(state.myBooks.findIndex(element => element.id === book_id) !== -1 && newMyBooks)
+                newMyBooks = newMyBooks?.filter(element => element.id !== book_id);
+            newMyBooksCount = state.myBooksCount - 1;
+        }
+
+        // if (state.allAuthors && state.allAuthors.length > 0) {
+        //     if (state.allAuthors.findIndex(author => 
+        //         author.books?.some(book => book.id === book_id)) !== -1 && newAllAuthors) {
+        //       newAllAuthors = state.allAuthors.map(author => {
+        //         const newCount = author.booksCount ? author.booksCount -1 : 0;
+        //         return {
+        //           ...author,
+        //           booksCount: newCount,  
+        //           books: author.books?.filter(book => book.id !== book_id)
+        //         };
+        //       });
+        //     }
+        //   }
+          
+        if(state.allAuthors && state.allAuthors.length > 0){
+            if(state.allAuthors.findIndex(element => element.id === author_id) !== -1 && newAllAuthors){
+                newAllAuthors = state.allAuthors.map(author => {
+                    if(author.id === author_id){
+                        const newCount = author.booksCount;
+                        return {
+                            ...author,
+                            booksCount: author.booksCount && newCount ? newCount -1 : 0
+                        }
+                    }else{
+                        return author;
+                    }
+                })
+            }
+        }
+
+        return {
+            ...state,
+            myBooks: newMyBooks,
+            myBooksCount: newMyBooksCount,
+            allAuthors: newAllAuthors
+        }
+    })
 )

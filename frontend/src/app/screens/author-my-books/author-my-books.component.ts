@@ -5,6 +5,7 @@ import { BookInfoDto } from '../../shared/dtos/book-info.dto';
 import { Store } from '@ngrx/store';
 import { selectMyBooks, selectMyBooksCount, selectMyBooksCountLoaded, selectMyBooksLoaded } from '../../shared/store/author/author.selectors';
 import { loadMyBooks, loadMyBooksCount } from '../../shared/store/author/author.actions';
+import { removeBook } from '../../shared/store/book/book.actions';
 
 @Component({
   selector: 'app-author-my-books',
@@ -41,6 +42,12 @@ export class AuthorMyBooksComponent implements OnInit, OnDestroy {
   loadMore(){
     if(this.userData?.author){
       this.store.dispatch(loadMyBooks({author_id: this.userData.author?.id, skip: this.myBooks?.length || 0, limit: this.limit}));
+    }
+  }
+
+  removeBook({ book_id, author_id }: { book_id: number; author_id: number }) {
+    if (this.userData && this.userData.author) {
+      this.store.dispatch(removeBook({ book_id: book_id, author_id: author_id }));
     }
   }
 

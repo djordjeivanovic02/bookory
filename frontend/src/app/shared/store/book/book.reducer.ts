@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { addBookToDowloadedListSuccess, addReviewSuccess, loadAllBooksSuccess, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesSuccess, loadDownloadedBooksSuccess, loadFiltersSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, selectBookSuccess } from "./book.actions";
+import { addBookToDowloadedListSuccess, addReviewSuccess, loadAllBooksSuccess, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesSuccess, loadDownloadedBooksSuccess, loadFiltersSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookSuccess, selectBookSuccess } from "./book.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 import { FilterDto } from "../../dtos/filter.dto";
@@ -196,4 +196,12 @@ export const bookReducer = createReducer(
             authors: authors
         }
     })),
+    on(removeBookSuccess, (state, {book_id, author_id}) => {
+        return {
+            ...state,
+            newestBooksLoaded: false,
+            savedBookLoaded: false,
+            allBooksLoaded: false
+        }
+    })
 )

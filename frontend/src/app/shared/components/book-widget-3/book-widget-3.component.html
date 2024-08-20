@@ -21,7 +21,9 @@
         class="socials d-flex flex-column justifu-content-center align-items-end"
         *ngIf="showRemove"
     >
-        <div class="social d-flex align-items-center justify-content-center">
+        <div class="social d-flex align-items-center justify-content-center"
+            (click)="removeBook(book?.id!, book?.author?.id!)"
+        >
             <fa-icon [icon]="faRemove"></fa-icon>
         </div>
         <div class="social d-flex align-items-center justify-content-center">

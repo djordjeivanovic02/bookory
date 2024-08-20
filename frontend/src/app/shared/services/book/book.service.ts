@@ -106,4 +106,8 @@ export class BookService {
   
     return this.http.get<string[]>(url);
   }
+
+  deleteBook(id: number) {
+    return this.http.delete(`${this.apiUrl}/book/${id}`);
+  }
 }

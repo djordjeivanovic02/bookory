@@ -24,7 +24,7 @@ export class AuthorDashboardComponent implements OnInit, OnDestroy {
   faShutdown = faSignOut;
 
   actions = authorDashboardActions;
-  selectedContainer = 1;
+  selectedContainer = 0;
 
   userData$: Observable<UserDataStoreDto | null>;
   userData: UserDataStoreDto | null = null;

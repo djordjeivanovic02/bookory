@@ -169,3 +169,17 @@ export const loadFiltersFailed = createAction(
     '[Filters] Load FiltersFailed',
     props<{error: string}>()
 );
+
+//OBRISI KNJIGU
+export const removeBook = createAction(
+    '[Remove Book] Remove Book',
+    props<{book_id: number, author_id: number}>()
+);
+export const removeBookSuccess = createAction(
+    '[Remove Book] Remove Book Success',
+    props<{book_id: number, author_id: number}>()
+);
+export const removeBookFailed = createAction(
+    '[Remove Book] Remove Book Failed',
+    props<{error: string}>()
+);

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthorService } from "../../services/author/author.service";
 import { changeAuthorData, changeAuthorDataFailed, changeAuthorDataSuccess, loadAllAuthors, loadAllAuthorsSuccess, loadAuthorBooks, loadAuthorBooksFailed, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorById, loadAuthorByIdFailed, loadAuthorByIdSuccess, loadBestAuthors, loadBestAuthorsFailed, loadBestAuthorsSuccess, loadMyBooks, loadMyBooksCount, loadMyBooksCountFailed, loadMyBooksCountSuccess, loadMyBooksFailed, loadMyBooksSuccess } from "./author.actions";
-import { catchError, map, mergeMap, of, withLatestFrom } from "rxjs";
+import { catchError, concat, map, merge, mergeMap, of, withLatestFrom } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import e, { response } from "express";
 import { Store } from "@ngrx/store";
@@ -134,11 +134,14 @@ export class AuthorEffects {
       ofType(changeAuthorData),
       mergeMap(action =>
         this.authorService.updateAuthorData(action.author_id, action.authorData).pipe(
-          map(response => {
+          mergeMap(response => {
             if (response) {
-              return loadUserData({id: action.user_id});
+              return merge(
+                of(changeAuthorDataSuccess()),
+                of(loadUserData({ id: action.user_id }))
+              );
             } else {
-              return changeAuthorDataFailed({ error: "Greska" });
+              return of(changeAuthorDataFailed({ error: 'Greska' }));
             }
           }),
           catchError(error => of(changeAuthorDataFailed({ error })))
@@ -146,6 +149,7 @@ export class AuthorEffects {
       )
     )
   );
+
 
   loadMyBooks$ = createEffect(() =>
     this.actions$.pipe(
