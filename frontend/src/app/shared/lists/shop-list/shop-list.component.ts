@@ -27,6 +27,9 @@ export class ShopListComponent implements OnInit, OnDestroy{
   @Input()
   filters: FilterDto | null = null;
 
+  @Input()
+  showType: number = 0;
+
   loadMore() {
     if(this.filteredBooks && this.filteredBooksCount && this.filters){
       this.store.dispatch(loadAllBooks({filters: this.filters, reset: false}));

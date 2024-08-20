@@ -11,13 +11,13 @@
         <div class="books-container flex-fill">
             <div class="sorting d-flex">
                 <div class="show-type">
-                    <a href="#" class="active"
-                        ><fa-icon [icon]="faTable"></fa-icon
+                    <a href="#" [ngClass]="{'active': showType === 0}" (click)="changeShowType(0, $event)"
+                    ><fa-icon [icon]="faTable"></fa-icon
                     ></a>
-                    <a href="#"><fa-icon [icon]="faList"></fa-icon></a>
+                    <a href="#" [ngClass]="{'active': showType === 1}" (click)="changeShowType(1, $event)">
+                        <fa-icon [icon]="faList"></fa-icon></a>
                 </div>
                 <div class="options d-flex align-items-center">
-                    
                     <p class="showing-text">Prikaži</p>
                     <select class="sort text-end" (change)="onLimitChange($event)">
                         <option value="2" [selected]="chceckShowSelected(2)">2</option>
@@ -34,7 +34,7 @@
                         <span>Obriši filtere</span>
                     </a>
                 </div>
-                <app-shop-list [filters]="filters"></app-shop-list>
+                <app-shop-list [filters]="filters" [showType]="showType"></app-shop-list>
             </div>
         </div>
     </div>

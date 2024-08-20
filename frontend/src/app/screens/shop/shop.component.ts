@@ -31,6 +31,8 @@ export class ShopComponent implements OnInit, OnDestroy {
   faTable = faTable;
   faClose = faClose;
 
+  showType: number = 0;
+
   filters: FilterDto | null = null;
   
   allCategories$: Observable<string[] | null>;
@@ -59,6 +61,11 @@ export class ShopComponent implements OnInit, OnDestroy {
   isFilters(): boolean {
     return !!this.filters && 
            (this.filters.authors?.length > 0 || this.filters.categories?.length > 0);
+  }
+
+  changeShowType(newType: number, event: Event){
+    event.preventDefault();
+    this.showType = newType;
   }
 
   onLimitChange(event: Event): void {

@@ -11,6 +11,8 @@ import { BookInfoDto } from "../../dtos/book-info.dto";
 export class BookWidget3Component implements OnInit{
   @Input()
   book: BookInfoDto | null = null;
+  @Input()
+  showRemove: boolean = true;
   
   bookAverageRate: number = 0;
 
