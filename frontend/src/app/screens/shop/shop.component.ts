@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { loadCategories } from "../../shared/store/book/book.actions";
+import { loadAllBooks, loadAuthorsByCategories, loadCategories } from "../../shared/store/book/book.actions";
 import { selectAllCategories, selectAllCategoriesLoaded } from "../../shared/store/book/book.selectors";
 import { selectAllAuthors, selectAllAuthorsLoaded } from "../../shared/store/author/author.selectors";
 import { AuthorDataDto } from "../../shared/dtos/author-data.dto";
@@ -40,16 +40,42 @@ export class ShopComponent implements OnInit, OnDestroy {
   allCategoriesLoaded$: Observable<boolean | null>;
   allCategoriesLoadedSubscription: Subscription = new Subscription();
 
-  allAuthor$: Observable<AuthorDataDto[] | null>;
-  allAuthors: AuthorDataDto[] | null = null;
-  allAuthorsSubscription: Subscription = new Subscription();
-
-  allAuthorsLoaded$: Observable<boolean | null>;
-  allAuthorsLoadedSubscription: Subscription = new Subscription();
-
   setFilters(filters: FilterDto | null){
     this.filters = filters;
-    console.log(this.filters);
+  }
+
+  removeFilters(event: Event){
+    event.preventDefault();
+    this.filters = {
+      categories: [],
+      authors: [],
+      skip: 0,
+      limit: 2,
+      sort: 0
+    }
+    this.store.dispatch(loadAllBooks({filters: this.filters!, reset: true}));
+  }
+
+  isFilters(): boolean {
+    return !!this.filters && 
+           (this.filters.authors?.length > 0 || this.filters.categories?.length > 0);
+  }
+
+  onLimitChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedValue = selectElement.value;
+    if(this.filters){
+      this.filters = {
+        ...this.filters,
+        skip: 0,
+        limit: parseInt(selectedValue)
+      };
+    }
+    this.store.dispatch(loadAllBooks({filters: this.filters!, reset: true}));
+  }
+  
+  chceckShowSelected(value: number): boolean{
+    return this.filters?.limit === value;
   }
 
   ngOnInit(): void {
@@ -59,26 +85,15 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.allCategoriesSubscription = this.allCategories$.subscribe(categories => {
       this.allCategories = categories;
     });
-
-    this.allAuthorsLoadedSubscription = this.allAuthorsLoaded$.subscribe(loaded => {
-      if(!loaded) this.store.dispatch(loadAllAuthors());
-    });
-    this.allAuthorsSubscription = this.allAuthor$.subscribe(authors => {
-      this.allAuthors = authors;
-    })
   }
 
   ngOnDestroy(): void {
     this.allCategoriesLoadedSubscription.unsubscribe();
-    this.allAuthorsLoadedSubscription.unsubscribe();
-    this.allAuthorsSubscription.unsubscribe();
+    this.allCategoriesSubscription.unsubscribe();
   }
   
   constructor(private store: Store){
     this.allCategories$ = this.store.select(selectAllCategories);
     this.allCategoriesLoaded$ = this.store.select(selectAllCategoriesLoaded);
-
-    this.allAuthor$ = this.store.select(selectAllAuthors);
-    this.allAuthorsLoaded$ = this.store.select(selectAllAuthorsLoaded);
   }
 }

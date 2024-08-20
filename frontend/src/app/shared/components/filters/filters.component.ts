@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { FilterDto } from '../../dtos/filter.dto';
 import { selectAllCategories, selectFilters, selectFiltersLoaded } from '../../store/book/book.selectors';
-import { loadAllBooks, loadCategories, loadFilters } from '../../store/book/book.actions';
+import { loadAllBooks, loadAuthorsByCategories, loadCategories, loadFilters } from '../../store/book/book.actions';
 import { AuthorDataDto } from '../../dtos/author-data.dto';
 import { selectAllAuthorsLoaded } from '../../store/author/author.selectors';
 
@@ -15,8 +15,6 @@ import { selectAllAuthorsLoaded } from '../../store/author/author.selectors';
 export class FiltersComponent  implements OnInit, OnDestroy {
   @Input()
   allCategories: string[] | null = null;
-  @Input()
-  allAuthors: AuthorDataDto[] | null = null;
   @Output()
   filtersEmmiter = new EventEmitter<FilterDto | null>();
 
@@ -47,12 +45,17 @@ export class FiltersComponent  implements OnInit, OnDestroy {
           categories: updatedCategories
       };
     }
+
     if(this.filters){
-      this.filtersEmmiter.emit(this.filters);
       this.store.dispatch(loadAllBooks({filters: this.filters!, reset: true}));
     }
   }
 
+  checkIsChecked(item: string): boolean{
+    if(this.filters)
+      return this.filters.categories.findIndex(element => element === item) !== -1;
+    return false;
+  }
 
   ngOnInit(): void {
     this.filtersLoadedSubscription = this.$filtersLoaded$.subscribe(loaded => {

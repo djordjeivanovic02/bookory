@@ -143,12 +143,12 @@ export class BookService {
       let orderBy: { [key: string]: 'ASC' | 'DESC' } = {};
     
       if (sort == 1) orderBy = { created_at: 'DESC' };
-      else orderBy = { title: 'ASC' };
+      else orderBy = { title: 'DESC' };
     
       return from(
         this.bookRepository.findAndCount({
           where: { ...genreCondition, ...authorsCondition },
-          relations: ['author'],
+          relations: ['author', 'reviews'],
           skip: skip,
           take: limit,
           order: orderBy,

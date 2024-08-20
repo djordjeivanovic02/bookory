@@ -176,7 +176,8 @@ export const bookReducer = createReducer(
             ...state.filters,
             categories: filters.categories,
             authors: filters.authors,
-            skip: (!reset) ? state.filters.skip + filteredBooks.length : 2
+            limit: filters.limit,
+            skip: (!reset) ? state.filters.skip + filteredBooks.length : filteredBooks.length
         }
     })),
     on(loadCategoriesSuccess, (state, {categories}) => ({

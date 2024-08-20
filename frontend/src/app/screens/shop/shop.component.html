@@ -4,8 +4,7 @@
     <div class="main-container d-flex align-items-start">
         <div class="filters-container">
             <app-filters 
-                [allCategories]="allCategories" 
-                [allAuthors]="allAuthors"
+                [allCategories]="allCategories"
                 (filtersEmmiter)="setFilters($event)"
             ></app-filters>
         </div>
@@ -18,25 +17,19 @@
                     <a href="#"><fa-icon [icon]="faList"></fa-icon></a>
                 </div>
                 <div class="options d-flex align-items-center">
-                    <select class="sort prim text-end">
-                        <option value="0" selected>Podrazumevano</option>
-                        <option value="1">Po popularnosti</option>
-                        <option value="2">Po prosečnoj oceni</option>
-                        <option value="3">Prvo najnoviji</option>
-                    </select>
-                    <div class="separator"></div>
+                    
                     <p class="showing-text">Prikaži</p>
-                    <select class="sort text-end">
-                        <option value="0" selected>8</option>
-                        <option value="1">16</option>
-                        <option value="2">24</option>
-                        <option value="3">32</option>
+                    <select class="sort text-end" (change)="onLimitChange($event)">
+                        <option value="2" [selected]="chceckShowSelected(2)">2</option>
+                        <option value="4" [selected]="chceckShowSelected(4)">4</option>
+                        <option value="6" [selected]="chceckShowSelected(6)">6</option>
+                        <option value="8" [selected]="chceckShowSelected(8)">8</option>
                     </select>
                 </div>
             </div>
             <div class="w-100 d-flex flex-column">
                 <div class="reset">
-                    <a href="">
+                    <a href="" (click)="removeFilters($event)" *ngIf="isFilters()">
                         <fa-icon [icon]="faClose"></fa-icon>
                         <span>Obriši filtere</span>
                     </a>

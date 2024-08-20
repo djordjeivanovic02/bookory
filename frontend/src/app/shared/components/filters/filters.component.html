@@ -8,6 +8,7 @@
                 type="checkbox" 
                 id="{{item}}"
                 (change)="onCategoriesChange(item, $event)"
+                [checked]="checkIsChecked(item)"
                 value="{{item}}"
             />
             <label for="{{item}}">{{item}}</label>
@@ -15,7 +16,7 @@
     </div>
 </div>
 
-<div class="filter w-100">
+<!-- <div class="filter w-100">
     <div class="header">
         <p class="title m-0">Autori</p>
     </div>
@@ -32,4 +33,4 @@
                 {{author.firstName}} {{author.lastName}}
             </label>
         </div>
-</div>
+</div> -->
