@@ -1,0 +1,11 @@
+<div class="w-100 d-flex align-items-center justify-content-between mb-3">
+    <div class="d-flex align-items-center w-75">
+        <img [src]="imageUrl? imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-crw0gMQo_4KCXAtx9fxfrNr7eFEBmI1X4g&s'" alt="">
+        <a href=""
+            routerLink="/book/{{book?.id}}"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+        >{{book?.title}}</a>
+    </div>
+    <app-stars [rate]="bookAverageRate"></app-stars>
+</div>

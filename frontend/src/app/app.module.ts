@@ -75,6 +75,7 @@ import { BestAuthorsListComponent } from './shared/lists/best-authors-list/best-
 import { ShopListComponent } from './shared/lists/shop-list/shop-list.component';
 import { AboutUsComponent } from './screens/about-us/about-us.component';
 import { FiltersComponent } from './shared/components/filters/filters.component';
+import { SearchBookItemComponent } from './shared/components/search-book-item/search-book-item.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +130,7 @@ import { FiltersComponent } from './shared/components/filters/filters.component'
     ShopListComponent,
     AboutUsComponent,
     FiltersComponent,
+    SearchBookItemComponent,
   ],
   bootstrap: [AppComponent],
   imports: [

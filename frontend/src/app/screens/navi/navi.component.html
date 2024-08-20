@@ -19,15 +19,19 @@
                 routerLinkActive="active"
                 ariaCurrentWhenActive="page"
             ><img src="assets/images/logo.svg" class="logo" /></a>
-            <div class="search-container w-100">
+            <div class="search-container w-100 position-relative" [ngClass]="{'active': showDropDown}" (click)="showDropDown = false">
                 <input
                     type="text"
                     class="input"
                     placeholder="Pretražuj knjige..."
+                    [formControl]="searchControl"
                 />
                 <button class="search">
                     <fa-icon [icon]="faSearch"></fa-icon>
                 </button>
+                <div class="dropdown-container position-absolute">
+                    <app-search-book-item *ngFor="let items of searchItems" [book]="items"></app-search-book-item>
+                </div>
             </div>
             <div class="user-actions align-items-center justify-content-center">
                 <a

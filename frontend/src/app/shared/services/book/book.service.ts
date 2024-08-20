@@ -107,6 +107,10 @@ export class BookService {
     return this.http.get<string[]>(url);
   }
 
+  search(text: string): Observable<BookInfoDto[]> {
+    return this.http.get<BookInfoDto[]>(`${this.apiUrl}/book/search?text=${text}`);
+  }
+
   deleteBook(id: number) {
     return this.http.delete(`${this.apiUrl}/book/${id}`);
   }

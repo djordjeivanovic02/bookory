@@ -180,6 +180,7 @@ export class BookService {
 
     searchBook(text: string): Observable<BookInfo[]> {
       return from(this.bookRepository.find({
+        relations: ['reviews'],
         where: { title: ILike(`${text}%`)}
       }));
     }
