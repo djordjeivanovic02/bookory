@@ -197,11 +197,20 @@ export const bookReducer = createReducer(
         }
     })),
     on(removeBookSuccess, (state, {book_id, author_id}) => {
+        let newAllBooks = state.allBooks;
+        let newAllBooksCount = state.allBooksCount;
+        if(state.allBooks && state.allBooks.length > 0){
+            if(state.allBooks.findIndex(element => element.id === book_id) !== -1 && newAllBooks){
+                newAllBooks = newAllBooks.filter(element => element.id !== book_id);
+            }
+            newAllBooksCount = newAllBooksCount - 1;
+        }
         return {
             ...state,
             newestBooksLoaded: false,
             savedBookLoaded: false,
-            allBooksLoaded: false
+            allBooks: newAllBooks,
+            allBooksCount: newAllBooksCount
         }
     })
 )

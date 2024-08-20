@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NavLink } from "../../core/interfaces/navlink.interface";
 import { faDownload, faHeart as faHeartFull } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { BookInfoDto } from "../../shared/dtos/book-info.dto";
 import { Store } from "@ngrx/store";
 import { addBookToDownloaded, addReview, removeBookFromSavedList, selectBook } from "../../shared/store/book/book.actions";
@@ -19,7 +19,7 @@ import { BookService } from "../../shared/services/book/book.service";
   templateUrl: "./book.component.html",
   styleUrl: "./book.component.scss",
 })
-export class BookComponent implements OnInit{
+export class BookComponent implements OnInit, OnDestroy{
   navLinks: NavLink[] = [
     {
       name: "početna",
@@ -35,10 +35,12 @@ export class BookComponent implements OnInit{
   showReviewInput: boolean = true;
 
   bookInfo$: Observable<BookInfoDto | null>;
+  bookInfoSubscription: Subscription = new Subscription();
   bookInfo: BookInfoDto | null = null;
   averageRate: number | null = null;
 
   userData$: Observable<UserDataStoreDto | null>;
+  userDataSubscription: Subscription = new Subscription();
   userData: UserDataStoreDto | null = null;
 
   rate: number = 0;
@@ -141,7 +143,7 @@ export class BookComponent implements OnInit{
       }
     });
     
-    this.bookInfo$.subscribe(book => {
+    this.bookInfoSubscription = this.bookInfo$.subscribe(book => {
       if(book){
         this.bookInfo = book;
         this.averageRate = this.getAverageRate();
@@ -152,10 +154,15 @@ export class BookComponent implements OnInit{
       }
     });
 
-    this.userData$.subscribe(userData =>{
+    this.userDataSubscription = this.userData$.subscribe(userData =>{
       this.userData = userData; 
       this.showReviewInput = this.reviewExist();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.bookInfoSubscription.unsubscribe();
+    this.userDataSubscription.unsubscribe();
   }
   
   constructor(

@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "../../core/interfaces/navlink.interface";
 import { Store } from "@ngrx/store";
 import { login, registerAuthor, registerUser } from "../../shared/store/auth/auth.actions";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { selectAuthError, selectAuthSuccess } from "../../shared/store/auth/auth.selectores";
 
 @Component({
@@ -11,7 +11,7 @@ import { selectAuthError, selectAuthSuccess } from "../../shared/store/auth/auth
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.scss",
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   faArrowRight = faArrowRight;
   isWriter: Boolean = false;
   link: NavLink[] = [
@@ -26,7 +26,9 @@ export class LoginComponent implements OnInit {
   loginButtonDisabled = true;
 
   authError$: Observable<any>;
+  authErrorSubscription: Subscription = new Subscription();
   authSucces$: Observable<any>;
+  authSuccessSubscription: Subscription = new Subscription();
 
   email: string = '';
   password: string = '';
@@ -92,16 +94,9 @@ export class LoginComponent implements OnInit {
     this.isWriter = value;
     this.validateRegister();
   }
-
-  constructor(
-    private store: Store
-  ){
-    this.authError$ = this.store.select(selectAuthError);
-    this.authSucces$ = this.store.select(selectAuthSuccess);
-  }
   
   ngOnInit() {
-    this.authError$.subscribe(error => {
+    this.authErrorSubscription = this.authError$.subscribe(error => {
       if (error) {
         this.isSuccess = false;
         this.isError = true;
@@ -109,12 +104,24 @@ export class LoginComponent implements OnInit {
       }
     });
 
-    this.authSucces$.subscribe(user => {
+    this.authSuccessSubscription = this.authSucces$.subscribe(user => {
       if(user){
         this.isError = false;
         this.isSuccess = true;
         this.notification = "Uspešno ste se registrovali! Sada možete da se prijavite."
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.authErrorSubscription.unsubscribe();
+    this.authSuccessSubscription.unsubscribe();
+  }
+
+  constructor(
+    private store: Store
+  ){
+    this.authError$ = this.store.select(selectAuthError);
+    this.authSucces$ = this.store.select(selectAuthSuccess);
   }
 }

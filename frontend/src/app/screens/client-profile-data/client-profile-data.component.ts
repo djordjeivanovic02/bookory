@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { UserDataStoreDto } from '../../shared/dtos/user-data.dto';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
@@ -14,8 +14,9 @@ import { error } from 'console';
   templateUrl: './client-profile-data.component.html',
   styleUrl: './client-profile-data.component.scss'
 })
-export class ClientProfileDataComponent implements OnInit {
+export class ClientProfileDataComponent implements OnInit, OnDestroy {
   userData$: Observable<UserDataStoreDto | null>;
+  userDataSubscription: Subscription = new Subscription()
   userData: UserDataStoreDto | null = null;
 
   passwords: ChangePassword | null = null;
@@ -74,12 +75,15 @@ export class ClientProfileDataComponent implements OnInit {
     this.buttonDisabled = false;
     return false;
   }
+  ngOnInit(): void {
+    this.userDataSubscription = this.userData$.subscribe(userData => this.userData = userData);
+  }
+
+  ngOnDestroy(): void {
+    this.userDataSubscription.unsubscribe();
+  }
 
   constructor(private store: Store, private authService: AuthService){
     this.userData$ = this.store.select(selectUserData);
-  }
-
-  ngOnInit(): void {
-    this.userData$.subscribe(userData => this.userData = userData);
   }
 }

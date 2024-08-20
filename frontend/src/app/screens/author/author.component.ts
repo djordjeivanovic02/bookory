@@ -71,6 +71,6 @@ export class AuthorComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store
   ){
-    this.authorData$ = this.authorData$ = new Observable<AuthorDataDto | null>();
+    this.authorData$ = new Observable<AuthorDataDto | null>();
   }
 }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { Store } from "@ngrx/store";
 import { DownloadDto } from "../../shared/dtos/downloaded-book.dto";
-import { combineLatest, Observable } from "rxjs";
+import { combineLatest, Observable, Subscription } from "rxjs";
 import { UserDataStoreDto } from "../../shared/dtos/user-data.dto";
 import { selectDownloadedBookLimit, selectDownloadedBooks, selectDownloadedBookSkip, selectDownloadedBooksLoaded } from "../../shared/store/book/book.selectors";
 import { selectUserData } from "../../shared/store/user/user.selectors";
@@ -13,7 +13,7 @@ import { loadDownloadedBooks } from "../../shared/store/book/book.actions";
   templateUrl: "./client-downloads-part.component.html",
   styleUrl: "./client-downloads-part.component.scss",
 })
-export class ClientDownloadsPartComponent implements OnInit {
+export class ClientDownloadsPartComponent implements OnInit, OnDestroy {
   faDownload = faDownload;
 
   skip: number = 0;
@@ -26,10 +26,13 @@ export class ClientDownloadsPartComponent implements OnInit {
   downloadedBooks: DownloadDto[] | null = [];
 
   downloadedBook$: Observable<DownloadDto[] | null>;
+  downloadedBooksSubscription: Subscription = new Subscription();
   downloadedBooksLoaded$: Observable<boolean>;
 
   userData$: Observable<UserDataStoreDto | null>;
   userData: UserDataStoreDto | null = null;
+
+  combinedSubscription: Subscription = new Subscription();
 
   loadMore() {
     if (this.userData) {
@@ -46,7 +49,7 @@ export class ClientDownloadsPartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    combineLatest([
+    this.combinedSubscription.add(combineLatest([
       this.userData$,
       this.downloadedBooksLoaded$,
       this.skip$,
@@ -59,9 +62,9 @@ export class ClientDownloadsPartComponent implements OnInit {
       if (userData && !loaded && skip!==null && limit) {
         this.store.dispatch(loadDownloadedBooks({ user_id: userData.id, skip: skip, limit: limit }));
       }
-    });
+    }));
 
-    this.downloadedBook$.subscribe((downloadedBooks) => {
+    this.downloadedBooksSubscription = this.downloadedBook$.subscribe((downloadedBooks) => {
       if (downloadedBooks) {
         this.downloadedBooks = downloadedBooks.map(element => {
           const formattedDate = new Date(element.created_at).toLocaleDateString('sr-Latn-RS', {
@@ -79,6 +82,11 @@ export class ClientDownloadsPartComponent implements OnInit {
       }
       this.checkShowLoadMore();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.downloadedBooksSubscription.unsubscribe()
+    this.combinedSubscription.unsubscribe();
   }
 
 

@@ -13,7 +13,6 @@ export class BookWidget2Component implements OnInit {
   bookAverageRate: number = 0;
 
   ngOnInit(): void {
-    console.log("Book: ", this.book);
     this.bookAverageRate = this.book?.reviews && this.book.reviews.length > 0 
         ? (this.book.reviews.reduce((sum, review) => sum + review.rate, 0) / this.book.reviews.length)
         : 0;
