@@ -82,7 +82,8 @@ export class BookService {
         where: {author: {id}},
         skip: pagination.skip,
         take: pagination.limit,
-        relations: ['reviews']
+        relations: ['reviews'],
+        order: {created_at: 'desc'}
        })).pipe(
        map(books => 
          books.map(book => ({

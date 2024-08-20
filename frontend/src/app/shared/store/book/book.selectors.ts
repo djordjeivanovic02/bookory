@@ -88,3 +88,9 @@ export const selectAllCategoriesLoaded = createSelector(
     selectBookState,
     (bookState) => bookState.allCategoriesLoaded
 );
+
+//DODATA NOVA KNJIGA
+export const selectNewBookAdded = createSelector(
+    selectBookState,
+    (bookState) => bookState.newBookAdded
+);

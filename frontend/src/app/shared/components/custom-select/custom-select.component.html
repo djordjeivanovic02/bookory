@@ -3,7 +3,7 @@
         {{ title }}
         <span *ngIf="isRequired" class="required">*</span>
     </p>
-    <select class="w-100" formControlName="formControlName">
+    <select class="w-100" (change)="selectChange($event)">
         <option *ngFor="let categorie of categories" value="{{ categorie }}">
             {{ categorie }}
         </option>

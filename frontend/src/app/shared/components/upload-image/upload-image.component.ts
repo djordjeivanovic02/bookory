@@ -30,7 +30,6 @@ export class UploadImageComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['currentImageUrl'] && this.currentImageUrl) {
-      console.log('Current Image URL:', this.currentImageUrl);
       try {
         this.imagePreview = this.currentImageUrl;
       } catch (error) {

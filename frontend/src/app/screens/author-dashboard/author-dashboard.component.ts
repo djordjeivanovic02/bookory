@@ -36,7 +36,9 @@ export class AuthorDashboardComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void {
-    this.userDataSubscription = this.userData$.subscribe(userData => this.userData = userData);
+    this.userDataSubscription = this.userData$.subscribe(userData => {
+      this.userData = userData;
+    });
   }
 
   ngOnDestroy(): void {

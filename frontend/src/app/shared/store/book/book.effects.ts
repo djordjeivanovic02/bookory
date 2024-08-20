@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { BookService } from "../../services/book/book.service";
-import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addReview, addReviewFailed, addReviewSuccess, loadAllBooks, loadAllBooksFailed, loadAllBooksSuccess, loadAuthorsByCategories, loadAuthorsByCategoriesFailed, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesFailed, loadCategoriesSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadFilters, loadFiltersFailed, loadFiltersSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBook, removeBookFailed, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, removeBookSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
+import { addBookToDowloadedListFailure, addBookToDowloadedListSuccess, addBookToDownloaded, addNewBook, addNewBookFailed, addNewBookSuccess, addReview, addReviewFailed, addReviewSuccess, loadAllBooks, loadAllBooksFailed, loadAllBooksSuccess, loadAuthorsByCategories, loadAuthorsByCategoriesFailed, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesFailed, loadCategoriesSuccess, loadDownloadedBooks, loadDownloadedBooksFailure, loadDownloadedBooksSuccess, loadFilters, loadFiltersFailed, loadFiltersSuccess, loadNewestBooks, loadNewestBooksFailed, loadNewestBooksSuccess, loadSavedBookData, loadSavedBookDataFailed, loadSavedBookDataSuccess, removeBook, removeBookFailed, removeBookFromSavedList, removeBookFromSavedListFailure, removeBookFromSavedListSuccess, removeBookSuccess, selectBook, selectBookFailure, selectBookSuccess } from "./book.actions";
 import { catchError, map, mergeMap, of, switchMap, take, tap } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { select, Store } from "@ngrx/store";
@@ -280,6 +280,29 @@ export class BookEffects {
             }
           }),
           catchError(error => of(removeBookFailed({error})))
+        )
+      )
+    )
+  );
+
+  addNewBook = createEffect(() => 
+    this.actions$.pipe(
+      ofType(addNewBook),
+      mergeMap(action =>
+        this.bookService.addNewBook(action.bookData).pipe(
+          map(result => {
+            if(result){
+              const mapped = {
+                ...result,
+                image: `${environment.apiUrl}/${result.image}`,
+                pdf: `${environment.apiUrl}/${result.pdf}`,
+              }
+              return addNewBookSuccess({book: mapped});
+            }else{
+              return addNewBookFailed({error: "Greska"});
+            }
+          }),
+          catchError(error => of(addNewBookFailed({error})))
         )
       )
     )

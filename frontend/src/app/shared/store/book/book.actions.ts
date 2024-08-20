@@ -183,3 +183,17 @@ export const removeBookFailed = createAction(
     '[Remove Book] Remove Book Failed',
     props<{error: string}>()
 );
+
+//DODAJ KNJIGU
+export const addNewBook = createAction(
+    '[New Book] Add New Book',
+    props<{bookData: FormData}>()
+);
+export const addNewBookSuccess = createAction(
+    '[New Book] Add New Book Success',
+    props<{book: BookInfoDto}>()
+);
+export const addNewBookFailed = createAction(
+    '[New Book] Add New Book Failed',
+    props<{error: string}>()
+);

@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectUserData } from '../../shared/store/user/user.selectors';
 import { UserDataStoreDto } from '../../shared/dtos/user-data.dto';
 import { UpdateAuthorDataDto } from '../../shared/dtos/update-author-data.dto';
 import { changeAuthorData } from '../../shared/store/author/author.actions';

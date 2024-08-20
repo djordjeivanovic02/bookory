@@ -4,7 +4,8 @@ import { changeAuthorData, changeAuthorDataSuccess, loadAllAuthorsSuccess, loadA
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { AuthorDataDto } from "../../dtos/author-data.dto";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { loadAuthorsByCategoriesSuccess, removeBookSuccess } from "../book/book.actions";
+import { addNewBookSuccess, removeBookSuccess } from "../book/book.actions";
+
 
 export interface AuthorState {
     bestAuthors: BestAuthorsDto[] | null,
@@ -182,5 +183,20 @@ export const authorReducer = createReducer(
             myBooksCount: newMyBooksCount,
             allAuthors: newAllAuthors
         }
-    })
+    }),
+    on(addNewBookSuccess, (state, {book}) => ({
+        ...state,
+        allAuthors: state.allAuthors ?  state.allAuthors?.map(element => {
+            if(element.id === book.author.id) {
+                return {
+                    ...element,
+                    booksCount: element.booksCount ? element.booksCount + 1 : 1
+                };
+            }
+            return element; 
+        }) : null,
+        myBooks: state.myBooks ? [book, ...state.myBooks.slice(0, state.myBooks.length - 1)] : null,
+        myBooksCount: state.myBooksCount ? state.myBooksCount + 1 : 0
+    })),
+
 )

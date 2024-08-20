@@ -1,10 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
 import { BookInfoDto } from "../../dtos/book-info.dto";
-import { addBookToDowloadedListSuccess, addReviewSuccess, loadAllBooksSuccess, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesSuccess, loadDownloadedBooksSuccess, loadFiltersSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookSuccess, selectBookSuccess } from "./book.actions";
+import { addBookToDowloadedListSuccess, addNewBook, addNewBookSuccess, addReviewSuccess, loadAllBooksSuccess, loadAuthorsByCategoriesSuccess, loadCategories, loadCategoriesSuccess, loadDownloadedBooksSuccess, loadFiltersSuccess, loadNewestBooksSuccess, loadSavedBookDataSuccess, removeBookSuccess, selectBookSuccess } from "./book.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 import { FilterDto } from "../../dtos/filter.dto";
-import { loadAllAuthorsSuccess } from "../author/author.actions";
 import { environment } from "../../../../environments/environment";
 
 export interface BookState{
@@ -32,6 +31,8 @@ export interface BookState{
 
     allCategories: string[] | null;
     allCategoriesLoaded: boolean;
+
+    newBookAdded: boolean;
 }
 
 export const initialState: BookState = {
@@ -64,7 +65,9 @@ export const initialState: BookState = {
     filtersLoaded: false,
 
     allCategories: null,
-    allCategoriesLoaded: false
+    allCategoriesLoaded: false,
+
+    newBookAdded: false,
 }
 
 export const bookReducer = createReducer(
@@ -203,7 +206,7 @@ export const bookReducer = createReducer(
             authors: authors
         }
     })),
-    on(removeBookSuccess, (state, {book_id, author_id}) => {
+    on(removeBookSuccess, (state, {book_id}) => {
         let newAllBooks = state.allBooks;
         let newAllBooksCount = state.allBooksCount;
         if(state.allBooks && state.allBooks.length > 0){
@@ -219,5 +222,12 @@ export const bookReducer = createReducer(
             allBooks: newAllBooks,
             allBooksCount: newAllBooksCount
         }
-    })
+    }),
+    on(addNewBookSuccess, (state, {book}) => ({
+        ...state,
+        newestBooks: [book, ...state.newestBooks || []],
+        allBooksLoaded: false,
+        allCategoriesLoaded: false,
+        newBookAdded: true
+    }))
 )
