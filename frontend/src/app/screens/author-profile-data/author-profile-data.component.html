@@ -1,6 +1,7 @@
 <div class="w-100">
     <h1>Promeni Svoje Podatke</h1>
-    <app-not-found title="Uspešno ažurirani podaci." [showFind]="false" *ngIf="showNotification"></app-not-found>
+    <app-error class="error-cont w-100 d-flex justify-content-center" *ngIf="showNotification" [isError]="false" [isSuccess]="true" notification="Uspešno ažurirani podaci." title="Uspešno"></app-error>
+
     <app-upload-image 
         text="Dodaj profilnu sliku"
         [currentImageUrl]="picture"

@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BestAuthorsDto } from "../../dtos/best-authors.dto";
-import { changeAuthorDataSuccess, loadAllAuthorsSuccess, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorByIdSuccess, loadBestAuthorsSuccess, loadMyBooksCountSuccess, loadMyBooksSuccess } from "./author.actions";
+import { changeAuthorData, changeAuthorDataSuccess, loadAllAuthorsSuccess, loadAuthorBooksSuccess, loadAuthorByFirstLetter, loadAuthorByFirstLetterSuccess, loadAuthorByIdSuccess, loadBestAuthorsSuccess, loadMyBooksCountSuccess, loadMyBooksSuccess } from "./author.actions";
 import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { AuthorDataDto } from "../../dtos/author-data.dto";
 import { BookInfoDto } from "../../dtos/book-info.dto";
@@ -12,6 +12,7 @@ export interface AuthorState {
 
     allAuthors: AuthorDataDto[] | null;
     allAuthorsLoaded: boolean;
+    authorChangeData: boolean;
 
     authorBooksSkip: number;
 
@@ -30,6 +31,7 @@ export const initialState: AuthorState = {
 
     allAuthors: null,
     allAuthorsLoaded: false,
+    authorChangeData: false,
 
     filteredAuthors: null,
 
@@ -97,10 +99,15 @@ export const authorReducer = createReducer(
         ...state,
         allAuthors: [...state.allAuthors?.filter(element => element !== loadedAuthor) || [], loadedAuthor]
     })),
+    on(changeAuthorData, (state) => ({
+        ...state,
+        authorChangeData: false
+    })),
     on(changeAuthorDataSuccess, (state) => ({
         ...state,
         bestAuthorsLoaded: false,
         allAuthorsLoaded: false,
+        authorChangeData: true
     })),
     on(loadAuthorBooksSuccess, (state, {books, author_id}) => ({
         ...state,

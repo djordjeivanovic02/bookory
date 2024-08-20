@@ -54,3 +54,10 @@ export const selectMyBooksCountLoaded = createSelector(
     selectAuthorState,
     (authorState) => authorState.myBooksCountLoaded
 );
+
+
+//AZURIRAJ AUTORA
+export const selectUpdated = createSelector(
+    selectAuthorState,
+    (authorState) => authorState.authorChangeData
+)

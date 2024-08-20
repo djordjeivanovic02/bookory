@@ -5,6 +5,7 @@ import { selectUserData } from '../../shared/store/user/user.selectors';
 import { UserDataStoreDto } from '../../shared/dtos/user-data.dto';
 import { UpdateAuthorDataDto } from '../../shared/dtos/update-author-data.dto';
 import { changeAuthorData } from '../../shared/store/author/author.actions';
+import { selectUpdated } from '../../shared/store/author/author.selectors';
 
 @Component({
   selector: 'app-author-profile-data',
@@ -28,6 +29,8 @@ export class AuthorProfileDataComponent implements OnInit, OnDestroy{
 
   newAuthorData?: UpdateAuthorDataDto;
 
+  updated$: Observable<boolean | null>;
+  updatedSubscription: Subscription = new Subscription();
   showNotification: boolean = false;
 
   changeName(value: string) { this.newAuthorData!.firstName = value; this.enableButton()}
@@ -85,11 +88,17 @@ export class AuthorProfileDataComponent implements OnInit, OnDestroy{
       }
       this.picture = this.userData.author?.picture!;
     }
+
+    this.updatedSubscription = this.updated$.subscribe(updated => {
+      if(updated) this.showNotification = true;
+    });
   }
 
   ngOnDestroy(): void {
+    this.updatedSubscription.unsubscribe();
   }
 
   constructor(private store: Store){
+    this.updated$ = this.store.select(selectUpdated);
   }
 }

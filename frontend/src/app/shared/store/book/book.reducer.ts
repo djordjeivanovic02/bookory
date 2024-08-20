@@ -5,6 +5,7 @@ import { removeSavedBookSuccess, saveBookSuccess } from "../user/user.actions";
 import { DownloadDto } from "../../dtos/downloaded-book.dto";
 import { FilterDto } from "../../dtos/filter.dto";
 import { loadAllAuthorsSuccess } from "../author/author.actions";
+import { environment } from "../../../../environments/environment";
 
 export interface BookState{
     newestBooks: BookInfoDto[] | null;
@@ -83,16 +84,21 @@ export const bookReducer = createReducer(
         const totalSavedBooks = state.savedBooks?.length || 0;
         let newBooks = [];
         let step = 0;
-
+    
+        const updatedBook = {
+            ...savedBook.book,
+            pdf: `${environment.apiUrl}/${savedBook.book.pdf}`
+        };
+    
         if (state.savedBooks && totalSavedBooks) {
             if (totalSavedBooks % state.savedBookLimit === 0) {
-                newBooks = [savedBook.book, ...state.savedBooks.slice(0, totalSavedBooks - 1)];
+                newBooks = [updatedBook, ...state.savedBooks.slice(0, totalSavedBooks - 1)];
             } else {
-                newBooks = [savedBook.book, ...state.savedBooks];
+                newBooks = [updatedBook, ...state.savedBooks];
                 step = 1;
             }
         } else {
-            newBooks = [savedBook.book];
+            newBooks = [updatedBook];
             step = 1;
         }
         return {
@@ -102,6 +108,7 @@ export const bookReducer = createReducer(
             savedBookSkip: state.savedBookSkip + step
         };
     }),
+    
     on(removeSavedBookSuccess, (state, { book_id }) => {
         const updatedSavedBooks = state.savedBooks
             ? state.savedBooks.filter(book => book.id !== book_id)
