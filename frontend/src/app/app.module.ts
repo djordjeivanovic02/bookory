@@ -14,6 +14,7 @@ import { Button1Component } from "./shared/components/button1/button1.component"
 import { TutorialItemComponent } from "./shared/components/tutorial-item/tutorial-item.component";
 import { BookWidget1Component } from "./shared/components/book-widget-1/book-widget-1.component";
 import {
+  HTTP_INTERCEPTORS,
   HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
@@ -76,6 +77,7 @@ import { ShopListComponent } from './shared/lists/shop-list/shop-list.component'
 import { AboutUsComponent } from './screens/about-us/about-us.component';
 import { FiltersComponent } from './shared/components/filters/filters.component';
 import { SearchBookItemComponent } from './shared/components/search-book-item/search-book-item.component';
+import { AuthInterceptor } from "./shared/inceptors/auth-inceptor";
 
 @NgModule({
   declarations: [
@@ -152,6 +154,11 @@ import { SearchBookItemComponent } from './shared/components/search-book-item/se
   providers: [
     provideClientHydration(),
     provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
 })
 export class AppModule {}

@@ -32,6 +32,7 @@ export class AuthService {
                 const newUser = this.userRepository.create({
                   email,
                   password: hashedPassword,
+                  role: 'user'
                 });
                 return from(this.userRepository.save(newUser)).pipe(
                   map(savedUser => {
@@ -56,6 +57,7 @@ export class AuthService {
                       const user = new User();
                       user.email = email;
                       user.password = hashedPassword;
+                      user.role = 'author';
   
                       return from(this.userRepository.save(user)).pipe(
                           switchMap(savedUser => {

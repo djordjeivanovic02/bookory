@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthorService } from '../services/services.service';
 import { CreateAuthorDto } from '../dtos/createAuthor.dto';
 import { Observable } from 'rxjs';
@@ -9,12 +9,16 @@ import { UpdateResult } from 'typeorm';
 import { UpdateAuthorDto } from '../dtos/updateAuthor.dto';
 import { AuthorDataDto } from '../dtos/authorData.dto';
 import { AuthorStatDto } from '../dtos/authorStat.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('author')
 export class ControllersController {
   constructor(private readonly authorService: AuthorService) { }
 
   @Post()
+  @Roles('author')
+  @UseGuards(RolesGuard)
   create(@Body() createAuthorDto: CreateAuthorDto): Observable<User> {
     return this.authorService.create(createAuthorDto);
   }
@@ -35,6 +39,8 @@ export class ControllersController {
   }
 
   @Put(':id')
+  @Roles('author')
+  @UseGuards(RolesGuard)
   @UseInterceptors(FileInterceptor('picture', {
     dest: './uploads',
   }))
@@ -55,11 +61,14 @@ export class ControllersController {
   }
 
   @Get('most-famous')
+  @UseGuards(RolesGuard)
   getMostFamous():Observable<AuthorStatDto[]> {
     return this.authorService.getMostFamous();
   }
 
   @Delete(':id')
+  @Roles('author')
+  @UseGuards(RolesGuard)
   remove(@Param('id') id: number): Observable<void> {
     return this.authorService.remove(id);
   }

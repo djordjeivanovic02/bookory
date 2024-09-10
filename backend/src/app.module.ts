@@ -14,6 +14,8 @@ import { SavedModule } from './saved/saved.module';
 import { SavedBook } from './saved/entities/saved.entity';
 import { DownloadsModule } from './downloads/downloads.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { RolesGuard } from './auth/guards/roles.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -46,6 +48,8 @@ import { ReviewsModule } from './reviews/reviews.module';
     ReviewsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+  ],
 })
 export class AppModule { }

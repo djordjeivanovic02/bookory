@@ -26,7 +26,7 @@ export class BookService {
             if (!author) {
               throw new Error('Author not found');
             }
-    
+            
             const book = new Book();
             book.title = bookData.title;
             book.description = bookData.description;

@@ -5,14 +5,29 @@ import { Observable } from 'rxjs';
 import { LoginResponse } from '../../dtos/login-response.dto'
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { registerResponse } from '../../dtos/register-response.dto';
+import { LocalstorageService } from '../localstorage/localstorage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
+  private token: string | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalstorageService
+  ) {
+    this.token = this.localStorageService.getItem('authToken');
+  }
+
+  setToken(value: string) {
+    this.token = value;
+  }
+
+  getToken(): string | null {
+    return this.token;
+  }
 
   login(username: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, {username, password});

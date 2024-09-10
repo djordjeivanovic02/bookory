@@ -8,6 +8,8 @@ import { AuthPayloadDtoRegister } from '../dto/autth-pay-load.dto';
 import { CreateAuthorDto } from 'src/author/dtos/createAuthor.dto';
 import { CreateUserDto } from 'src/user/dtos/createUser.dto';
 import { catchError, map, Observable, of } from 'rxjs';
+import { Roles } from '../decorators/roles.decorator';
+import { RolesGuard } from '../guards/roles.guard';
 
 
 @Controller('auth')
@@ -43,6 +45,8 @@ export class AuthController {
     }
 
     @Put('changePassword/:id')
+    @Roles('author')
+    @UseGuards(RolesGuard)
     changePassword(
         @Param('id') user_id: number,
         @Body() data: { oldPassword: string; newPassword: string }

@@ -27,6 +27,9 @@ export class User {
   @OneToMany(() => Review, review => review.user)
   reviews: Review[];
 
+  @Column({ default: 'user' })
+  role: string;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 }

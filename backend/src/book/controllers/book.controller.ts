@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, UploadedFiles, UseInterceptors} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UploadedFiles, UseGuards, UseInterceptors} from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -11,12 +11,16 @@ import { PaginationDto } from 'src/pagination/dtos/paginate.dto.ts';
 import { AuthorBooksDto } from '../dtos/author-books.dto';
 import { FilterDto } from '../dtos/filter.dto';
 import { DeleteResult } from 'typeorm';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('book')
 export class BookController {
     constructor(private readonly bookService: BookService){}
 
     @Post()
+    @Roles('author')
+    @UseGuards(RolesGuard)
     @UseInterceptors(FileFieldsInterceptor([
       { name: 'image', maxCount: 1 },
       { name: 'pdf', maxCount: 1 }
@@ -51,6 +55,7 @@ export class BookController {
     }
     
     @Get('newest')
+    // @Roles('author')
     getNewestBooks(): Observable<BookInfo[]> {
       return this.bookService.getNewestBooks();
     }
@@ -105,6 +110,8 @@ export class BookController {
     }
 
     @Delete(':id')
+    @Roles('author')
+    @UseGuards(RolesGuard)
     deleteBook(@Param('id') id: number): Observable<DeleteResult> {
       return this.bookService.deleteBook(id);
     }
