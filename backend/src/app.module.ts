@@ -14,7 +14,6 @@ import { SavedModule } from './saved/saved.module';
 import { SavedBook } from './saved/entities/saved.entity';
 import { DownloadsModule } from './downloads/downloads.module';
 import { ReviewsModule } from './reviews/reviews.module';
-import { join } from 'path';
 
 @Module({
   imports: [
@@ -26,6 +25,7 @@ import { join } from 'path';
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get<string>('POSTGRES_HOST'),
+        // host: 'db',
         port: configService.get<number>('POSTGRES_PORT'),
         username: configService.get<string>('POSTGRES_USERNAME'),
         password: configService.get<string>('POSTGRES_PASSWORD'),

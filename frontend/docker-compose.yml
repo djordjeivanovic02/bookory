@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  angular_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: angular_app
+    ports:
+      - "4200:4200"  # Ispravi mapiranje porta
+    volumes:
+      - .:/usr/src/app  # Poveži trenutni direktorijum sa radnim direktorijumom u kontejneru
+      - /usr/src/app/node_modules  # Ovaj volume sprečava preklapanje node_modules foldera
