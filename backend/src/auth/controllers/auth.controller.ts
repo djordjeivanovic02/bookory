@@ -45,7 +45,6 @@ export class AuthController {
     }
 
     @Put('changePassword/:id')
-    @Roles('author')
     @UseGuards(RolesGuard)
     changePassword(
         @Param('id') user_id: number,

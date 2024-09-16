@@ -11,8 +11,6 @@ export class ControllersController {
   constructor(private readonly userService: UserService) { }
 
   @Post()
-  @Roles('author', 'user')
-  @UseGuards(RolesGuard)
   create(@Body() createUserDto: CreateUserDto): Observable<User> {
     return this.userService.create(createUserDto);
   }

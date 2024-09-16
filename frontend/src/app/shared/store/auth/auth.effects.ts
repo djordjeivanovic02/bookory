@@ -50,7 +50,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(loginFailure),
       tap(({ error }) => {
-
+        console.log(error);
       })
     ), { dispatch: false }
   );

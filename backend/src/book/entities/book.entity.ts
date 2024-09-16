@@ -30,13 +30,13 @@ export class Book {
     @ManyToOne(() => Author, (author) => author.books, {eager: true})
     author: Author;
 
-    @OneToMany(() => SavedBook, savedBook => savedBook.book)
+    @OneToMany(() => SavedBook, savedBook => savedBook.book, {cascade: true, onDelete: 'CASCADE'})
     savedBooks: SavedBook[];
 
-    @OneToMany(() => DownloadedBook, downloadedBook => downloadedBook.book)
+    @OneToMany(() => DownloadedBook, downloadedBook => downloadedBook.book, {cascade: true, onDelete: 'CASCADE'})
     downloadedBooks: DownloadedBook[];
 
-    @OneToMany(() => Review, review => review.book)
+    @OneToMany(() => Review, review => review.book, {cascade: true, onDelete: 'CASCADE'})
     reviews: Review[];
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

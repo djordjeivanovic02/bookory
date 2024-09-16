@@ -32,17 +32,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   email: string = '';
   password: string = '';
-  
-  onEmailValueChange(value: string){
+  enableLoginButton() {
+    if (this.email !== '' && this.password !== '') this.loginButtonDisabled = false;
+  }
+  onEmailValueChange(value: string) {
     this.email = value;
-    if(this.email !== '' && this.password !== '') this.loginButtonDisabled = false;
+    this.enableLoginButton();
   }
-  onPasswordValueChange(value: string){
+  onPasswordValueChange(value: string) {
     this.password = value;
-    if(this.email !== '' && this.password !== '') this.loginButtonDisabled = false;
+    this.enableLoginButton();
   }
-  login(){
-    this.store.dispatch(login({username: this.email, password: this.password}));
+  login() {
+    this.store.dispatch(login({ username: this.email, password: this.password }));
   }
 
   registerEmail: string = '';
@@ -52,40 +54,40 @@ export class LoginComponent implements OnInit, OnDestroy {
   registerWebsite: string = '';
   registerButtonDisabled: boolean = true;
 
-  onRegisterEmailChange(value: string){
+  onRegisterEmailChange(value: string) {
     this.registerEmail = value;
     this.validateRegister();
   }
-  onRegisterPasswordChange(value: string){
+  onRegisterPasswordChange(value: string) {
     this.registerPassword = value;
     this.validateRegister();
   }
-  onRegisterNameChange(value: string){
+  onRegisterNameChange(value: string) {
     this.registerName = value;
     this.validateRegister();
   }
-  onRegisterSurnameChange(value: string){
+  onRegisterSurnameChange(value: string) {
     this.registerSurname = value;
     this.validateRegister();
   }
-  onRegisterWebsiteChange(value: string){
+  onRegisterWebsiteChange(value: string) {
     this.registerWebsite = value;
   }
 
-  register(){
-    if(this.isWriter){
-      this.store.dispatch(registerAuthor({ name: this.registerName, surname: this.registerSurname, email: this.registerEmail, password: this.registerPassword, website: this.registerWebsite}))
-    }else{
-      this.store.dispatch(registerUser({email: this.registerEmail, password: this.registerPassword}));
+  register() {
+    if (this.isWriter) {
+      this.store.dispatch(registerAuthor({ name: this.registerName, surname: this.registerSurname, email: this.registerEmail, password: this.registerPassword, website: this.registerWebsite }))
+    } else {
+      this.store.dispatch(registerUser({ email: this.registerEmail, password: this.registerPassword }));
     }
   }
 
-  validateRegister(){
-    if(this.isWriter && this.registerEmail !== '' && this.registerPassword !== '' && this.registerName !== '' && this.registerSurname !== ''){
+  validateRegister() {
+    if (this.isWriter && this.registerEmail !== '' && this.registerPassword !== '' && this.registerName !== '' && this.registerSurname !== '') {
       this.registerButtonDisabled = false;
-    }else if(!this.isWriter && this.registerEmail !== '' && this.registerPassword !== ''){
+    } else if (!this.isWriter && this.registerEmail !== '' && this.registerPassword !== '') {
       this.registerButtonDisabled = false;
-    }else{
+    } else {
       this.registerButtonDisabled = true;
     }
   }
@@ -94,7 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isWriter = value;
     this.validateRegister();
   }
-  
+
   ngOnInit() {
     this.authErrorSubscription = this.authError$.subscribe(error => {
       if (error) {
@@ -105,7 +107,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
 
     this.authSuccessSubscription = this.authSucces$.subscribe(user => {
-      if(user){
+      if (user) {
         this.isError = false;
         this.isSuccess = true;
         this.notification = "Uspešno ste se registrovali! Sada možete da se prijavite."
@@ -120,7 +122,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store
-  ){
+  ) {
     this.authError$ = this.store.select(selectAuthError);
     this.authSucces$ = this.store.select(selectAuthSuccess);
   }
